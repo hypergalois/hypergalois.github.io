@@ -11,17 +11,17 @@ const principles = [
   {
     icon: 'scan-search',
     title: 'Measure the boundary',
-    body: 'Good security work starts where assumptions meet real systems: packet traces, certificates, logs, parsers, and the messy details between layers.',
+    body: 'Collect traces, certificates, logs, parser behavior, and operational defaults where protocol assumptions meet deployed systems.',
   },
   {
     icon: 'sigma',
     title: 'Model the claim',
-    body: 'When an argument matters, write down the state, invariants, threat model, and failure modes clearly enough that another person can attack them.',
+    body: 'Name the state, transitions, invariants, threat model, and failure modes that support the security argument.',
   },
   {
     icon: 'git-branch',
     title: 'Ship inspectable artifacts',
-    body: 'Research code should be readable, reproducible, and useful after the demo. The web presence should communicate that standard immediately.',
+    body: 'Keep research code readable, reproducible, and documented enough for later inspection.',
   },
 ];
 
@@ -46,11 +46,11 @@ const profileSignals = [
       Profile
     </Badge>
 
-    <h1 slot="title">Taste, rigor, and systems.</h1>
+    <h1 slot="title">Systems security, formal models, measurement.</h1>
 
     <p slot="description">
-      The profile page is not a CV dump. It is the argument for how the work is
-      approached: careful enough for research, concrete enough for engineering.
+      Research engineering across protocol behavior, certificate infrastructure,
+      formal reasoning, and evaluation harnesses for automated workflows.
     </p>
   </Hero>
 
@@ -59,17 +59,16 @@ const profileSignals = [
       <div class="flex flex-col justify-center gap-5" data-reveal="right">
         <Badge variant="brand" pill class="self-start">Research posture</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-          Build the thing, test the claim, explain the boundary.
+          Build the artifact, test the claim, state the boundary.
         </h2>
         <p class="text-lg leading-relaxed text-foreground-muted">
-          The portfolio is shaped for top labs, PhD applications, and technical
-          teams that read past the first screen. It should communicate depth without
-          becoming heavy: strong artifacts, clear categories, readable notes, and
-          enough visual energy to feel alive.
+          My work sits around systems security, cryptographic infrastructure,
+          formal methods, and research tooling. The common object is a technical
+          claim supported by code, traces, models, or reproducible experiments.
         </p>
         <p class="text-lg leading-relaxed text-foreground-muted">
-          The through-line is research engineering: turning hard questions into
-          artifacts that can be inspected, reproduced, challenged, and improved.
+          The portfolio favors artifact-led pages: question, method, implementation
+          notes, results, and scope.
         </p>
       </div>
 
@@ -100,7 +99,7 @@ const profileSignals = [
       <div class="text-center" data-reveal>
         <Badge variant="brand" pill class="mb-5">Working principles</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-          How the work should feel.
+          Working principles.
         </h2>
       </div>
 
@@ -125,27 +124,24 @@ const profileSignals = [
   <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
     <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-2">
       <Card variant="elevated" padding="lg" data-reveal="right">
-        <Badge variant="brand" pill class="mb-6">For PhD committees</Badge>
+        <Badge variant="brand" pill class="mb-6">Research fit</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          The site should make fit easy to evaluate.
+          Problems, methods, artifacts.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-foreground-muted">
-          Clear research areas, technical writing, and artifact-led project pages
-          reduce the burden on the reader. The design is polished, but the main
-          job is signal: what problems matter, how they are attacked, and what
-          evidence exists.
+          The site groups work by systems questions: post-quantum migration,
+          certificate assurance, formal models, boundary tests, and evaluation harnesses.
         </p>
       </Card>
 
       <Card variant="elevated" padding="lg" data-reveal="left" data-reveal-delay="1">
         <Badge variant="brand" pill class="mb-6">For labs and companies</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          Taste matters because the reader is technical.
+          Fast pages, concrete evidence.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-foreground-muted">
-          The site should feel engineered: fast, responsive, precise, and easy to
-          scan. It should not over-explain itself, but it should reward someone
-          who opens multiple pages and reads the details.
+          The interface stays quiet so traces, code, notes, and project structure
+          carry the technical weight.
         </p>
       </Card>
     </div>
@@ -158,7 +154,7 @@ const profileSignals = [
         The artifacts carry the argument.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Projects and writing are the center of the portfolio; this page sets the frame.
+        Projects and notes carry the technical record; this page gives the frame.
       </p>
       <Button size="lg" href="/projects" class="cta-btn-brand">
         Explore projects
@@ -171,7 +167,7 @@ const profileSignals = [
         The artifacts carry the argument.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Projects and writing are the center of the portfolio; this page sets the frame.
+        Projects and notes carry the technical record; this page gives the frame.
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
         <Button size="lg" href="/projects" class="hero-btn-brand">

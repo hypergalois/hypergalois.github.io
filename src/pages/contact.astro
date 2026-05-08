@@ -3,8 +3,6 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
-import Button from '@/components/ui/form/Button/Button.astro';
-import { Hero } from '@/components/hero';
 import ContactForm from '@/components/patterns/ContactForm.astro';
 import siteConfig from '@/config/site.config';
 import { resolveSocialLinks } from '@/lib/utils';
@@ -36,50 +34,57 @@ const channels = [
   description="Contact José Luis Delgado for research, lab, PhD, and technical engineering conversations."
   eagerReveal
 >
-  <Hero layout="centered" size="sm">
-    <Badge slot="badge" variant="brand" pill>
-      <Icon name="mail" size="sm" />
-      Contact
-    </Badge>
+  <section class="bg-background-secondary pt-14 pb-8 md:pt-16 md:pb-10">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div class="flex flex-col gap-5" data-reveal="right">
+        <Badge variant="brand" pill class="self-start">
+          <Icon name="mail" size="sm" />
+          Contact
+        </Badge>
+        <h1 class="max-w-2xl font-display text-4xl font-bold leading-tight text-foreground md:text-5xl">
+          Research contact.
+        </h1>
+        <p class="max-w-xl text-lg leading-relaxed text-foreground-muted">
+          Lab conversations, PhD applications, security artifacts, and technical
+          collaboration around systems security, formal methods, and cryptographic
+          infrastructure.
+        </p>
+        <div class="flex flex-wrap gap-2 pt-2">
+          <Badge variant="brand">Madrid</Badge>
+          <Badge variant="brand">US labs</Badge>
+          <Badge variant="brand">Remote collaboration</Badge>
+        </div>
+      </div>
 
-    <h1 slot="title">
-      A direct line for serious technical conversations.
-    </h1>
-
-    <p slot="description">
-      Research fit, lab conversations, PhD applications, security artifacts,
-      or engineering work that benefits from careful systems thinking.
-    </p>
-  </Hero>
-
-  <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[1.15fr_0.85fr]">
-      <Card padding="lg" class="h-full" data-reveal="right">
-        <div class="mb-6 flex items-start justify-between gap-4">
+      <Card padding="md" class="h-full" data-reveal="left">
+        <div class="mb-4 flex items-start justify-between gap-4">
           <div>
             <Badge variant="brand" pill class="mb-4">Message</Badge>
-            <h2 class="font-display text-2xl font-bold text-foreground">Send a concise note</h2>
+            <h2 class="font-display text-2xl font-bold text-foreground">Send a note</h2>
           </div>
           <div class="hidden h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500 sm:flex">
             <Icon name="send" size="md" />
           </div>
         </div>
-        <p class="mb-8 text-sm leading-relaxed text-foreground-muted">
-          The site is hosted statically on GitHub Pages, so this opens your email
-          client with the message pre-filled instead of sending through a backend.
+        <p class="mb-5 text-sm leading-relaxed text-foreground-muted">
+          Opens a pre-filled email to {siteConfig.email}.
         </p>
         <ContactForm successMessage="Opening your email client..." />
       </Card>
+    </div>
+  </section>
 
-      <div class="flex flex-col gap-4" data-reveal="left" data-reveal-delay="1">
-        <div>
-          <Badge variant="brand" pill class="mb-4">Channels</Badge>
-          <h2 class="font-display text-2xl font-bold text-foreground">Where to look first</h2>
-          <p class="mt-2 text-sm leading-relaxed text-foreground-muted">
-            Email for intent, GitHub for artifacts, writing for research taste.
-          </p>
-        </div>
+  <section class="border-t border-border bg-background py-12">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[0.9fr_1.1fr]">
+      <div data-reveal>
+        <Badge variant="brand" pill class="mb-4">Channels</Badge>
+        <h2 class="font-display text-2xl font-bold text-foreground">Where the work lives</h2>
+        <p class="mt-2 max-w-xl text-sm leading-relaxed text-foreground-muted">
+          Email for conversations, GitHub for code, notes for technical context.
+        </p>
+      </div>
 
+      <div class="grid gap-3 sm:grid-cols-2" data-reveal data-reveal-delay="1">
         {channels.map((ch) => (
           <a href={ch.href} {...ch.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}} class="group block">
             <Card hover padding="sm" class="h-full">
@@ -105,15 +110,10 @@ const channels = [
             </div>
             <div>
               <p class="text-sm font-semibold text-foreground">{siteConfig.address?.city ?? 'Madrid'}</p>
-              <p class="mt-0.5 text-xs text-foreground-muted">Based in {siteConfig.address?.country ?? 'Spain'}, oriented toward US labs and remote collaboration.</p>
+              <p class="mt-0.5 text-xs text-foreground-muted">Based in {siteConfig.address?.country ?? 'Spain'}.</p>
             </div>
           </div>
         </Card>
-
-        <Button href="/projects" variant="outline" class="mt-2 self-start">
-          Review artifacts first
-          <Icon name="arrow-right" size="sm" />
-        </Button>
       </div>
     </div>
   </section>

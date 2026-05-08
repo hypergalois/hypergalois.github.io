@@ -1,6 +1,6 @@
 {
   "title": "Formal reasoning",
-  "body": "Using executable models, proof assistants, and careful invariants to make implementation claims harder to hand-wave.",
+  "body": "Executable models, proof assistants, and invariants for security arguments with explicit state and transitions.",
   "icon": "braces",
   "href": "/blog/?tag=Formal%20Methods",
   "order": 2,

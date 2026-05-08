@@ -1,6 +1,6 @@
 ---
 title: "DNSSEC Size Boundaries Are a Systems Problem"
-description: "A compact note on DNSSEC, larger cryptographic material, fragmentation, resolver behavior, and why boundary tests matter."
+description: "A compact note on DNSSEC, larger cryptographic material, fragmentation, resolver behavior, and boundary tests."
 publishedAt: 2026-04-14
 author: "José Luis Delgado"
 tags: ["DNSSEC", "PQC", "Protocol Testing"]
@@ -11,8 +11,8 @@ svgSlug: "dnssec-boundaries"
 imageAlt: "DNSSEC packet boundary diagram"
 ---
 
-DNSSEC is a good example of why cryptographic migration is never only about
-cryptography.
+DNSSEC shows cryptographic migration as protocol behavior in resolvers, packets,
+retries, and operational defaults.
 
 When signatures and keys grow, the effects appear in packet size, truncation,
 fragmentation, resolver choices, retries, and operational defaults. These are
@@ -21,7 +21,7 @@ systems behaviors, not footnotes.
 ## Boundary tests
 
 The useful testbed changes one dimension at a time and records how the system
-responds. The result should be boring, repeatable, and easy to compare.
+responds. The result is repeatable and easy to compare.
 
-That is the style of artifact a portfolio should highlight: not just an idea, but
-a way to make the idea testable.
+The artifact is the testbed: controlled input changes, captured responses, and
+comparable reports.

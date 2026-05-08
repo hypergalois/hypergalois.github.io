@@ -52,8 +52,8 @@ const focusAreas = [
     </h1>
 
     <p slot="description">
-      A portfolio for high-assurance work at the edge of security, verification, cryptography, and AI tooling:
-      precise enough for labs, practical enough for real systems.
+      Systems security, formal methods, cryptographic infrastructure, and AI tooling,
+      organized around artifacts that can be inspected, rerun, and discussed.
     </p>
 
     <Fragment slot="actions">
@@ -68,10 +68,10 @@ const focusAreas = [
     </Fragment>
 
     <div class="mt-10 grid w-full max-w-4xl gap-3 sm:grid-cols-3">
-      {['PhD / lab fit', 'Security research', 'Engineering taste'].map((label) => (
+      {['Protocol work', 'Formal models', 'Evaluation harnesses'].map((label) => (
         <div class="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-left shadow-lg backdrop-blur" data-reveal>
           <p class="text-xs font-semibold uppercase tracking-wider text-brand-200">{label}</p>
-          <p class="mt-1 text-sm text-white/70">Rigorous, fast, readable.</p>
+          <p class="mt-1 text-sm text-white/70">Artifacts, notes, reproducible traces.</p>
         </div>
       ))}
     </div>
@@ -87,9 +87,9 @@ const focusAreas = [
           </h2>
         </div>
         <p class="text-lg leading-relaxed text-foreground-muted">
-          The site is organized around a simple standard: show the problem, the model,
-          the artifact, and the evidence. That keeps the portfolio readable for PhD
-          committees, research labs, and teams that care about serious engineering.
+          The work is grouped by the object under study and the evidence available:
+          measurements, executable models, certificate-path analysis, and evaluation
+          harnesses. Each page gives the method, artifact, and current boundary of the work.
         </p>
       </div>
 
@@ -121,7 +121,7 @@ const focusAreas = [
         <div class="flex flex-col gap-5">
           <Badge variant="brand" pill class="self-start">Selected systems</Badge>
           <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Research artifacts, not just screenshots.
+            Artifacts with inspectable evidence.
           </h2>
         </div>
         <a href="/projects" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
@@ -157,12 +157,11 @@ const focusAreas = [
       <Card variant="elevated" padding="lg" class="overflow-hidden" data-reveal="right">
         <Badge variant="brand" pill class="mb-6">Current focus</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          Building a portfolio around technical credibility.
+          A technical index for research work.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-foreground-muted">
-          The design keeps the speed and polish of the template, but changes the signal:
-          projects become artifacts, posts become research notes, and the homepage reads
-          like an editorial index rather than a sales page.
+          Projects describe the artifact and method. Notes record implementation choices,
+          measurements, and modeling decisions. The homepage gives a compact map of the work.
         </p>
       </Card>
 
@@ -216,10 +215,10 @@ const focusAreas = [
     <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
       <Badge variant="brand" pill class="mb-6">Next step</Badge>
       <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        A sharper technical presence.
+        Research engineering, written plainly.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Built for labs, research teams, and PhD applications where taste and evidence both matter.
+        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
       </p>
       <Button size="lg" href="/contact" class="cta-btn-brand">
         Get in touch
@@ -229,10 +228,10 @@ const focusAreas = [
 
     <LetterGlitchBand>
       <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        A sharper technical presence.
+        Research engineering, written plainly.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Built for labs, research teams, and PhD applications where taste and evidence both matter.
+        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
         <Button size="lg" href="/contact" class="hero-btn-brand">

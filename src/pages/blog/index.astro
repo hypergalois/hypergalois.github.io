@@ -58,9 +58,8 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
             </h2>
           </div>
           <p class="self-end text-lg leading-relaxed text-foreground-muted">
-            The writing index borrows from editorial newsrooms: category first,
-            title second, metadata visible, and enough visual rhythm to keep long
-            technical lists readable.
+            Notes are grouped by topic. Each entry keeps the object, method, and
+            artifact visible enough to follow the technical thread.
           </p>
         </div>
 
@@ -152,7 +151,7 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
   </section>
 
   <CTA variant="default" size="md" maxWidth="lg" glow={false} data-reveal class:list={[featuredPosts.length > 0 && '!bg-background-secondary']}>
-    <h2 slot="heading" class="!text-4xl">Follow the research trail</h2>
+    <h2 slot="heading" class="!text-4xl">Follow the work</h2>
     <p slot="description" class="!text-lg text-balance">
       RSS for public notes, GitHub for artifacts, email for lab and application conversations.
     </p>

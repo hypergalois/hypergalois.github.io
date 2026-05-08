@@ -15,8 +15,8 @@ Post-quantum TLS is tempting to discuss as an algorithmic migration. In practice
 the interesting surface is wider: handshake size, certificate path shape, server
 configuration, fallback behavior, middleboxes, and client support.
 
-The useful question is not "does this endpoint support a new primitive?" It is
-"what evidence do we have about the whole deployment path?"
+The useful question covers the deployment path: endpoint support, negotiation
+behavior, chain shape, fallback, and traces that support each observation.
 
 ## What to measure
 
@@ -26,8 +26,7 @@ The useful question is not "does this endpoint support a new primitive?" It is
 - Interoperability across clients and libraries
 - Failure modes that appear only under realistic network conditions
 
-## Why notes matter
+## Measurement record
 
 Measurement work becomes valuable when it is repeatable. A static report, a trace,
-and a small explanation can be more useful than a polished dashboard if the reader
-can inspect the evidence.
+and a small explanation give the reader enough evidence to inspect the result.

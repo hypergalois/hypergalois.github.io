@@ -11,9 +11,8 @@ services: ["Protocol measurement", "Security analysis", "Data pipeline"]
 
 ## Problem
 
-Post-quantum migration is not just an algorithm swap. Real deployments expose
-failure modes in handshake size, certificate chains, middleboxes, fallback paths,
-and operational defaults.
+Post-quantum migration changes deployed behavior across handshake size,
+certificate chains, middleboxes, fallback paths, and operational defaults.
 
 ## Artifact
 
@@ -21,11 +20,10 @@ This project is framed as an observatory: a repeatable measurement pipeline that
 collects protocol evidence, normalizes it, and turns deployment behavior into
 inspectable data.
 
-## Why it matters
+## Evidence
 
-The goal is not a dashboard for its own sake. The goal is to make the migration
-surface visible enough that research claims and engineering decisions can be
-checked against real traces.
+The pipeline links migration claims to traces, normalized outputs, and static
+reports that can be compared across runs.
 
 ## Stack
 

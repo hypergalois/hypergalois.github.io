@@ -1,6 +1,6 @@
 ---
 title: "Notes, Projects, Papers: A Portfolio Grammar"
-description: "A working distinction for this site: notes capture thinking, projects carry artifacts, and papers make claims that deserve stronger evidence."
+description: "A working distinction for this site: notes record observations, projects carry artifacts, and papers state claims supported by stronger evidence."
 publishedAt: 2026-05-09
 author: "José Luis Delgado"
 tags: ["Portfolio", "Research Engineering", "MDX", "Example"]
@@ -11,36 +11,35 @@ svgSlug: "portfolio-grammar"
 imageAlt: "Diagram connecting notes, projects, and papers as research outputs"
 ---
 
-This site should not read like a pile of disconnected pages. It needs a small
-grammar: what belongs in a note, what belongs in a project, and what should
-eventually become a paper or manuscript.
+This portfolio uses three surfaces with different jobs: notes, projects, and
+papers or manuscripts. The separation keeps early observations, working artifacts,
+and stronger claims in the right place.
 
-The distinction I want is simple.
+The distinction is simple.
 
 | Surface | Job | Evidence |
 | --- | --- | --- |
-| Notes | Make thinking legible early | observations, sketches, implementation details |
-| Projects | Show the artifact | code, traces, measurements, reproducible workflows |
-| Papers | Defend a claim | model, method, related work, evaluation, limitations |
+| Notes | Record observations and technical choices | sketches, measurements, implementation details |
+| Projects | Present the artifact | code, traces, datasets, reproducible workflows |
+| Papers | State the supported claim | model, method, related work, evaluation, limits |
 
-Notes are allowed to be smaller and sharper. A note can say: "this boundary is
-interesting", "this protocol behavior is fragile", or "this invariant is the
-right one to formalize next". It does not need to pretend to be finished.
+Notes can be smaller and sharper. A note can record a boundary worth measuring,
+a fragile protocol behavior, or an invariant ready for formalization.
 
-Projects should be stricter. A project page should answer:
+Project pages carry stricter structure:
 
 - What question was being tested?
 - What artifact exists?
 - What would convince a skeptical reader?
-- What is missing or intentionally out of scope?
+- What scope is claimed?
 
-Papers sit at the end of that path. They should not be a prettier version of a
-project page; they should be the strongest claim the artifact can support.
+Papers sit at the end of that path. They carry the strongest claim the artifact,
+method, and evaluation can support.
 
 <div className="not-prose my-10 grid gap-4 rounded-2xl border border-border bg-background-secondary p-5 sm:grid-cols-3">
   <div className="rounded-xl border border-border bg-background p-4">
     <p className="text-xs font-bold uppercase text-brand-500">Note</p>
-    <p className="mt-2 text-sm text-foreground-muted">Short argument, readable without setup.</p>
+    <p className="mt-2 text-sm text-foreground-muted">Short argument, minimal setup.</p>
   </div>
   <div className="rounded-xl border border-border bg-background p-4">
     <p className="text-xs font-bold uppercase text-brand-500">Project</p>
@@ -52,11 +51,10 @@ project page; they should be the strongest claim the artifact can support.
   </div>
 </div>
 
-## What an artifact should expose
+## Artifact record
 
-The best project pages are not glamorous demos. They are readable workbenches.
-They show enough structure that someone can audit the work without reverse
-engineering the repository from scratch.
+A useful artifact page exposes the object under study, the method, and the
+evidence available for inspection.
 
 ```yaml
 artifact:
@@ -71,9 +69,8 @@ artifact:
     - deployment drift
 ```
 
-That shape is useful because it forces the page to separate claim from evidence.
-If the claim is too broad, the artifact section will look thin. If the artifact
-is strong, the page can stay quiet and still feel convincing.
+This structure separates claim, evidence, and scope. A broad claim with thin
+evidence becomes visible; a strong artifact can stay quiet and still read clearly.
 
 ```ts
 type ResearchOutput = {
@@ -84,16 +81,13 @@ type ResearchOutput = {
 };
 ```
 
-> The goal is not to make every page longer. The goal is to make every page
-> answer the reader's next technical question.
+> A page earns space when it answers the next technical question.
 
-## Why this matters
+## Reading path
 
-For PhD applications and research labs, the reader is often trying to infer fit:
-what problems you notice, how you reduce them, and whether your work has enough
-precision to survive scrutiny.
+For lab and PhD readers, the path is topic, note, artifact, stronger claim. The
+reader sees the problem class, the method, the implementation object, and the
+evidence supporting the current scope.
 
-For companies, the signal is adjacent but different: can you turn ambiguity into
-an artifact that other people can operate, inspect, and improve?
-
-That is the standard this portfolio should optimize for.
+For engineering readers, the same structure exposes the operable object: code,
+commands, outputs, links, and maintenance surface.

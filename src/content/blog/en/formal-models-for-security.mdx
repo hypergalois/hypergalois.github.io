@@ -1,5 +1,5 @@
 ---
-title: "Formal Models Should Make Security Claims Smaller"
+title: "Formal Models for Smaller Security Claims"
 description: "Formal methods are most useful when they reduce a vague systems claim into state, invariants, transitions, and reviewable obligations."
 publishedAt: 2026-04-28
 author: "José Luis Delgado"
@@ -11,8 +11,9 @@ svgSlug: "formal-models"
 imageAlt: "Abstract formal methods diagram with proof nodes"
 ---
 
-The best reason to formalize a security claim is not to make the work look more
-mathematical. It is to make the claim smaller.
+Formalization turns a broad security statement into state, operations, invariants,
+and obligations. The model makes the claim smaller and gives reviewers concrete
+objects to inspect.
 
 A useful model names the state, the operations, the invariants, and the conditions
 under which the argument stops applying. That boundary is often the most valuable
@@ -26,5 +27,5 @@ part of the work.
 - Can a reviewer find the assumptions quickly?
 - Does the model connect back to the system it describes?
 
-Formal methods are strongest when they clarify engineering judgment rather than
-replace it.
+Formal methods clarify engineering judgment by making assumptions and transitions
+explicit.

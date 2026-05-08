@@ -1,6 +1,6 @@
 ---
 title: "Research Artifact Workbench"
-description: "A deliberately compact example project showing how a technical artifact page can combine a claim, a reproducible workflow, evidence tables, code, and limitations."
+description: "A compact example project showing how a technical artifact page can combine a claim, a reproducible workflow, evidence tables, code, and scope notes."
 tags: ["Research Engineering", "Documentation", "Example", "MDX"]
 featured: false
 order: 7
@@ -13,11 +13,11 @@ imageAlt: "Dark research artifact workbench with claim, trace, and checks panels
 
 ## Question
 
-What should a project page prove before a reader opens the repository?
+What evidence does the page expose before the reader opens the repository?
 
-This example treats the project page itself as an artifact. The goal is to make
-the shape of future research work obvious: claim first, evidence second,
-implementation third, limitations always visible.
+This example treats the project page itself as an artifact. Future research pages
+use this shape: claim first, evidence second, implementation third, scope visible
+throughout.
 
 ## Artifact contract
 
@@ -30,8 +30,8 @@ implementation third, limitations always visible.
 
 ## Minimal workflow
 
-The command block is intentionally concrete. Even if the command is only a
-template today, future projects should aim for this level of operational clarity.
+The command block is concrete by design. The template gives future projects an
+operational path for collection, normalization, and reporting.
 
 ```bash
 pnpm run collect --target tls-boundary-slice
@@ -72,14 +72,14 @@ export function isReviewable(row: EvidenceRow) {
   </div>
 </div>
 
-## Limitations
+## Scope notes
 
-- A project page is not a substitute for a repository.
-- A visual summary should not hide uncertainty.
-- A strong artifact page should make missing work visible, not embarrassing.
+- Repository links remain the source for implementation detail.
+- Visual summaries carry uncertainty through scope notes.
+- Missing work appears as open questions and assumptions.
 
-## Why keep this page
+## Template use
 
-This is a useful prototype for future project pages. If a real artifact cannot
-fill this skeleton, the artifact probably needs more work before it becomes the
-centerpiece of an application or lab conversation.
+This prototype sets the shape for future project pages. A real artifact fills the
+skeleton with commands, outputs, links, and scope notes before it becomes a main
+research object.

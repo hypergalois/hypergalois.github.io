@@ -14,9 +14,8 @@ imageAlt: "Certificate chain diagram for assurance work"
 X.509 is a standards ecosystem, a parser ecosystem, and an operational ecosystem.
 Post-quantum migration touches all three.
 
-Large keys and signatures are not merely bigger bytes. They stress buffer
-assumptions, path-building behavior, transport limits, and tooling that may never
-have been exercised near those boundaries.
+Large keys and signatures change byte size, parser stress, path-building behavior,
+transport limits, and tooling paths that rarely exercise those boundaries.
 
 ## Questions worth asking
 
@@ -25,5 +24,5 @@ have been exercised near those boundaries.
 - Where do chain sizes become operationally relevant?
 - What does a useful lint report need to preserve?
 
-Assurance work is the difference between "this should work" and "this has been
-tested where it is likely to break."
+Assurance work ties compatibility claims to validators, corpus cases, and
+reproducible lint reports.
