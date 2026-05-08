@@ -1,8 +1,4 @@
 ---
-/**
- * Projects page
- * URL: /projects
- */
 import { Image } from 'astro:assets';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
@@ -10,16 +6,18 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { Hero } from '@/components/hero';
-import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
 import { getCollection } from 'astro:content';
 
 const items = await getCollection('projects', ({ data }) => !data.draft);
 const projects = items.sort((a, b) => a.data.order - b.data.order);
+const featured = projects.filter((project) => project.data.featured);
+const regular = projects.filter((project) => !project.data.featured);
+const areas = [...new Set(projects.flatMap((project) => project.data.tags))].slice(0, 9);
 ---
 
 <PageLayout
-  title="Projects — Astro Rocket"
-  description="Selected work — websites, tools, and open-source projects built by Astro Rocket."
+  title="Projects — Hypergalois"
+  description="Selected research engineering artifacts: systems security, cryptography, formal methods, and high-assurance tooling."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
@@ -28,63 +26,120 @@ const projects = items.sort((a, b) => a.data.order - b.data.order);
       Selected work
     </Badge>
 
-    <h1 slot="title">Projects</h1>
+    <h1 slot="title">Projects as evidence.</h1>
 
     <p slot="description">
-      Work I'm most proud of.
+      A compact index of technical artifacts: measurement harnesses, formal models,
+      security tooling, and experiments designed to make claims inspectable.
     </p>
   </Hero>
 
-  <!-- All projects -->
-  {projects.length > 0 && (
-    <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
-      <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+  <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
+      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.6fr]" data-reveal>
+        <div>
+          <Badge variant="brand" pill class="mb-5">Index</Badge>
+          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+            Systems, audits, and research prototypes.
+          </h2>
+        </div>
+        <div class="flex flex-col justify-end gap-4">
+          <p class="text-lg leading-relaxed text-foreground-muted">
+            Each entry is framed around the core question, the artifact produced,
+            and the engineering discipline behind it. The goal is to make the work
+            legible to both research labs and senior engineering teams.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {areas.map((area) => <Badge variant="brand">{area}</Badge>)}
+          </div>
+        </div>
+      </div>
 
-        <div class="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <Card variant="elevated" hover padding="none" href={`/projects/${project.id.replace(/\.mdx?$/, '')}`} class:list={['group overflow-hidden flex flex-col', project.data.featured && 'md:col-span-2 md:grid md:grid-cols-2 md:flex-row']} data-reveal>
-              {project.data.image && (
-                <div class="overflow-hidden">
+      {featured.length > 0 && (
+        <div class="grid gap-6">
+          {featured.map((project) => (
+            <Card
+              variant="elevated"
+              hover
+              padding="none"
+              href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
+              class="group overflow-hidden md:grid md:grid-cols-[1.05fr_1.25fr]"
+              data-reveal
+            >
+              {project.data.image ? (
+                <div class="overflow-hidden bg-background-tertiary">
                   <Image
                     src={project.data.image}
                     alt={project.data.imageAlt || project.data.title}
-                    widths={[640, 960]}
-                    sizes={project.data.featured ? '(max-width: 768px) 640px, 480px' : '(max-width: 768px) 640px, 960px'}
-                    class:list={[
-                      'w-full object-cover transition-transform duration-300 group-hover:scale-105',
-                      project.data.featured ? 'aspect-video md:aspect-auto md:h-full' : 'aspect-video'
-                    ]}
+                    widths={[640, 960, 1280]}
+                    sizes="(max-width: 768px) 100vw, 48vw"
+                    class="aspect-video h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 md:aspect-auto"
                     loading="lazy"
                   />
                 </div>
+              ) : (
+                <div class="flex aspect-video items-center justify-center bg-gradient-to-br from-brand-500/20 to-background-tertiary md:aspect-auto">
+                  <Icon name="network" size="lg" class="text-brand-500" />
+                </div>
               )}
-              <div class="flex flex-1 flex-col p-6">
-                <!-- Header -->
-                <div class="mb-3 flex items-start justify-between gap-4">
-                  {!project.data.image && (
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
-                      <Icon name="layers" size="sm" />
+              <div class="flex min-h-[22rem] flex-col justify-between p-7">
+                <div>
+                  <div class="mb-5 flex items-start justify-between gap-4">
+                    <div class="flex flex-wrap gap-2">
+                      {project.data.tags.slice(0, 4).map((tag) => <Badge variant="brand">{tag}</Badge>)}
                     </div>
-                  )}
-                  <Icon name="arrow-up-right" size="sm" class="text-foreground-muted group-hover:text-brand-500 transition-colors shrink-0 ml-auto" />
+                    <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
+                  </div>
+                  <div class="mb-3 flex items-baseline gap-3">
+                    <h3 class="font-display text-2xl font-bold text-foreground">{project.data.title}</h3>
+                    {project.data.year && <span class="font-mono text-xs text-foreground-muted">{project.data.year}</span>}
+                  </div>
+                  <p class="max-w-2xl text-base leading-relaxed text-foreground-muted">{project.data.description}</p>
                 </div>
-
-                <!-- Title + year -->
-                <div class="mb-2 flex items-baseline gap-2">
-                  <h3 class="font-display text-lg font-bold text-foreground">{project.data.title}</h3>
-                  {project.data.year && (
-                    <span class="text-xs text-foreground-muted">{project.data.year}</span>
-                  )}
+                <div class="mt-8 flex flex-wrap gap-4 text-sm text-foreground-muted">
+                  {project.data.role && <span>{project.data.role}</span>}
+                  {project.data.services.length > 0 && <span>{project.data.services.slice(0, 2).join(' · ')}</span>}
                 </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
 
-                <p class="text-sm text-foreground-muted leading-relaxed mb-4 flex-1">{project.data.description}</p>
+  {regular.length > 0 && (
+    <section class="border-t border-border bg-background py-[var(--space-section-md)]">
+      <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
+          <div class="flex flex-col gap-5">
+            <Badge variant="brand" pill class="self-start">More artifacts</Badge>
+            <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+              Smaller experiments, same standard.
+            </h2>
+          </div>
+          <Button variant="outline" href="/contact">
+            Discuss fit
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
 
-                <!-- Tags -->
-                <div class="flex flex-wrap gap-1.5">
-                  {project.data.tags.map((tag) => (
-                    <Badge variant="brand">{tag}</Badge>
-                  ))}
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {regular.map((project) => (
+            <Card variant="elevated" hover padding="lg" href={`/projects/${project.id.replace(/\.mdx?$/, '')}`} class="group flex min-h-[18rem] flex-col" data-reveal>
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500">
+                  <Icon name="file-code-2" size="sm" />
                 </div>
+                <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
+              </div>
+              <div class="mb-2 flex items-baseline gap-2">
+                <h3 class="font-display text-lg font-bold text-foreground">{project.data.title}</h3>
+                {project.data.year && <span class="text-xs text-foreground-muted">{project.data.year}</span>}
+              </div>
+              <p class="mb-5 flex-1 text-sm leading-relaxed text-foreground-muted">{project.data.description}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {project.data.tags.slice(0, 3).map((tag) => <Badge variant="brand">{tag}</Badge>)}
               </div>
             </Card>
           ))}
@@ -92,48 +147,4 @@ const projects = items.sort((a, b) => a.data.order - b.data.order);
       </div>
     </section>
   )}
-
- <!-- CTA -->
-  <section class="relative z-10 py-[var(--space-section-md)] bg-background">
-    <!-- Mobile: flat section, no card -->
-    <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
-      <Badge variant="brand" pill class="mb-6">Let's talk</Badge>
-      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
-        Want something like this?
-      </h2>
-      <p class="text-lg text-foreground-muted mb-8 text-balance">
-        I build with the same care and craft you see here. If you've got a project, let's see what we can make together.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button size="lg" href="/contact" class="cta-btn-brand">
-          Start a project
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-        <Button size="lg" variant="outline" href="/about">
-          More about me
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-      </div>
-    </div>
-
-    <!-- Desktop: contained LetterGlitch band with glass card -->
-    <LetterGlitchBand>
-      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
-        Want something like this?
-      </h2>
-      <p class="text-lg text-foreground-muted mb-8 text-balance">
-        I build with the same care and craft you see here. If you've got a project, let's see what we can make together.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button size="lg" href="/contact" class="hero-btn-brand">
-          Start a project
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-        <Button size="lg" variant="outline" href="/about">
-          More about me
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-      </div>
-    </LetterGlitchBand>
-  </section>
 </PageLayout>

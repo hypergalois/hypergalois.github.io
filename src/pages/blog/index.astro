@@ -11,176 +11,164 @@ import { resolveSocialLinks } from '@/lib/utils';
 
 const socialLinks = resolveSocialLinks(siteConfig.socialLinks);
 
-// Get all published posts
 const allPosts = await getCollection('blog', ({ data }) => {
   return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-// Filter by English locale and sort by date
 const posts = allPosts
   .filter((post) => post.data.locale === 'en')
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 
-// Separate featured posts (shown in hero section)
 const featuredPosts = posts.filter((post) => post.data.featured);
-// Non-featured posts for the main listing
 const nonFeaturedPosts = posts.filter((post) => !post.data.featured);
-// If ALL posts are featured, show them all in the main listing too (to avoid empty section)
 const regularPosts = nonFeaturedPosts.length > 0 ? nonFeaturedPosts : posts;
-
-// Collect all unique tags across all posts
 const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 
-const getPostUrl = (postId: string) => {
-  // Remove locale prefix from id (e.g., "en/welcome-to-velocity" -> "welcome-to-velocity")
-  const slug = postId.replace('en/', '');
-  return `/blog/${slug}`;
-};
+const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
 ---
 
-<PageLayout title="Blog — Astro Rocket" description="Articles on web design, development, and the web by Astro Rocket." showScrollProgress eagerReveal>
+<PageLayout
+  title="Writing — Hypergalois"
+  description="Technical notes on systems security, formal methods, cryptographic infrastructure, and research engineering."
+  showScrollProgress
+  eagerReveal
+>
   <Hero layout="centered" size="sm">
     <Badge slot="badge" variant="brand" pill>
-      <Icon name="book" size="sm" />
-      All posts
+      <Icon name="book-open" size="sm" />
+      Writing
     </Badge>
 
-    <h1 slot="title">Blog</h1>
+    <h1 slot="title">Technical notes.</h1>
 
-    <p slot="description">Articles on Astro, web performance, design systems, and building with Astro Rocket.</p>
+    <p slot="description">
+      Short-form research writing: implementation notes, security measurements,
+      formal modeling ideas, and engineering decisions worth making public.
+    </p>
   </Hero>
 
-  <!-- Featured Posts Section -->
-  {
-    featuredPosts.length > 0 && (
-      <section id="featured-section" class="bg-background-secondary py-[var(--space-section-md)] border-t border-border">
-        <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
-          <h2 class="font-display text-foreground text-3xl md:text-4xl font-bold" data-reveal>
-            Featured
-          </h2>
-
-          <div class="grid gap-6 md:grid-cols-2">
-            {featuredPosts.map((post) => (
-              <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
-                <BlogCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  href={getPostUrl(post.id)}
-                  publishedAt={post.data.publishedAt}
-                  tags={post.data.tags}
-                  author={post.data.author}
-                  image={post.data.image}
-                  svgSlug={post.data.svgSlug}
-                />
-              </div>
-            ))}
+  {featuredPosts.length > 0 && (
+    <section id="featured-section" class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+      <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
+        <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]" data-reveal>
+          <div>
+            <Badge variant="brand" pill class="mb-5">Featured</Badge>
+            <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+              Notes with a research spine.
+            </h2>
           </div>
+          <p class="self-end text-lg leading-relaxed text-foreground-muted">
+            The writing index borrows from editorial newsrooms: category first,
+            title second, metadata visible, and enough visual rhythm to keep long
+            technical lists readable.
+          </p>
         </div>
-      </section>
-    )
-  }
 
-  <!-- All Posts Section -->
-  <section class:list={[featuredPosts.length > 0 ? 'bg-background' : 'bg-background-secondary', 'py-[var(--space-section-md)] border-t border-border']}>
-    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+        <div class="grid gap-6 md:grid-cols-2">
+          {featuredPosts.map((post) => (
+            <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                href={getPostUrl(post.id)}
+                publishedAt={post.data.publishedAt}
+                tags={post.data.tags}
+                author={post.data.author}
+                image={post.data.image}
+                svgSlug={post.data.svgSlug}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class:list={[featuredPosts.length > 0 ? 'bg-background' : 'bg-background-secondary', 'border-t border-border py-[var(--space-section-md)]']}>
+    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
       <div class="flex flex-wrap items-center justify-between gap-4" data-reveal>
-        {
-          featuredPosts.length > 0 && nonFeaturedPosts.length > 0 && (
-            <h2 class="font-display text-foreground text-3xl md:text-4xl font-bold">All posts</h2>
-          )
-        }
+        <div class="flex flex-col gap-5">
+          <Badge variant="brand" pill class="self-start">Archive</Badge>
+          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+            All writing
+          </h2>
+        </div>
 
         {allTags.length > 0 && (
-          <div class="flex items-center gap-3 ml-auto">
-            <label for="tag-filter" class="text-sm font-medium text-foreground-muted whitespace-nowrap">
+          <div class="flex items-center gap-3">
+            <label for="tag-filter" class="whitespace-nowrap text-sm font-medium text-foreground-muted">
               Filter
             </label>
             <div class="relative">
               <select
                 id="tag-filter"
-                class="tag-select appearance-none pl-3 pr-8 py-1.5 rounded-full border border-border bg-background text-sm font-medium text-foreground cursor-pointer focus:outline-none focus:border-brand-500 transition-colors"
+                class="tag-select appearance-none rounded-full border border-border bg-background py-1.5 pl-3 pr-8 text-sm font-medium text-foreground transition-colors cursor-pointer focus:border-brand-500 focus:outline-none"
               >
-                <option value="all">All posts</option>
-                {allTags.map((tag) => (
-                  <option value={tag}>{tag}</option>
-                ))}
+                <option value="all">All notes</option>
+                {allTags.map((tag) => <option value={tag}>{tag}</option>)}
               </select>
               <span class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-foreground-muted">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"/>
-                </svg>
+                <Icon name="chevron-down" size="sm" />
               </span>
             </div>
-            <span id="filter-count" class="text-sm text-foreground-muted hidden"></span>
+            <span id="filter-count" class="hidden text-sm text-foreground-muted"></span>
           </div>
         )}
       </div>
 
-      {
-        regularPosts.length > 0 ? (
-          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {regularPosts.map((post) => (
-              <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
-                <BlogCard
-                  title={post.data.title}
-                  description={post.data.description}
-                  href={getPostUrl(post.id)}
-                  publishedAt={post.data.publishedAt}
-                  tags={post.data.tags}
-                  author={post.data.author}
-                  image={post.data.image}
-                  svgSlug={post.data.svgSlug}
-                />
-              </div>
-            ))}
-          </div>
-        ) : posts.length === 0 ? (
-          <div class="py-16 text-center">
-            <div class="bg-background mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-              <Icon name="file-text" size="lg" class="text-foreground-muted" />
+      {regularPosts.length > 0 ? (
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {regularPosts.map((post) => (
+            <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
+              <BlogCard
+                title={post.data.title}
+                description={post.data.description}
+                href={getPostUrl(post.id)}
+                publishedAt={post.data.publishedAt}
+                tags={post.data.tags}
+                author={post.data.author}
+                image={post.data.image}
+                svgSlug={post.data.svgSlug}
+              />
             </div>
-            <p class="text-foreground-muted text-lg">No posts found</p>
+          ))}
+        </div>
+      ) : (
+        <div class="py-16 text-center">
+          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-background">
+            <Icon name="file-text" size="lg" class="text-foreground-muted" />
           </div>
-        ) : null
-      }
+          <p class="text-lg text-foreground-muted">No notes found</p>
+        </div>
+      )}
 
       <div id="no-results" class="hidden py-16 text-center">
-        <div class="bg-background mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-background">
           <Icon name="file-text" size="lg" class="text-foreground-muted" />
         </div>
-        <p class="text-foreground-muted text-lg">No posts found for this tag</p>
+        <p class="text-lg text-foreground-muted">No notes found for this tag</p>
       </div>
     </div>
   </section>
 
-  <!-- Follow CTA Section -->
   <CTA variant="default" size="md" maxWidth="lg" glow={false} data-reveal class:list={[featuredPosts.length > 0 && '!bg-background-secondary']}>
-    <h2 slot="heading" class="!text-4xl">Follow along</h2>
-    <p slot="description" class="!text-lg text-balance">Stay in the loop — new articles, thoughts, and updates.</p>
+    <h2 slot="heading" class="!text-4xl">Follow the research trail</h2>
+    <p slot="description" class="!text-lg text-balance">
+      RSS for public notes, GitHub for artifacts, email for lab and application conversations.
+    </p>
 
     <div class="flex flex-wrap items-center justify-center gap-3">
-      <a
-        href="/rss.xml"
-        class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500"
-      >
+      <a href="/rss.xml" class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
         <Icon name="rss" size="sm" />
         RSS Feed
       </a>
       {socialLinks.map((link) => (
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500"
-        >
+        <a href={link.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
           <Icon name={link.icon} size="sm" />
           {link.label}
         </a>
       ))}
-      <a
-        href={`mailto:${siteConfig.email}`}
-        class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500"
-      >
+      <a href={`mailto:${siteConfig.email}`} class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
         <Icon name="mail" size="sm" />
         Email
       </a>
@@ -212,7 +200,7 @@ const getPostUrl = (postId: string) => {
         cards.forEach((card) => card.style.removeProperty('display'));
         if (featuredSection) featuredSection.style.removeProperty('display');
         noResults?.classList.add('hidden');
-        if (filterCount) filterCount.classList.add('hidden');
+        filterCount?.classList.add('hidden');
         return;
       }
 
@@ -234,12 +222,10 @@ const getPostUrl = (postId: string) => {
         featuredSection.style.display = featuredVisible === 0 ? 'none' : '';
       }
 
-      if (noResults) {
-        noResults.classList.toggle('hidden', visibleCount > 0);
-      }
+      noResults?.classList.toggle('hidden', visibleCount > 0);
 
       if (filterCount) {
-        filterCount.textContent = `${visibleCount} post${visibleCount !== 1 ? 's' : ''}`;
+        filterCount.textContent = `${visibleCount} note${visibleCount !== 1 ? 's' : ''}`;
         filterCount.classList.remove('hidden');
       }
     });
