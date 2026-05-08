@@ -1,8 +1,8 @@
-# Hypergalois
+# José Luis Delgado
 
 Research engineering portfolio built with Astro 6, Tailwind CSS v4, MDX content
 collections, static GitHub Pages deployment, and a production-grade component
-foundation.
+foundation. The repository and GitHub handle remain `hypergalois`.
 
 ## Commands
 

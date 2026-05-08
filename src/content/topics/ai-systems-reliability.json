@@ -1,0 +1,8 @@
+{
+  "title": "AI systems reliability",
+  "body": "Studying how agentic tooling, automation, and evaluation pipelines can be made observable, testable, and safe to operate.",
+  "icon": "network",
+  "href": "/blog/?tag=AI%20Systems",
+  "order": 3,
+  "tags": ["AI Systems", "Evaluation", "Automation"]
+}

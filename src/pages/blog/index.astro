@@ -28,7 +28,7 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
 ---
 
 <PageLayout
-  title="Writing — Hypergalois"
+  title="Writing"
   description="Technical notes on systems security, formal methods, cryptographic infrastructure, and research engineering."
   showScrollProgress
   eagerReveal
@@ -193,8 +193,13 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
 
     if (!select) return;
 
-    select.addEventListener('change', () => {
-      const tag = select.value;
+    function applyFilter(tag: string, syncUrl = true) {
+      if (syncUrl) {
+        const url = new URL(window.location.href);
+        if (tag === 'all') url.searchParams.delete('tag');
+        else url.searchParams.set('tag', tag);
+        history.replaceState(null, '', url);
+      }
 
       if (tag === 'all') {
         cards.forEach((card) => card.style.removeProperty('display'));
@@ -228,7 +233,15 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
         filterCount.textContent = `${visibleCount} note${visibleCount !== 1 ? 's' : ''}`;
         filterCount.classList.remove('hidden');
       }
-    });
+    }
+
+    const initialTag = new URLSearchParams(window.location.search).get('tag') || 'all';
+    if ([...select.options].some((option) => option.value === initialTag)) {
+      select.value = initialTag;
+    }
+    applyFilter(select.value, false);
+
+    select.addEventListener('change', () => applyFilter(select.value));
   }
 
   initTagFilter();

@@ -1,0 +1,8 @@
+{
+  "title": "Formal reasoning",
+  "body": "Using executable models, proof assistants, and careful invariants to make implementation claims harder to hand-wave.",
+  "icon": "braces",
+  "href": "/blog/?tag=Formal%20Methods",
+  "order": 2,
+  "tags": ["Formal Methods", "Lean", "Invariants"]
+}

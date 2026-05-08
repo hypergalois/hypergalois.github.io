@@ -1,6 +1,6 @@
 {
-  "question": "What is Hypergalois?",
-  "answer": "Hypergalois is a technical portfolio for research engineering across systems security, formal methods, cryptographic infrastructure, and AI evaluation.",
+  "question": "Who is this portfolio for?",
+  "answer": "This is José Luis Delgado's technical portfolio for research engineering across systems security, formal methods, cryptographic infrastructure, and AI evaluation. Hypergalois is the GitHub handle attached to the deployed repository.",
   "category": "general",
   "order": 1,
   "locale": "en"

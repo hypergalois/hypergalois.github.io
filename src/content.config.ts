@@ -52,6 +52,19 @@ const faqs = defineCollection({
   }),
 });
 
+// Topic cards used by the homepage research direction section.
+const topics = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/topics' }),
+  schema: z.object({
+    title: z.string(),
+    body: z.string(),
+    icon: z.string(),
+    href: z.string(),
+    order: z.number().default(99),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
 // Projects collection — one MDX file per project
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
@@ -92,6 +105,7 @@ export const collections = {
   blog,
   authors,
   faqs,
+  topics,
   stack,
   projects,
 };

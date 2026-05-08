@@ -8,7 +8,7 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<!-- 3-state colour-mode cycler. Click cycles: system → light → dark → system.
+<!-- 3-state colour-mode cycler. Defaults to dark; click cycles through the available modes.
      The visible icon is driven by <html data-theme-mode="…"> so it stays in
      sync with the inline bootstrap (no FOUC of the wrong icon). -->
 <button
@@ -21,8 +21,8 @@ const { class: className } = Astro.props;
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     className
   )}
-  aria-label="Theme: system"
-  title="Theme: system (click to cycle)"
+  aria-label="Theme: dark"
+  title="Theme: dark (click to cycle)"
 >
   <!-- Monitor icon — shown when mode === 'system' -->
   <svg
@@ -96,7 +96,7 @@ const { class: className } = Astro.props;
     } catch {
       /* private mode */
     }
-    return 'system';
+    return 'dark';
   }
 
   function applyMode(mode: Mode): void {

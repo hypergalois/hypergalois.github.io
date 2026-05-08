@@ -1,0 +1,8 @@
+{
+  "title": "Security infrastructure",
+  "body": "Auditing the protocols, certificate paths, and operational edges that turn cryptography into deployed systems.",
+  "icon": "shield-check",
+  "href": "/blog/?tag=Security",
+  "order": 1,
+  "tags": ["Security", "TLS", "Certificates"]
+}

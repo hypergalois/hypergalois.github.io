@@ -1,0 +1,85 @@
+---
+title: "Research Artifact Workbench"
+description: "A deliberately compact example project showing how a technical artifact page can combine a claim, a reproducible workflow, evidence tables, code, and limitations."
+tags: ["Research Engineering", "Documentation", "Example", "MDX"]
+featured: false
+order: 7
+year: 2026
+role: "Portfolio system design"
+services: ["Artifact framing", "Technical writing", "MDX prototyping"]
+image: "../../assets/projects/research-artifact-workbench.svg"
+imageAlt: "Dark research artifact workbench with claim, trace, and checks panels"
+---
+
+## Question
+
+What should a project page prove before a reader opens the repository?
+
+This example treats the project page itself as an artifact. The goal is to make
+the shape of future research work obvious: claim first, evidence second,
+implementation third, limitations always visible.
+
+## Artifact contract
+
+| Section | Purpose | Reader question |
+| --- | --- | --- |
+| Claim | State what the artifact is for | What is being asserted? |
+| Workflow | Show the reproducible path | How would I rerun it? |
+| Evidence | Summarize output and checks | What did it produce? |
+| Limits | Bound the interpretation | Where can this fail? |
+
+## Minimal workflow
+
+The command block is intentionally concrete. Even if the command is only a
+template today, future projects should aim for this level of operational clarity.
+
+```bash
+pnpm run collect --target tls-boundary-slice
+pnpm run normalize --input results/raw
+pnpm run report --format static
+```
+
+```ts
+export type EvidenceRow = {
+  target: string;
+  observation: string;
+  confidence: "low" | "medium" | "high";
+  artifactUrl: string;
+};
+
+export function isReviewable(row: EvidenceRow) {
+  return row.confidence !== "low" && row.artifactUrl.length > 0;
+}
+```
+
+## Example evidence
+
+<div className="not-prose my-8 grid gap-4 sm:grid-cols-3">
+  <div className="rounded-2xl border border-border bg-background-secondary p-5">
+    <p className="text-xs font-bold uppercase text-brand-500">Trace</p>
+    <p className="mt-2 text-2xl font-bold text-foreground">128</p>
+    <p className="mt-1 text-sm text-foreground-muted">normalized observations</p>
+  </div>
+  <div className="rounded-2xl border border-border bg-background-secondary p-5">
+    <p className="text-xs font-bold uppercase text-brand-500">Checks</p>
+    <p className="mt-2 text-2xl font-bold text-foreground">14</p>
+    <p className="mt-1 text-sm text-foreground-muted">review gates passed</p>
+  </div>
+  <div className="rounded-2xl border border-border bg-background-secondary p-5">
+    <p className="text-xs font-bold uppercase text-brand-500">Limits</p>
+    <p className="mt-2 text-2xl font-bold text-foreground">3</p>
+    <p className="mt-1 text-sm text-foreground-muted">explicit assumptions</p>
+  </div>
+</div>
+
+## Limitations
+
+- A project page is not a substitute for a repository.
+- A visual summary should not hide uncertainty.
+- A strong artifact page should make missing work visible, not embarrassing.
+
+## Why keep this page
+
+This is a useful prototype for future project pages. If a real artifact cannot
+fill this skeleton, the artifact probably needs more work before it becomes the
+centerpiece of an application or lab conversation.

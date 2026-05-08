@@ -61,7 +61,7 @@ schemas.push(...extraSchemas);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth dark" data-theme="blue" data-theme-mode="system">
+<html lang="en" class="scroll-smooth dark" data-theme="blue" data-theme-mode="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -149,7 +149,7 @@ schemas.push(...extraSchemas);
 
     <!-- Theme bootstrap (runs before body paint; no flash of wrong theme).
          Implements a 3-state colour-mode contract:
-           localStorage.theme ∈ {'system','light','dark'}  (default 'system')
+           localStorage.theme ∈ {'system','light','dark'}  (default 'dark')
            <html data-theme-mode="…">                      (mirrors saved mode)
            <html class="dark">                              (resolved appearance)
          When mode === 'system', <html>.dark tracks prefers-color-scheme live. -->
@@ -163,7 +163,7 @@ schemas.push(...extraSchemas);
             const stored = localStorage.getItem('theme');
             if (VALID_MODES.indexOf(stored) !== -1) return stored;
           } catch { /* private mode / disabled storage */ }
-          return 'system';
+          return 'dark';
         }
 
         function applyMode(el) {

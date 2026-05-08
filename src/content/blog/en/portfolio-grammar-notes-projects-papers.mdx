@@ -1,0 +1,99 @@
+---
+title: "Notes, Projects, Papers: A Portfolio Grammar"
+description: "A working distinction for this site: notes capture thinking, projects carry artifacts, and papers make claims that deserve stronger evidence."
+publishedAt: 2026-05-09
+author: "José Luis Delgado"
+tags: ["Portfolio", "Research Engineering", "MDX", "Example"]
+featured: false
+locale: en
+image: "../../../assets/blog/portfolio-grammar.svg"
+svgSlug: "portfolio-grammar"
+imageAlt: "Diagram connecting notes, projects, and papers as research outputs"
+---
+
+This site should not read like a pile of disconnected pages. It needs a small
+grammar: what belongs in a note, what belongs in a project, and what should
+eventually become a paper or manuscript.
+
+The distinction I want is simple.
+
+| Surface | Job | Evidence |
+| --- | --- | --- |
+| Notes | Make thinking legible early | observations, sketches, implementation details |
+| Projects | Show the artifact | code, traces, measurements, reproducible workflows |
+| Papers | Defend a claim | model, method, related work, evaluation, limitations |
+
+Notes are allowed to be smaller and sharper. A note can say: "this boundary is
+interesting", "this protocol behavior is fragile", or "this invariant is the
+right one to formalize next". It does not need to pretend to be finished.
+
+Projects should be stricter. A project page should answer:
+
+- What question was being tested?
+- What artifact exists?
+- What would convince a skeptical reader?
+- What is missing or intentionally out of scope?
+
+Papers sit at the end of that path. They should not be a prettier version of a
+project page; they should be the strongest claim the artifact can support.
+
+<div className="not-prose my-10 grid gap-4 rounded-2xl border border-border bg-background-secondary p-5 sm:grid-cols-3">
+  <div className="rounded-xl border border-border bg-background p-4">
+    <p className="text-xs font-bold uppercase text-brand-500">Note</p>
+    <p className="mt-2 text-sm text-foreground-muted">Short argument, readable without setup.</p>
+  </div>
+  <div className="rounded-xl border border-border bg-background p-4">
+    <p className="text-xs font-bold uppercase text-brand-500">Project</p>
+    <p className="mt-2 text-sm text-foreground-muted">Artifact, commands, traces, decisions.</p>
+  </div>
+  <div className="rounded-xl border border-border bg-background p-4">
+    <p className="text-xs font-bold uppercase text-brand-500">Paper</p>
+    <p className="mt-2 text-sm text-foreground-muted">Claim, method, evaluation, limits.</p>
+  </div>
+</div>
+
+## What an artifact should expose
+
+The best project pages are not glamorous demos. They are readable workbenches.
+They show enough structure that someone can audit the work without reverse
+engineering the repository from scratch.
+
+```yaml
+artifact:
+  question: "What behavior is being measured?"
+  evidence:
+    - traces
+    - normalized dataset
+    - reproducible command
+  failure_modes:
+    - sampling bias
+    - parser assumptions
+    - deployment drift
+```
+
+That shape is useful because it forces the page to separate claim from evidence.
+If the claim is too broad, the artifact section will look thin. If the artifact
+is strong, the page can stay quiet and still feel convincing.
+
+```ts
+type ResearchOutput = {
+  claim: string;
+  artifact: "note" | "project" | "paper";
+  evidence: Array<"code" | "trace" | "model" | "measurement" | "review">;
+  limitations: string[];
+};
+```
+
+> The goal is not to make every page longer. The goal is to make every page
+> answer the reader's next technical question.
+
+## Why this matters
+
+For PhD applications and research labs, the reader is often trying to infer fit:
+what problems you notice, how you reduce them, and whether your work has enough
+precision to survive scrutiny.
+
+For companies, the signal is adjacent but different: can you turn ambiguity into
+an artifact that other people can operate, inspect, and improve?
+
+That is the standard this portfolio should optimize for.

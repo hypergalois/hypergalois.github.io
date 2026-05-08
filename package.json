@@ -1,9 +1,9 @@
 {
   "name": "hypergalois-portfolio",
   "version": "1.0.0",
-  "description": "Hypergalois — research engineering portfolio built with Astro 6 and Tailwind CSS v4",
+  "description": "José Luis Delgado — research engineering portfolio built with Astro 6 and Tailwind CSS v4",
   "type": "module",
-  "author": "José Delgado",
+  "author": "José Luis Delgado",
   "license": "MIT",
   "keywords": [
     "astro",

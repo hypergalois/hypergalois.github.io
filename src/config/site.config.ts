@@ -58,12 +58,12 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'Hypergalois',
+  name: 'José Luis Delgado',
   description:
-    'Technical portfolio focused on systems security, formal methods, cryptographic infrastructure, and research-grade engineering.',
+    'Research engineering portfolio focused on systems security, formal methods, cryptographic infrastructure, and high-assurance systems.',
   url: SITE_URL || 'https://hypergalois.github.io',
   ogImage: '/og-default.svg',
-  author: 'José Delgado',
+  author: 'José Luis Delgado',
   email: 'jose.delgado2@live.u-tad.com',
   address: {
     street: '',
@@ -87,7 +87,7 @@ const siteConfig: SiteConfig = {
   blogImageOverlay: true,
   branding: {
     logo: {
-      alt: 'Hypergalois',
+      alt: 'José Luis Delgado',
       imageUrl: '/favicon.svg',
     },
     favicon: {

@@ -1,7 +1,7 @@
 ---
 /**
  * ThemeModeDropdown — Pill A
- * 3-state colour-mode picker (System / Light / Dark) shaped as a pill
+ * 3-state colour-mode picker (Dark / Light / System) shaped as a pill
  * dropdown. Sits next to ThemeSelectorDropdown (Pill B) in the header.
  *
  * Reads / writes:
@@ -33,7 +33,7 @@ const { class: className } = Astro.props;
     )}
     aria-haspopup="menu"
     aria-expanded="false"
-    aria-label="Theme: system. Click to change."
+    aria-label="Theme: dark. Click to change."
   >
     <!-- Monitor — shown when data-theme-mode="system" (also pre-bootstrap fallback) -->
     <svg class="ttg-icon ttg-icon-system h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -212,7 +212,7 @@ const { class: className } = Astro.props;
       const v = localStorage.getItem(STORAGE_KEY);
       if (v === 'system' || v === 'light' || v === 'dark') return v;
     } catch { /* private mode */ }
-    return 'system';
+    return 'dark';
   }
 
   function osIsDark(): boolean {

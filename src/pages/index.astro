@@ -22,23 +22,9 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
   })
   .slice(0, 3);
 
-const researchDirections = [
-  {
-    icon: 'shield-check',
-    title: 'Security infrastructure',
-    body: 'Auditing the protocols, certificate paths, and operational edges that turn cryptography into deployed systems.',
-  },
-  {
-    icon: 'braces',
-    title: 'Formal reasoning',
-    body: 'Using executable models, proof assistants, and careful invariants to make implementation claims harder to hand-wave.',
-  },
-  {
-    icon: 'network',
-    title: 'AI systems reliability',
-    body: 'Studying how agentic tooling, automation, and evaluation pipelines can be made observable, testable, and safe to operate.',
-  },
-];
+const researchDirections = (await getCollection('topics'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((topic) => topic.data);
 
 const focusAreas = [
   'Post-quantum TLS and certificate assurance',
@@ -49,18 +35,18 @@ const focusAreas = [
 ---
 
 <LandingLayout
-  title="Hypergalois — Research engineering portfolio"
+  title="Research engineering portfolio"
   description="A technical portfolio for systems security, formal methods, cryptographic infrastructure, and research-grade engineering."
   image="/og-default.svg"
   includePersonSchema={true}
 >
   <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator>
     <Badge slot="badge" variant="brand" pill pulse class="dark:text-brand-200">
-      Systems security · Formal methods · Cryptographic infrastructure
+      Hypergalois · Systems security · Formal methods · Cryptographic infrastructure
     </Badge>
 
     <h1 slot="title" class="!text-[2.625rem] sm:!text-5xl md:!text-6xl lg:!text-7xl">
-      <span class="text-brand-700 dark:text-foreground [-webkit-text-fill-color:currentColor]">Hypergalois</span><br />
+      <span class="text-brand-700 dark:text-foreground [-webkit-text-fill-color:currentColor]">José Luis Delgado</span><br />
       <span class="text-foreground [-webkit-text-fill-color:currentColor]">Research engineering for</span><br />
       <span class="text-foreground [-webkit-text-fill-color:currentColor]">critical systems.</span>
     </h1>
@@ -109,7 +95,7 @@ const focusAreas = [
 
       <div class="grid gap-6 md:grid-cols-3">
         {researchDirections.map((item, index) => (
-          <Card hover data-reveal data-reveal-delay={index}>
+          <Card hover href={item.href} data-reveal data-reveal-delay={index} class="group">
             <div class="flex h-full flex-col gap-5">
               <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/25 to-brand-500/5 text-brand-500">
                 <Icon name={item.icon} size="md" />
@@ -117,6 +103,10 @@ const focusAreas = [
               <div>
                 <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{item.body}</p>
+              </div>
+              <div class="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors group-hover:text-brand-400">
+                Read related notes
+                <Icon name="arrow-right" size="sm" />
               </div>
             </div>
           </Card>

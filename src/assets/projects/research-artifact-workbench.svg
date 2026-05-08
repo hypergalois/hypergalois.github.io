@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Research artifact workbench</title>
+  <desc id="desc">A dark workbench interface with traces, checks, and evidence cards.</desc>
+  <rect width="1200" height="760" fill="#020617"/>
+  <defs>
+    <linearGradient id="panel" x1="160" x2="1040" y1="120" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" x2="1">
+      <stop stop-color="#60a5fa"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="110" y="88" width="980" height="584" rx="34" fill="url(#panel)" stroke="#1e3a8a"/>
+  <rect x="150" y="132" width="900" height="54" rx="18" fill="#020617" stroke="#1e40af"/>
+  <circle cx="184" cy="159" r="8" fill="#60a5fa"/>
+  <circle cx="214" cy="159" r="8" fill="#2563eb"/>
+  <circle cx="244" cy="159" r="8" fill="#1d4ed8"/>
+  <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="18">
+    <text x="284" y="166" fill="#bfdbfe">artifact://tls-boundary/workbench</text>
+  </g>
+  <g transform="translate(150 226)">
+    <rect width="262" height="342" rx="22" fill="#020617" stroke="#1e40af"/>
+    <text x="28" y="52" fill="#bfdbfe" font-family="Outfit, system-ui" font-size="24" font-weight="700">Claim</text>
+    <path d="M30 92h196M30 126h154M30 160h206" stroke="#60a5fa" stroke-width="7" stroke-linecap="round"/>
+    <path d="M30 220h80M30 254h150M30 288h112" stroke="#334155" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(470 226)">
+    <rect width="262" height="342" rx="22" fill="#020617" stroke="#1e40af"/>
+    <text x="28" y="52" fill="#bfdbfe" font-family="Outfit, system-ui" font-size="24" font-weight="700">Trace</text>
+    <polyline points="36,250 84,198 132,216 180,120 226,168" fill="none" stroke="url(#blue)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#60a5fa" opacity=".65">
+      <circle cx="84" cy="198" r="18"/>
+      <circle cx="132" cy="216" r="18"/>
+      <circle cx="180" cy="120" r="18"/>
+    </g>
+    <path d="M34 88h198M34 294h150" stroke="#334155" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(790 226)">
+    <rect width="262" height="342" rx="22" fill="#020617" stroke="#1e40af"/>
+    <text x="28" y="52" fill="#bfdbfe" font-family="Outfit, system-ui" font-size="24" font-weight="700">Checks</text>
+    <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" fill="#dbeafe">
+      <text x="34" y="112">[ok] invariant</text>
+      <text x="34" y="154">[ok] replay</text>
+      <text x="34" y="196">[warn] boundary</text>
+      <text x="34" y="238">[ok] report</text>
+    </g>
+    <rect x="34" y="276" width="194" height="28" rx="14" fill="#1d4ed8"/>
+  </g>
+</svg>
