@@ -23,7 +23,17 @@ const {
 const id = `typing-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<span id={id} class="typing-effect" aria-label={words.join(', ')}>
+<span
+  id={id}
+  class="typing-effect"
+  aria-label={words.join(', ')}
+  data-typing-effect
+  data-words={JSON.stringify(words)}
+  data-type-speed={typeSpeed}
+  data-delete-speed={deleteSpeed}
+  data-pause-after-type={pauseAfterType}
+  data-pause-after-delete={pauseAfterDelete}
+>
   <span class="typing-text"></span><span class="typing-cursor" aria-hidden="true">|</span>
 </span>
 
@@ -48,63 +58,74 @@ const id = `typing-${Math.random().toString(36).slice(2, 8)}`;
   }
 </style>
 
-<script is:inline define:vars={{ id, words, typeSpeed, deleteSpeed, pauseAfterType, pauseAfterDelete }}>
-  function startTyping() {
-    const root = document.getElementById(id);
-    if (!root) return;
-    const textEl = root.querySelector('.typing-text');
+<script is:inline>
+  function initTypingEffects() {
+    document.querySelectorAll('[data-typing-effect]').forEach((root) => {
+      if (root.dataset.typingInitialized === 'true') return;
+      root.dataset.typingInitialized = 'true';
 
-    // Lock the element width to the widest word so the layout never shifts
-    const measurer = document.createElement('span');
-    measurer.setAttribute('aria-hidden', 'true');
-    measurer.style.cssText = 'visibility:hidden;position:absolute;white-space:nowrap;pointer-events:none;';
-    const cs = getComputedStyle(root);
-    measurer.style.font = cs.font;
-    measurer.style.letterSpacing = cs.letterSpacing;
-    document.body.appendChild(measurer);
+      const textEl = root.querySelector('.typing-text');
+      const words = JSON.parse(root.dataset.words || '[]');
+      if (!textEl || !Array.isArray(words) || words.length === 0) return;
 
-    let maxWidth = 0;
-    for (const word of words) {
-      measurer.textContent = word + '|'; // include cursor character in measurement
-      maxWidth = Math.max(maxWidth, measurer.offsetWidth);
-    }
-    document.body.removeChild(measurer);
-    root.style.minWidth = maxWidth + 'px';
+      const typeSpeed = Number(root.dataset.typeSpeed || 120);
+      const deleteSpeed = Number(root.dataset.deleteSpeed || 70);
+      const pauseAfterType = Number(root.dataset.pauseAfterType || 1800);
+      const pauseAfterDelete = Number(root.dataset.pauseAfterDelete || 400);
 
-    let wordIndex = 0;
-    let charIndex = 0;       // start empty — cursor only, then type the first word
-    let isDeleting = false;
+      // Lock the element width to the widest word so the layout never shifts
+      const measurer = document.createElement('span');
+      measurer.setAttribute('aria-hidden', 'true');
+      measurer.style.cssText = 'visibility:hidden;position:absolute;white-space:nowrap;pointer-events:none;';
+      const cs = getComputedStyle(root);
+      measurer.style.font = cs.font;
+      measurer.style.letterSpacing = cs.letterSpacing;
+      document.body.appendChild(measurer);
 
-    function tick() {
-      const current = words[wordIndex];
-
-      if (isDeleting) {
-        charIndex--;
-        textEl.textContent = current.slice(0, charIndex);
-
-        if (charIndex === 0) {
-          isDeleting = false;
-          wordIndex = (wordIndex + 1) % words.length;
-          setTimeout(tick, pauseAfterDelete);
-          return;
-        }
-        setTimeout(tick, deleteSpeed);
-      } else {
-        charIndex++;
-        textEl.textContent = current.slice(0, charIndex);
-
-        if (charIndex === current.length) {
-          isDeleting = true;
-          setTimeout(tick, pauseAfterType);
-          return;
-        }
-        setTimeout(tick, typeSpeed);
+      let maxWidth = 0;
+      for (const word of words) {
+        measurer.textContent = word + '|'; // include cursor character in measurement
+        maxWidth = Math.max(maxWidth, measurer.offsetWidth);
       }
-    }
+      document.body.removeChild(measurer);
+      root.style.minWidth = maxWidth + 'px';
 
-    // Show the blinking cursor briefly, then begin typing the first word
-    setTimeout(tick, pauseAfterDelete);
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function tick() {
+        const current = words[wordIndex];
+
+        if (isDeleting) {
+          charIndex--;
+          textEl.textContent = current.slice(0, charIndex);
+
+          if (charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            setTimeout(tick, pauseAfterDelete);
+            return;
+          }
+          setTimeout(tick, deleteSpeed);
+        } else {
+          charIndex++;
+          textEl.textContent = current.slice(0, charIndex);
+
+          if (charIndex === current.length) {
+            isDeleting = true;
+            setTimeout(tick, pauseAfterType);
+            return;
+          }
+          setTimeout(tick, typeSpeed);
+        }
+      }
+
+      setTimeout(tick, pauseAfterDelete);
+    });
   }
 
-  startTyping();
+  initTypingEffects();
+  document.addEventListener('astro:page-load', initTypingEffects);
+  document.addEventListener('astro:after-swap', initTypingEffects);
 </script>
