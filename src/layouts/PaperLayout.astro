@@ -1,0 +1,152 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Breadcrumbs from '@/components/seo/Breadcrumbs.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import siteConfig from '@/config/site.config';
+
+interface Props {
+  title: string;
+  description: string;
+  authors?: string[];
+  year?: number;
+  status: string;
+  venue?: string;
+  tags?: string[];
+  pdf?: string;
+  repo?: string;
+  project?: string;
+  note?: string;
+}
+
+const {
+  title,
+  description,
+  authors = ['José Luis Delgado'],
+  year,
+  status,
+  venue,
+  tags = [],
+  pdf,
+  repo,
+  project,
+  note,
+} = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Papers', href: '/papers' },
+  { label: title },
+];
+
+const links = [
+  pdf && { label: 'PDF', href: pdf, icon: 'file-down', external: true },
+  repo && { label: 'Code', href: repo, icon: 'github', external: true },
+  project && { label: 'Artifact', href: project, icon: 'layers', external: false },
+  note && { label: 'Note', href: note, icon: 'book-open', external: false },
+].filter(Boolean) as { label: string; href: string; icon: string; external: boolean }[];
+---
+
+<BaseLayout title={title} description={description} image={siteConfig.ogImage}>
+  <Header
+    slot="header"
+    position="fixed"
+    shape="bar"
+    variant="solid"
+    size="lg"
+    showCta={false}
+    showThemeSelector={false}
+    showScrollProgress
+  />
+
+  <div class="min-h-screen pt-16">
+    <header class="border-b border-border bg-background-secondary py-[var(--space-section-md)]">
+      <div class="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-[1fr_0.42fr]">
+        <div class="flex flex-col gap-6" data-reveal>
+          <Badge variant="brand" pill class="self-start">
+            <Icon name="file-text" size="sm" />
+            Paper
+          </Badge>
+
+          <div>
+            <h1 class="font-display text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+              {title}
+            </h1>
+            <p class="mt-5 max-w-3xl text-lg leading-relaxed text-foreground-muted">
+              {description}
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {tags.map((tag) => <Badge variant="brand">{tag}</Badge>)}
+          </div>
+        </div>
+
+        <Card padding="lg" class="h-fit" data-reveal="left">
+          <div class="space-y-5">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Status</p>
+              <p class="mt-1 text-base font-semibold text-foreground">{status}</p>
+            </div>
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Authors</p>
+              <p class="mt-1 text-sm leading-relaxed text-foreground-muted">{authors.join(', ')}</p>
+            </div>
+            {(year || venue) && (
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                {year && (
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Year</p>
+                    <p class="mt-1 text-sm text-foreground-muted">{year}</p>
+                  </div>
+                )}
+                {venue && (
+                  <div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Venue</p>
+                    <p class="mt-1 text-sm text-foreground-muted">{venue}</p>
+                  </div>
+                )}
+              </div>
+            )}
+            {links.length > 0 && (
+              <div class="flex flex-wrap gap-2 pt-1">
+                {links.map((link) => (
+                  <Button
+                    href={link.href}
+                    variant={link.label === 'Artifact' ? 'primary' : 'outline'}
+                    size="sm"
+                    {...link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+                  >
+                    <Icon name={link.icon} size="sm" />
+                    {link.label}
+                  </Button>
+                ))}
+              </div>
+            )}
+          </div>
+        </Card>
+      </div>
+    </header>
+
+    <article class="pt-8 pb-[var(--space-section-md)]">
+      <div class="mx-auto max-w-4xl px-6">
+        <Breadcrumbs items={breadcrumbs} class="mb-8" />
+        <div class="prose prose-lg max-w-none" data-reveal-content>
+          <slot />
+        </div>
+        <footer class="mt-12 border-t border-border pt-8" data-reveal>
+          <a href="/papers" class="inline-flex items-center gap-2 text-sm font-medium text-brand-500 transition-colors hover:text-brand-400">
+            <Icon name="arrow-left" size="sm" />
+            Back to papers
+          </a>
+        </footer>
+      </div>
+    </article>
+  </div>
+
+  <Footer slot="footer" layout="simple" background="secondary" />
+</BaseLayout>

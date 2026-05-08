@@ -1,0 +1,34 @@
+---
+import PaperLayout from '@/layouts/PaperLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const papers = await getCollection('papers', ({ data }) => {
+    return import.meta.env.PROD ? data.draft !== true : true;
+  });
+
+  return papers.map((paper) => ({
+    params: { slug: paper.id.replace(/\.mdx?$/, '') },
+    props: { paper },
+  }));
+}
+
+const { paper } = Astro.props;
+const { Content } = await render(paper);
+---
+
+<PaperLayout
+  title={paper.data.title}
+  description={paper.data.description}
+  authors={paper.data.authors}
+  year={paper.data.year}
+  status={paper.data.status}
+  venue={paper.data.venue}
+  tags={paper.data.tags}
+  pdf={paper.data.pdf}
+  repo={paper.data.repo}
+  project={paper.data.project}
+  note={paper.data.note}
+>
+  <Content />
+</PaperLayout>

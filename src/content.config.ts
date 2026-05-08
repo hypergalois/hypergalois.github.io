@@ -65,6 +65,27 @@ const topics = defineCollection({
   }),
 });
 
+// Papers and manuscripts: preprints, drafts, and paper-shaped research records.
+const papers = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/papers' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().max(400),
+    authors: z.array(z.string()).default(['José Luis Delgado']),
+    year: z.number().optional(),
+    status: z.string(),
+    venue: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    order: z.number().default(99),
+    pdf: z.string().optional(),
+    repo: z.string().optional(),
+    project: z.string().optional(),
+    note: z.string().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 // Projects collection — one MDX file per project
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
@@ -106,6 +127,7 @@ export const collections = {
   authors,
   faqs,
   topics,
+  papers,
   stack,
   projects,
 };
