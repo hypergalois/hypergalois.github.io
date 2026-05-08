@@ -24,22 +24,21 @@ export function createWebsiteSchema(): WithContext<WebSite> {
 }
 
 /**
- * Create Person schema for Astro Rocket
+ * Create Person schema
  */
 export function createPersonSchema(): WithContext<Person> {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Astro Rocket',
-    jobTitle: 'Web Designer & Developer',
+    name: siteConfig.author,
+    jobTitle: 'Research Engineer',
     url: siteConfig.url,
     email: siteConfig.email,
     ...(siteConfig.authorImage ? { image: `${siteConfig.url}${siteConfig.authorImage}` } : {}),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Veghel',
-      addressRegion: 'Noord-Brabant',
-      addressCountry: 'NL',
+      addressLocality: siteConfig.address?.city,
+      addressCountry: siteConfig.address?.country,
     },
     sameAs: siteConfig.socialLinks,
   };
@@ -59,12 +58,12 @@ export function createProfessionalServiceSchema(): WithContext<LocalBusiness> {
     ...(siteConfig.authorImage ? { image: `${siteConfig.url}${siteConfig.authorImage}` } : {}),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Veghel',
-      addressRegion: 'Noord-Brabant',
-      addressCountry: 'NL',
+      addressLocality: siteConfig.address?.city,
+      addressCountry: siteConfig.address?.country,
     },
     areaServed: [
-      { '@type': 'Country', name: 'Netherlands' },
+      { '@type': 'Country', name: 'Spain' },
+      { '@type': 'Country', name: 'United States' },
       { '@type': 'Country', name: 'Worldwide' },
     ],
     sameAs: siteConfig.socialLinks,

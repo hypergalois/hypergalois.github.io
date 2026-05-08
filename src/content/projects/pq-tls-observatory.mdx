@@ -1,0 +1,35 @@
+---
+title: "PQ-TLS Observatory"
+description: "A measurement-oriented harness for tracking post-quantum TLS behavior, handshake shape, certificate chains, and interoperability risks across real deployments."
+tags: ["PQC", "TLS", "Measurement", "Security"]
+featured: true
+order: 1
+year: 2026
+role: "Research engineering"
+services: ["Protocol measurement", "Security analysis", "Data pipeline"]
+---
+
+## Problem
+
+Post-quantum migration is not just an algorithm swap. Real deployments expose
+failure modes in handshake size, certificate chains, middleboxes, fallback paths,
+and operational defaults.
+
+## Artifact
+
+This project is framed as an observatory: a repeatable measurement pipeline that
+collects protocol evidence, normalizes it, and turns deployment behavior into
+inspectable data.
+
+## Why it matters
+
+The goal is not a dashboard for its own sake. The goal is to make the migration
+surface visible enough that research claims and engineering decisions can be
+checked against real traces.
+
+## Stack
+
+- TLS probing and packet capture
+- Certificate-chain inspection
+- Reproducible experiment runners
+- Static reporting for long-lived evidence

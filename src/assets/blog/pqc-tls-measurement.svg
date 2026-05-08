@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">
+  <rect class="bg" width="1200" height="630" rx="34"/>
+  <path class="ln" d="M180 185h840M180 315h840M180 445h840" fill="none" stroke-width="2"/>
+  <circle class="pil" cx="260" cy="185" r="46"/>
+  <circle class="pil" cx="600" cy="315" r="58"/>
+  <circle class="pil" cx="940" cy="445" r="46"/>
+  <path class="ico" d="M260 185h190l150 130h190l150 130" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+  <text class="txt" x="92" y="548" font-family="Inter, system-ui, sans-serif" font-size="76" font-weight="750">PQ-TLS</text>
+  <text class="ptx" x="92" y="592" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="650">measurement notes</text>
+</svg>

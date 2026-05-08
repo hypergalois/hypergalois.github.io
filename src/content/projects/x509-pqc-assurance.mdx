@@ -1,0 +1,33 @@
+---
+title: "PQC X.509 Assurance"
+description: "A linting and analysis project for post-quantum certificate structures, path validation assumptions, and compatibility boundaries in X.509 ecosystems."
+tags: ["X.509", "PQC", "Certificates", "Assurance"]
+featured: true
+order: 2
+year: 2026
+role: "Security analysis"
+services: ["Certificate linting", "Standards review", "Interoperability testing"]
+---
+
+## Problem
+
+Post-quantum certificates stress infrastructure that was tuned for smaller keys,
+older assumptions, and narrower interoperability profiles.
+
+## Artifact
+
+The project treats X.509 as an operational system: parse the certificate, inspect
+the chain, test the boundary, and record where software expectations diverge from
+new cryptographic material.
+
+## Why it matters
+
+Certificate tooling is easy to trust until migration pressure exposes hidden
+assumptions. A good assurance layer makes those assumptions explicit.
+
+## Stack
+
+- Certificate parsing and linting
+- Chain validation experiments
+- PQC algorithm metadata
+- Regression-oriented test cases

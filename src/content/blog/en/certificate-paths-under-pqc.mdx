@@ -1,0 +1,29 @@
+---
+title: "Certificate Paths Under Post-Quantum Pressure"
+description: "Post-quantum certificates put pressure on parsers, path validation, size limits, and assumptions that have lived quietly in X.509 tooling."
+publishedAt: 2026-04-21
+author: "José Delgado"
+tags: ["X.509", "PQC", "Certificates"]
+featured: false
+locale: en
+image: "../../../assets/blog/certificate-assurance.svg"
+svgSlug: "certificate-assurance"
+imageAlt: "Certificate chain diagram for assurance work"
+---
+
+X.509 is a standards ecosystem, a parser ecosystem, and an operational ecosystem.
+Post-quantum migration touches all three.
+
+Large keys and signatures are not merely bigger bytes. They stress buffer
+assumptions, path-building behavior, transport limits, and tooling that may never
+have been exercised near those boundaries.
+
+## Questions worth asking
+
+- Which fields and extensions change shape?
+- Which validators reject unusual but valid structures?
+- Where do chain sizes become operationally relevant?
+- What does a useful lint report need to preserve?
+
+Assurance work is the difference between "this should work" and "this has been
+tested where it is likely to break."

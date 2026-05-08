@@ -1,0 +1,29 @@
+---
+title: "Agentic Research Tools Need Evidence Trails"
+description: "Automated research workflows should record scenarios, tool calls, failures, diffs, and review notes if they want to be trusted."
+publishedAt: 2026-04-07
+author: "José Delgado"
+tags: ["AI Systems", "Evaluation", "Research Engineering"]
+featured: false
+locale: en
+image: "../../../assets/blog/agentic-evals.svg"
+svgSlug: "agentic-evals"
+imageAlt: "Evaluation harness diagram for agentic systems"
+---
+
+Agentic systems are easy to demo and hard to evaluate. A good run looks fluent;
+a bad run may still look fluent unless the trace is inspectable.
+
+The evaluation object should include the task, tools, intermediate decisions,
+files touched, failures, recovery behavior, and final evidence. Without that, the
+comparison is mostly vibes.
+
+## A better harness
+
+- Scenario inputs
+- Tool-call trace
+- File diffs and artifacts
+- Failure labels
+- Human review notes
+
+This is not bureaucracy. It is how automated work becomes debuggable.

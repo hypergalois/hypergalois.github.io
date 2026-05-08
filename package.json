@@ -1,29 +1,29 @@
 {
-  "name": "astro-rocket",
+  "name": "hypergalois-portfolio",
   "version": "1.0.0",
-  "description": "Astro Rocket — A production-ready Astro 6 theme built on Tailwind CSS v4",
+  "description": "Hypergalois — research engineering portfolio built with Astro 6 and Tailwind CSS v4",
   "type": "module",
-  "author": "Hans Martens",
+  "author": "José Delgado",
   "license": "MIT",
   "keywords": [
     "astro",
-    "astro-theme",
-    "theme",
+    "portfolio",
+    "research",
     "tailwind",
     "tailwindcss",
     "typescript",
     "blog",
-    "starter",
-    "boilerplate",
+    "security",
+    "formal-methods",
     "seo"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hansmartens68/astro-rocket"
+    "url": "https://github.com/hypergalois/hypergalois.github.io"
   },
-  "homepage": "https://github.com/hansmartens68/astro-rocket#readme",
+  "homepage": "https://hypergalois.github.io",
   "bugs": {
-    "url": "https://github.com/hansmartens68/astro-rocket/issues"
+    "url": "https://github.com/hypergalois/hypergalois.github.io/issues"
   },
   "scripts": {
     "dev": "astro dev",

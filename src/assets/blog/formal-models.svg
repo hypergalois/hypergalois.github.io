@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img">
+  <rect class="bg" width="1200" height="630" rx="34"/>
+  <path class="ln" d="M222 174h756v304H222z" fill="none" stroke-width="2"/>
+  <path class="ico" d="M342 390l118-150 105 92 126-172 168 230" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
+  <circle class="pil" cx="460" cy="240" r="38"/>
+  <circle class="pil" cx="565" cy="332" r="38"/>
+  <circle class="pil" cx="691" cy="160" r="38"/>
+  <text class="txt" x="92" y="548" font-family="Inter, system-ui, sans-serif" font-size="76" font-weight="750">FORMAL</text>
+  <text class="ptx" x="92" y="592" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="650">models make claims smaller</text>
+</svg>

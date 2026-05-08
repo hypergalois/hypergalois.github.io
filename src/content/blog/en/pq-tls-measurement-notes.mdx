@@ -1,0 +1,33 @@
+---
+title: "Measuring Post-Quantum TLS Without Losing the Plot"
+description: "A note on treating PQ-TLS migration as a systems measurement problem: traces, chains, fallbacks, sizes, and operational evidence."
+publishedAt: 2026-05-04
+author: "José Delgado"
+tags: ["PQC", "TLS", "Measurement"]
+featured: true
+locale: en
+image: "../../../assets/blog/pqc-tls-measurement.svg"
+svgSlug: "pqc-tls-measurement"
+imageAlt: "Abstract protocol measurement diagram for post-quantum TLS"
+---
+
+Post-quantum TLS is tempting to discuss as an algorithmic migration. In practice,
+the interesting surface is wider: handshake size, certificate path shape, server
+configuration, fallback behavior, middleboxes, and client support.
+
+The useful question is not "does this endpoint support a new primitive?" It is
+"what evidence do we have about the whole deployment path?"
+
+## What to measure
+
+- Handshake size and round-trip behavior
+- Certificate chain composition
+- Extension negotiation and fallback paths
+- Interoperability across clients and libraries
+- Failure modes that appear only under realistic network conditions
+
+## Why notes matter
+
+Measurement work becomes valuable when it is repeatable. A static report, a trace,
+and a small explanation can be more useful than a polished dashboard if the reader
+can inspect the evidence.

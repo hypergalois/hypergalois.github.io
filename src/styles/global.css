@@ -210,6 +210,14 @@
    Utilities
    ------------------------------------------------------------------------- */
 @layer utilities {
+  .tracking-tight,
+  .tracking-tighter,
+  .tracking-wider,
+  .tracking-widest,
+  .tracking-wide {
+    letter-spacing: 0 !important;
+  }
+
   /* Invert section - remaps Tailwind theme tokens for dark/contrast sections.
 
      Architecture: All CSS property declarations in this file reference --color-*

@@ -1,0 +1,26 @@
+---
+title: "WebAuthn Recovery Study"
+description: "A security review of account recovery flows around passkeys, WebAuthn, and the weak links that sit outside the cryptographic ceremony."
+tags: ["WebAuthn", "Recovery", "Authentication"]
+featured: false
+order: 5
+year: 2026
+role: "Security review"
+services: ["Threat modeling", "Recovery analysis", "UX security"]
+---
+
+## Problem
+
+Strong authentication often becomes weak at recovery time. The cryptographic
+ceremony can be excellent while the surrounding account lifecycle remains fragile.
+
+## Artifact
+
+This project studies recovery pathways as first-class security surfaces: backup
+credentials, device loss, helpdesk flows, identity proofing, and user-visible
+failure modes.
+
+## Why it matters
+
+For deployed authentication systems, the real security boundary includes every
+path that gets a user back into the account.
