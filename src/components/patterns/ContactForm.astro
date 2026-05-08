@@ -4,6 +4,7 @@ import Textarea from '@/components/ui/form/Textarea/Textarea.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import { cn } from '@/lib/cn';
+import siteConfig from '@/config/site.config';
 
 interface Props {
   action?: string;
@@ -12,8 +13,8 @@ interface Props {
 }
 
 const {
-  action = '/api/contact',
-  successMessage = 'Message sent successfully!',
+  action = `mailto:${siteConfig.email}`,
+  successMessage = 'Opening your email app...',
   class: className,
 } = Astro.props;
 ---
@@ -79,37 +80,28 @@ const {
 
     if (!form || !button || !message) return;
 
-    const successMessage = form.dataset.successMessage || 'Message sent successfully!';
+    const successMessage = form.dataset.successMessage || 'Opening your email app...';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       button.disabled = true;
-      button.textContent = 'Sending…';
+      button.textContent = 'Opening…';
       message.classList.add('hidden');
 
       try {
         const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          message.textContent = successMessage;
-          message.className = 'text-sm text-success';
-          form.reset();
-        } else {
-          const errors = data.errors
-            ? Object.values(data.errors).flat().join(', ')
-            : 'Something went wrong';
-          message.textContent = errors as string;
-          message.className = 'text-sm text-destructive';
-        }
+        const name = String(formData.get('name') || '').trim();
+        const email = String(formData.get('email') || '').trim();
+        const subject = String(formData.get('subject') || 'Portfolio contact').trim();
+        const body = String(formData.get('message') || '').trim();
+        const messageBody = [`Name: ${name}`, `Email: ${email}`, '', body].join('\n');
+        const url = `${form.action}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(messageBody)}`;
+        window.location.href = url;
+        message.textContent = successMessage;
+        message.className = 'text-sm text-success';
       } catch {
-        message.textContent = 'Failed to send message. Please try again.';
+        message.textContent = 'Could not open your email app. Please use the email link on this page.';
         message.className = 'text-sm text-destructive';
       } finally {
         button.disabled = false;

@@ -4,15 +4,20 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
-import vercel from '@astrojs/vercel';
 import netlify from '@astrojs/netlify';
+import vercel from '@astrojs/vercel';
 
-const isNetlify = process.env.DEPLOY_TARGET === 'netlify';
+const adapter =
+  process.env.DEPLOY_TARGET === 'netlify'
+    ? netlify()
+    : process.env.DEPLOY_TARGET === 'vercel'
+      ? vercel()
+      : undefined;
 
 export default defineConfig({
   output: 'static',
-  adapter: isNetlify ? netlify() : vercel(),
-  site: process.env.SITE_URL || 'https://example.com',
+  adapter,
+  site: process.env.SITE_URL || 'https://hypergalois.github.io',
 
   build: {
     inlineStylesheets: 'always',
