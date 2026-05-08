@@ -2,6 +2,8 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
+const researchLine = z.enum(['crypto-security', 'ml-ai-formal']);
+
 // Blog collection with Content Layer API
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
@@ -15,6 +17,7 @@ const blog = defineCollection({
       image: image().optional(),
       imageAlt: z.string().optional(),
       tags: z.array(z.string()).default([]),
+      line: researchLine.optional(),
       svgSlug: z.string().optional(),
       draft: z.boolean().default(false),
       featured: z.boolean().default(false),
@@ -76,6 +79,7 @@ const papers = defineCollection({
     status: z.string(),
     venue: z.string().optional(),
     tags: z.array(z.string()).default([]),
+    line: researchLine.optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
     pdf: z.string().optional(),
@@ -98,6 +102,7 @@ const projects = defineCollection({
       image: image().optional(),
       imageAlt: z.string().optional(),
       tags: z.array(z.string()).default([]),
+      line: researchLine.optional(),
       featured: z.boolean().default(false),
       order: z.number().default(99),
       year: z.number().optional(),

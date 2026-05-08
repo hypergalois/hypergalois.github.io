@@ -1,148 +1,102 @@
 ---
-import { Image } from 'astro:assets';
 import PageLayout from '@/layouts/PageLayout.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { Hero } from '@/components/hero';
+import { researchLines } from '@/data/researchLines';
 import { getCollection } from 'astro:content';
 
 const items = await getCollection('projects', ({ data }) => !data.draft);
 const projects = items.sort((a, b) => a.data.order - b.data.order);
-const featured = projects.filter((project) => project.data.featured);
-const regular = projects.filter((project) => !project.data.featured);
-const areas = [...new Set(projects.flatMap((project) => project.data.tags))].slice(0, 9);
+
+const slug = (id: string) => id.replace(/\.mdx?$/, '');
+const projectHref = (id: string) => `/projects/${slug(id)}`;
+
+const lineGroups = researchLines.map((line) => ({
+  ...line,
+  projects: projects.filter((project) => project.data.line === line.id),
+}));
 ---
 
 <PageLayout
-  title="Projects"
-  description="Selected research engineering artifacts: systems security, cryptography, formal methods, and high-assurance tooling."
+  title="Artifacts"
+  description="Research engineering artifacts grouped by crypto/security and ML/AI/formal systems."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
     <Badge slot="badge" variant="brand" pill>
       <Icon name="layers" size="sm" />
-      Selected work
+      Artifacts
     </Badge>
 
-    <h1 slot="title">Project artifacts.</h1>
+    <h1 slot="title">Artifacts by research line.</h1>
 
     <p slot="description">
-      A compact index of technical artifacts: measurement harnesses, formal models,
-      security tooling, and experiments with methods and outputs attached.
+      Project pages carry the artifact: method, implementation surface, evidence,
+      and current scope.
     </p>
   </Hero>
 
-  <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.6fr]" data-reveal>
-        <div>
-          <Badge variant="brand" pill class="mb-5">Index</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Systems, audits, and research prototypes.
-          </h2>
-        </div>
-        <div class="flex flex-col justify-end gap-4">
-          <p class="text-lg leading-relaxed text-foreground-muted">
-            Each entry names the question, method, produced artifact, and current scope.
-          </p>
-          <div class="flex flex-wrap gap-2">
-            {areas.map((area) => <Badge variant="brand">{area}</Badge>)}
-          </div>
-        </div>
-      </div>
-
-      {featured.length > 0 && (
-        <div class="grid gap-6">
-          {featured.map((project) => (
-            <Card
-              variant="elevated"
-              hover
-              padding="none"
-              href={`/projects/${project.id.replace(/\.mdx?$/, '')}`}
-              class="group overflow-hidden md:grid md:grid-cols-[1.05fr_1.25fr]"
-              data-reveal
-            >
-              {project.data.image ? (
-                <div class="overflow-hidden bg-background-tertiary">
-                  <Image
-                    src={project.data.image}
-                    alt={project.data.imageAlt || project.data.title}
-                    widths={[640, 960, 1280]}
-                    sizes="(max-width: 768px) 100vw, 48vw"
-                    class="aspect-video h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 md:aspect-auto"
-                    loading="lazy"
-                  />
-                </div>
-              ) : (
-                <div class="flex aspect-video items-center justify-center bg-gradient-to-br from-brand-500/20 to-background-tertiary md:aspect-auto">
-                  <Icon name="network" size="lg" class="text-brand-500" />
-                </div>
-              )}
-              <div class="flex min-h-[22rem] flex-col justify-between p-7">
-                <div>
-                  <div class="mb-5 flex items-start justify-between gap-4">
-                    <div class="flex flex-wrap gap-2">
-                      {project.data.tags.slice(0, 4).map((tag) => <Badge variant="brand">{tag}</Badge>)}
-                    </div>
-                    <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
-                  </div>
-                  <div class="mb-3 flex items-baseline gap-3">
-                    <h3 class="font-display text-2xl font-bold text-foreground">{project.data.title}</h3>
-                    {project.data.year && <span class="font-mono text-xs text-foreground-muted">{project.data.year}</span>}
-                  </div>
-                  <p class="max-w-2xl text-base leading-relaxed text-foreground-muted">{project.data.description}</p>
-                </div>
-                <div class="mt-8 flex flex-wrap gap-4 text-sm text-foreground-muted">
-                  {project.data.role && <span>{project.data.role}</span>}
-                  {project.data.services.length > 0 && <span>{project.data.services.slice(0, 2).join(' · ')}</span>}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      )}
-    </div>
-  </section>
-
-  {regular.length > 0 && (
-    <section class="border-t border-border bg-background py-[var(--space-section-md)]">
+  {lineGroups.map((line, index) => (
+    <section class={`border-t border-border ${index % 2 === 0 ? 'bg-background-secondary' : 'bg-background'} py-[var(--space-section-md)]`}>
       <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div class="grid gap-6 lg:grid-cols-[0.88fr_1.12fr]" data-reveal>
           <div class="flex flex-col gap-5">
-            <Badge variant="brand" pill class="self-start">More artifacts</Badge>
+            <Badge variant="brand" pill class="self-start">{line.eyebrow}</Badge>
             <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-              Focused experiments and supporting tools.
+              {line.title}
             </h2>
           </div>
-          <Button variant="outline" href="/papers">
-            View papers
-            <Icon name="arrow-right" size="sm" />
-          </Button>
+          <div class="flex flex-col justify-end gap-4">
+            <p class="text-lg leading-relaxed text-foreground-muted">{line.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {line.objects.map((object) => <Badge variant="brand">{object}</Badge>)}
+            </div>
+          </div>
         </div>
 
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {regular.map((project) => (
-            <Card variant="elevated" hover padding="lg" href={`/projects/${project.id.replace(/\.mdx?$/, '')}`} class="group flex min-h-[18rem] flex-col" data-reveal>
-              <div class="mb-4 flex items-start justify-between gap-4">
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500">
-                  <Icon name="file-code-2" size="sm" />
+        <div class="grid gap-6 md:grid-cols-2">
+          {line.projects.map((project) => (
+            <Card variant="elevated" hover padding="lg" href={projectHref(project.id)} class="group flex min-h-[18rem] flex-col" data-reveal>
+              <div class="mb-5 flex items-start justify-between gap-4">
+                <div class="flex flex-wrap gap-1.5">
+                  {project.data.tags.slice(0, 4).map((tag) => <Badge variant="brand">{tag}</Badge>)}
                 </div>
                 <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
               </div>
               <div class="mb-2 flex items-baseline gap-2">
-                <h3 class="font-display text-lg font-bold text-foreground">{project.data.title}</h3>
+                <h3 class="font-display text-xl font-bold text-foreground">{project.data.title}</h3>
                 {project.data.year && <span class="text-xs text-foreground-muted">{project.data.year}</span>}
               </div>
-              <p class="mb-5 flex-1 text-sm leading-relaxed text-foreground-muted">{project.data.description}</p>
-              <div class="flex flex-wrap gap-1.5">
-                {project.data.tags.slice(0, 3).map((tag) => <Badge variant="brand">{tag}</Badge>)}
+              <p class="flex-1 text-sm leading-relaxed text-foreground-muted">{project.data.description}</p>
+              <div class="mt-6 flex flex-wrap gap-4 text-sm text-foreground-muted">
+                {project.data.role && <span>{project.data.role}</span>}
+                {project.data.services.length > 0 && <span>{project.data.services.slice(0, 2).join(' · ')}</span>}
               </div>
             </Card>
           ))}
         </div>
       </div>
     </section>
-  )}
+  ))}
+
+  <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between" data-reveal>
+      <div>
+        <Badge variant="brand" pill class="mb-5">Manuscripts</Badge>
+        <h2 class="font-display text-3xl font-bold text-foreground">
+          Papers sit next to the artifacts.
+        </h2>
+        <p class="mt-3 max-w-2xl text-base leading-relaxed text-foreground-muted">
+          Each manuscript record links back to its project page and supporting note.
+        </p>
+      </div>
+      <Button variant="outline" href="/papers">
+        View papers
+        <Icon name="arrow-right" size="sm" />
+      </Button>
+    </div>
+  </section>
 </PageLayout>

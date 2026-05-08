@@ -1,12 +1,11 @@
 <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="400" height="400" rx="80" fill="#F94C10"/>
-  <text
-    x="200" y="200"
-    text-anchor="middle"
-    dominant-baseline="central"
-    fill="white"
-    font-family="system-ui, -apple-system, sans-serif"
-    font-weight="700"
-    font-size="260"
-  >A</text>
+  <rect width="400" height="400" rx="72" fill="#05070B"/>
+  <path d="M200 54 323 200 200 346 77 200 200 54Z" stroke="#93C5FD" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M200 104 281 200 200 296 119 200 200 104Z" stroke="#DBEAFE" stroke-width="10" stroke-linejoin="round" opacity=".82"/>
+  <path d="M77 200h246M200 54v292" stroke="#93C5FD" stroke-width="8" stroke-linecap="round" opacity=".56"/>
+  <circle cx="200" cy="200" r="24" fill="#F8FAFC"/>
+  <circle cx="200" cy="54" r="14" fill="#93C5FD"/>
+  <circle cx="323" cy="200" r="14" fill="#93C5FD"/>
+  <circle cx="200" cy="346" r="14" fill="#93C5FD"/>
+  <circle cx="77" cy="200" r="14" fill="#93C5FD"/>
 </svg>

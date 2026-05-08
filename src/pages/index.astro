@@ -5,148 +5,279 @@ import Button from '@/components/ui/form/Button/Button.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import BlogCard from '@/components/blog/BlogCard.astro';
-import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
+import { researchLines } from '@/data/researchLines';
 import { getCollection } from 'astro:content';
 
-const projectItems = await getCollection('projects', ({ data }) => !data.draft);
-const featuredProjects = projectItems
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 4);
+const projectItems = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
 
-const paperItems = await getCollection('papers', ({ data }) => !data.draft);
-const featuredPapers = paperItems
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 2);
+const paperItems = (await getCollection('papers', ({ data }) => !data.draft))
+  .sort((a, b) => a.data.order - b.data.order);
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const noteItems = (await getCollection('blog', ({ data }) => !data.draft))
   .filter((post) => post.data.locale === 'en')
   .sort((a, b) => {
     if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
     return b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf();
-  })
-  .slice(0, 3);
+  });
 
-const researchDirections = (await getCollection('topics'))
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((topic) => topic.data);
+const slug = (id: string) => id.replace(/^en\//, '').replace(/\.mdx?$/, '');
+const projectHref = (id: string) => `/projects/${slug(id)}`;
+const paperHref = (id: string) => `/papers/${slug(id)}`;
+const noteHref = (id: string) => `/blog/${slug(id)}`;
 
-const heroCards = [
+const lineGroups = researchLines.map((line) => ({
+  ...line,
+  projects: projectItems.filter((project) => project.data.line === line.id),
+  papers: paperItems.filter((paper) => paper.data.line === line.id),
+  notes: noteItems.filter((post) => post.data.line === line.id).slice(0, 2),
+}));
+
+const indexCards = [
   {
-    label: 'Protocol work',
-    body: 'TLS, DNSSEC, X.509, deployed boundaries.',
-    href: '/projects/pq-tls-observatory',
+    label: 'Artifacts',
+    title: 'Project pages',
+    body: 'Code, harnesses, reports, scope, and implementation notes.',
+    href: '/projects',
+    icon: 'layers',
   },
   {
-    label: 'Formal models',
-    body: 'State, transitions, invariants, proof obligations.',
-    href: '/projects/formal-stack-models',
-  },
-  {
-    label: 'Papers',
-    body: 'Manuscripts linked to artifacts and notes.',
+    label: 'Claims',
+    title: 'Papers',
+    body: 'Manuscripts tied to project evidence and technical notes.',
     href: '/papers',
+    icon: 'file-text',
+  },
+  {
+    label: 'Record',
+    title: 'Profile',
+    body: 'Academic frame, methods, areas, and contact surface.',
+    href: '/about',
+    icon: 'user-round',
   },
 ];
-
-const focusAreas = [
-  {
-    label: 'Post-quantum TLS and certificate assurance',
-    href: '/papers/pq-tls-measurement',
-  },
-  {
-    label: 'Protocol boundary testing and measurement',
-    href: '/projects/dnssec-boundary-lab',
-  },
-  {
-    label: 'Lean / formal models for security arguments',
-    href: '/projects/formal-stack-models',
-  },
-  {
-    label: 'Evaluation harnesses for automated research workflows',
-    href: '/projects/agentic-eval-harness',
-  },
-];
-
-const paperHref = (id: string) => `/papers/${id.replace(/\.mdx?$/, '')}`;
 ---
 
 <LandingLayout
   title="Research engineering portfolio"
-  description="A technical portfolio for systems security, formal methods, cryptographic infrastructure, and research-grade engineering."
+  description="A technical portfolio for systems security, formal methods, cryptographic infrastructure, AI evaluation, and research-grade engineering."
   image="/og-default.svg"
   includePersonSchema={true}
 >
-  <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator>
+  <Hero layout="centered" size="xl" class="hero-dark-gradient">
     <Badge slot="badge" variant="brand" pill pulse class="dark:text-brand-200">
-      Hypergalois · Systems security · Formal methods · Cryptographic infrastructure
+      José Luis Delgado · Hypergalois
     </Badge>
 
     <h1 slot="title" class="!text-[2.625rem] sm:!text-5xl md:!text-6xl lg:!text-7xl">
-      <span class="text-brand-700 dark:text-foreground [-webkit-text-fill-color:currentColor]">José Luis Delgado</span><br />
-      <span class="text-foreground [-webkit-text-fill-color:currentColor]">Research engineering for</span><br />
-      <span class="text-foreground [-webkit-text-fill-color:currentColor]">critical systems.</span>
+      <span class="text-brand-700 dark:text-foreground [-webkit-text-fill-color:currentColor]">Research artifacts</span><br />
+      <span class="text-foreground [-webkit-text-fill-color:currentColor]">for security, AI,</span><br />
+      <span class="text-foreground [-webkit-text-fill-color:currentColor]">and formal systems.</span>
     </h1>
 
     <p slot="description">
-      Systems security, formal methods, cryptographic infrastructure, and AI tooling,
-      organized around artifacts that can be inspected, rerun, and discussed.
+      Crypto/security work sits beside ML, AI, and formal systems. Each line links
+      artifacts, manuscript records, and technical notes.
     </p>
 
     <Fragment slot="actions">
-      <Button size="lg" href="/projects">
-        Explore work
-        <Icon name="arrow-right" size="sm" />
+      <Button size="lg" href="#crypto-security">
+        <Icon name="shield-check" size="sm" />
+        Crypto / PQC
       </Button>
-      <Button size="lg" variant="outline" href="/papers">
-        <Icon name="file-text" size="sm" />
-        Read papers
+      <Button size="lg" variant="outline" href="#ml-ai-formal">
+        <Icon name="brain-circuit" size="sm" />
+        ML / AI / Formal
       </Button>
     </Fragment>
 
-    <div class="mt-10 grid w-full max-w-4xl gap-3 sm:grid-cols-3">
-      {heroCards.map((item) => (
+    <div class="mt-10 grid w-full max-w-5xl gap-3 md:grid-cols-2">
+      {lineGroups.map((line) => (
         <a
-          href={item.href}
-          class="group rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-left shadow-lg backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-300/50 hover:bg-white/[0.07]"
+          href={`#${line.id}`}
+          class="group rounded-xl border border-white/10 bg-white/[0.04] p-5 text-left shadow-lg backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-300/50 hover:bg-white/[0.07]"
           data-reveal
         >
-          <p class="text-xs font-semibold uppercase tracking-wider text-brand-200">{item.label}</p>
-          <p class="mt-1 text-sm text-white/70">{item.body}</p>
+          <div class="mb-5 flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-brand-200">{line.eyebrow}</p>
+              <h2 class="mt-1 font-display text-2xl font-bold text-white">{line.title}</h2>
+            </div>
+            <Icon name={line.icon} size="lg" class="text-brand-200" />
+          </div>
+          <p class="text-sm leading-relaxed text-white/70">{line.description}</p>
+          <div class="mt-5 flex flex-wrap gap-2 text-xs font-medium text-white/60">
+            <span>{line.projects.length} artifacts</span>
+            <span>·</span>
+            <span>{line.papers.length} manuscripts</span>
+          </div>
         </a>
       ))}
     </div>
   </Hero>
 
-  <section id="research" class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.4fr]" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Research direction</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Work that sits between proof, measurement, and systems.
-          </h2>
+  {lineGroups.map((line, index) => (
+    <section
+      id={line.id}
+      class={`relative z-10 border-t border-border ${index % 2 === 0 ? 'bg-background-secondary' : 'bg-background'} py-[var(--space-section-md)]`}
+    >
+      <div class="mx-auto flex max-w-6xl flex-col gap-9 px-6">
+        <div class="grid gap-8 lg:grid-cols-[0.88fr_1.12fr]" data-reveal>
+          <div class="flex flex-col gap-5">
+            <Badge variant="brand" pill class="self-start">{line.eyebrow}</Badge>
+            <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+              {line.title}
+            </h2>
+            <p class="text-lg leading-relaxed text-foreground-muted">
+              {line.description}
+            </p>
+          </div>
+
+          <Card variant="elevated" padding="lg" class="h-fit">
+            <div class="flex flex-col gap-5">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Evidence surface</p>
+                <p class="mt-2 text-base leading-relaxed text-foreground-muted">{line.evidence}</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                {line.objects.map((object) => <Badge variant="brand">{object}</Badge>)}
+              </div>
+            </div>
+          </Card>
         </div>
-        <p class="text-lg leading-relaxed text-foreground-muted">
-          The work is grouped by the object under study and the evidence available:
-          measurements, executable models, certificate-path analysis, and evaluation
-          harnesses. Each page gives the method, artifact, and current boundary of the work.
+
+        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+          <div class="flex flex-col gap-4" data-reveal="right">
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-display text-2xl font-bold text-foreground">Artifacts</h3>
+              <a href="/projects" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-400">
+                All artifacts
+                <Icon name="arrow-right" size="sm" />
+              </a>
+            </div>
+
+            <div class="grid gap-4">
+              {line.projects.map((project) => (
+                <Card variant="elevated" hover padding="lg" href={projectHref(project.id)} class="group">
+                  <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <div class="mb-3 flex flex-wrap gap-1.5">
+                        {project.data.tags.slice(0, 3).map((tag) => <Badge variant="brand">{tag}</Badge>)}
+                      </div>
+                      <h4 class="font-display text-xl font-bold text-foreground">{project.data.title}</h4>
+                      <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{project.data.description}</p>
+                    </div>
+                    <Icon name="arrow-up-right" size="sm" class="mt-1 shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-6" data-reveal="left" data-reveal-delay="1">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center justify-between gap-4">
+                <h3 class="font-display text-2xl font-bold text-foreground">Papers</h3>
+                <a href="/papers" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-400">
+                  All papers
+                  <Icon name="arrow-right" size="sm" />
+                </a>
+              </div>
+
+              {line.papers.length > 0 ? (
+                <div class="grid gap-4">
+                  {line.papers.map((paper) => (
+                    <Card variant="elevated" padding="lg" class="flex flex-col gap-5">
+                      <div>
+                        <div class="mb-3 flex flex-wrap gap-1.5">
+                          <Badge variant="brand">{paper.data.status}</Badge>
+                          {paper.data.year && <Badge>{paper.data.year}</Badge>}
+                        </div>
+                        <a href={paperHref(paper.id)} class="font-display text-xl font-bold text-foreground transition-colors hover:text-brand-500">
+                          {paper.data.title}
+                        </a>
+                        <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{paper.data.description}</p>
+                      </div>
+                      <div class="flex flex-wrap gap-2">
+                        <Button size="sm" href={paperHref(paper.id)}>
+                          <Icon name="file-text" size="sm" />
+                          Paper
+                        </Button>
+                        {paper.data.project && (
+                          <Button size="sm" variant="outline" href={paper.data.project}>
+                            <Icon name="layers" size="sm" />
+                            Artifact
+                          </Button>
+                        )}
+                        {paper.data.note && (
+                          <Button size="sm" variant="outline" href={paper.data.note}>
+                            <Icon name="book-open" size="sm" />
+                            Note
+                          </Button>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <Card padding="lg">
+                  <p class="text-sm leading-relaxed text-foreground-muted">
+                    Manuscript records will appear here as this line matures.
+                  </p>
+                </Card>
+              )}
+            </div>
+
+            <div class="flex flex-col gap-4">
+              <h3 class="font-display text-2xl font-bold text-foreground">Notes</h3>
+              <div class="grid gap-3">
+                {line.notes.map((note) => (
+                  <a
+                    href={noteHref(note.id)}
+                    class="group rounded-lg border border-border bg-background p-4 transition-all hover:-translate-y-0.5 hover:border-brand-500/60 hover:shadow-md"
+                  >
+                    <p class="text-xs font-bold uppercase tracking-wider text-brand-500">Note</p>
+                    <h4 class="mt-2 text-base font-semibold text-foreground transition-colors group-hover:text-brand-500">
+                      {note.data.title}
+                    </h4>
+                    <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-foreground-muted">{note.data.description}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
+      <div class="max-w-3xl" data-reveal>
+        <Badge variant="brand" pill class="mb-5">Index</Badge>
+        <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+          Artifacts, papers, notes.
+        </h2>
+        <p class="mt-4 text-lg leading-relaxed text-foreground-muted">
+          Project pages carry artifacts. Papers state manuscript claims. Notes keep
+          the technical record close to the implementation.
         </p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-3">
-        {researchDirections.map((item, index) => (
-          <Card hover href={item.href} data-reveal data-reveal-delay={index} class="group">
+        {indexCards.map((item) => (
+          <Card hover padding="lg" href={item.href} class="group" data-reveal>
             <div class="flex h-full flex-col gap-5">
-              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/25 to-brand-500/5 text-brand-500">
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500">
                 <Icon name={item.icon} size="md" />
               </div>
               <div>
-                <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">{item.label}</p>
+                <h3 class="mt-2 font-display text-xl font-bold text-foreground">{item.title}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{item.body}</p>
               </div>
               <div class="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors group-hover:text-brand-400">
-                Read related notes
+                Open
                 <Icon name="arrow-right" size="sm" />
               </div>
             </div>
@@ -154,176 +285,5 @@ const paperHref = (id: string) => `/papers/${id.replace(/\.mdx?$/, '')}`;
         ))}
       </div>
     </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Selected systems</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Artifacts with inspectable evidence.
-          </h2>
-        </div>
-        <a href="/projects" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
-          View all projects
-          <Icon name="arrow-right" size="sm" />
-        </a>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        {featuredProjects.map((project) => (
-          <Card variant="elevated" hover padding="lg" href={`/projects/${project.id.replace(/\.mdx?$/, '')}`} class="group flex flex-col" data-reveal>
-            <div class="mb-4 flex items-start justify-between gap-4">
-              <div class="flex flex-wrap gap-1.5">
-                {project.data.tags.slice(0, 3).map((tag) => (
-                  <Badge variant="brand">{tag}</Badge>
-                ))}
-              </div>
-              <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
-            </div>
-            <div class="mb-2 flex items-baseline gap-2">
-              <h3 class="font-display text-xl font-bold text-foreground">{project.data.title}</h3>
-              {project.data.year && <span class="text-xs text-foreground-muted">{project.data.year}</span>}
-            </div>
-            <p class="flex-1 text-sm leading-relaxed text-foreground-muted">{project.data.description}</p>
-          </Card>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1fr_1.2fr]">
-      <Card variant="elevated" padding="lg" href="/papers" class="group overflow-hidden" data-reveal="right">
-        <Badge variant="brand" pill class="mb-6">Current focus</Badge>
-        <h2 class="font-display text-3xl font-bold text-foreground">
-          A technical index for research work.
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-foreground-muted">
-          Projects describe the artifact and method. Notes record implementation choices,
-          measurements, and modeling decisions. The homepage gives a compact map of the work.
-        </p>
-        <div class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors group-hover:text-brand-400">
-          Open papers
-          <Icon name="arrow-right" size="sm" />
-        </div>
-      </Card>
-
-      <div class="grid gap-3" data-reveal="left" data-reveal-delay="1">
-        {focusAreas.map((item, index) => (
-          <a href={item.href} class="group flex items-center justify-between gap-4 rounded-xl border border-border bg-background px-5 py-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-500/60 hover:shadow-md">
-            <div class="flex items-center gap-4">
-              <span class="font-mono text-xs text-brand-500">0{index + 1}</span>
-              <p class="text-sm font-medium text-foreground">{item.label}</p>
-            </div>
-            <Icon name="chevron-right" size="sm" class="shrink-0 text-foreground-subtle transition-colors group-hover:text-brand-500" />
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Papers</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Manuscripts connected to artifacts.
-          </h2>
-        </div>
-        <a href="/papers" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
-          View papers
-          <Icon name="arrow-right" size="sm" />
-        </a>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        {featuredPapers.map((paper) => (
-          <Card variant="elevated" hover padding="lg" href={paperHref(paper.id)} class="group flex min-h-[18rem] flex-col" data-reveal>
-            <div class="mb-5 flex items-start justify-between gap-4">
-              <div class="flex flex-wrap gap-1.5">
-                <Badge variant="brand">{paper.data.status}</Badge>
-                {paper.data.year && <Badge>{paper.data.year}</Badge>}
-              </div>
-              <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
-            </div>
-            <h3 class="font-display text-2xl font-bold text-foreground">{paper.data.title}</h3>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-foreground-muted">{paper.data.description}</p>
-            <div class="mt-6 flex flex-wrap gap-1.5">
-              {paper.data.tags.slice(0, 4).map((tag) => <Badge variant="brand">{tag}</Badge>)}
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Writing</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Notes with enough detail to be useful.
-          </h2>
-        </div>
-        <a href="/blog" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
-          View all notes
-          <Icon name="arrow-right" size="sm" />
-        </a>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-3">
-        {posts.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            href={`/blog/${post.id.replace('en/', '')}`}
-            publishedAt={post.data.publishedAt}
-            tags={post.data.tags}
-            author={post.data.author}
-            image={post.data.image}
-            svgSlug={post.data.svgSlug}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-md)]">
-    <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
-      <Badge variant="brand" pill class="mb-6">Next step</Badge>
-      <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        Research engineering, written plainly.
-      </h2>
-      <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
-      </p>
-      <Button size="lg" href="/contact" class="cta-btn-brand">
-        Get in touch
-        <Icon name="arrow-right" size="sm" />
-      </Button>
-    </div>
-
-    <LetterGlitchBand>
-      <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        Research engineering, written plainly.
-      </h2>
-      <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
-      </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <Button size="lg" href="/contact" class="hero-btn-brand">
-          Get in touch
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-        <Button size="lg" variant="outline" href="/about">
-          Profile
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-      </div>
-    </LetterGlitchBand>
   </section>
 </LandingLayout>
