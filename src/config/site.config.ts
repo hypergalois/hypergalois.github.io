@@ -58,29 +58,26 @@ export interface SiteConfig {
 }
 
 const siteConfig: SiteConfig = {
-  name: 'Astro Rocket',
+  name: 'Hypergalois',
   description:
-    'Astro Rocket — A production-ready Astro 6 starter with 12 beautiful themes, 57+ components, built-in i18n, dark mode and a fast, modern foundation to build anything on.',
-  url: SITE_URL || 'https://astrorocket.dev',
+    'Technical portfolio focused on systems security, formal methods, cryptographic infrastructure, and research-grade engineering.',
+  url: SITE_URL || 'https://hypergalois.github.io',
   ogImage: '/og-default.svg',
-  author: 'Hans Martens',
-  email: 'hello@hansmartens.dev',
+  author: 'José Delgado',
+  email: 'jose.delgado2@live.u-tad.com',
   address: {
     street: '',
-    city: 'Veghel',
+    city: 'Madrid',
     state: '',
     zip: '',
-    country: 'the Netherlands',
+    country: 'Spain',
   },
   socialLinks: [
-    'https://github.com/hansmartens68/Astro-Rocket',
-    'https://x.com/hansmartens_dev',
-    'https://www.linkedin.com',
-    'https://bsky.app/profile/hansmartens-online.bsky.social',
+    'https://github.com/hypergalois',
   ],
   twitter: {
-    site: 'https://x.com/hansmartens_dev',
-    creator: '@hansmartens_dev',
+    site: '',
+    creator: '',
   },
   verification: {
     google: GOOGLE_SITE_VERIFICATION,
@@ -90,7 +87,7 @@ const siteConfig: SiteConfig = {
   blogImageOverlay: true,
   branding: {
     logo: {
-      alt: 'Astro Rocket',
+      alt: 'Hypergalois',
       imageUrl: '/favicon.svg',
     },
     favicon: {
