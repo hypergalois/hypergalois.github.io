@@ -14,7 +14,7 @@ const channels = [
     icon: 'mail',
     label: 'Email',
     value: siteConfig.email,
-    note: 'Best for PhD, lab, and technical conversations',
+    caption: 'Best for PhD, lab, and technical conversations',
     href: `mailto:${siteConfig.email}`,
     external: false,
   },
@@ -22,7 +22,7 @@ const channels = [
     icon: link.icon,
     label: link.label,
     value: link.href.replace(/^https?:\/\/(www\.)?/, ''),
-    note: 'Code and public work',
+    caption: 'Code and public work',
     href: link.href,
     external: true,
   })),
@@ -60,7 +60,7 @@ const channels = [
         <div class="mb-4 flex items-start justify-between gap-4">
           <div>
             <Badge variant="brand" pill class="mb-4">Message</Badge>
-            <h2 class="font-display text-2xl font-bold text-foreground">Send a note</h2>
+            <h2 class="font-display text-2xl font-bold text-foreground">Send an email</h2>
           </div>
           <div class="hidden h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500 sm:flex">
             <Icon name="send" size="md" />
@@ -80,7 +80,7 @@ const channels = [
         <Badge variant="brand" pill class="mb-4">Channels</Badge>
         <h2 class="font-display text-2xl font-bold text-foreground">Where the work lives</h2>
         <p class="mt-2 max-w-xl text-sm leading-relaxed text-foreground-muted">
-          Email for conversations, GitHub for code, notes for technical context.
+          Email for conversations, GitHub for code, writing for technical context.
         </p>
       </div>
 
@@ -95,7 +95,7 @@ const channels = [
                 <div class="min-w-0 flex-1">
                   <p class="text-sm font-semibold text-foreground">{ch.label}</p>
                   <p class="truncate text-xs text-foreground-muted">{ch.value}</p>
-                  <p class="mt-1 text-xs text-foreground-subtle">{ch.note}</p>
+                  <p class="mt-1 text-xs text-foreground-subtle">{ch.caption}</p>
                 </div>
                 <Icon name="arrow-up-right" size="sm" class="shrink-0 text-foreground-muted transition-colors group-hover:text-brand-500" />
               </div>

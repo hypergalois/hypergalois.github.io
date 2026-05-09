@@ -27,7 +27,7 @@ export const researchLines = [
       'Evaluation harnesses, formal models, proof-oriented cleanup, and research workflows with explicit evidence trails.',
     objects: ['Agent traces', 'Lean models', 'State invariants', 'Run records'],
     evidence:
-      'Scenario records, tool-call logs, diffs, proof obligations, model boundaries, and review notes.',
+      'Scenario records, tool-call logs, diffs, proof obligations, model boundaries, and review records.',
   },
 ] as const;
 

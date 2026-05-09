@@ -1,29 +1,28 @@
 ---
-title: "Paper Pages, Notes, and Technical Material"
-description: "A short note on how this portfolio keeps papers as the main research record while linking code, measurements, and notes from each paper."
+title: "Paper Pages, Writing, and Technical Material"
+description: "A short piece on how this portfolio separates papers, public writing, and technical material."
 publishedAt: 2026-05-09
 author: "José Luis Delgado"
 tags: ["Portfolio", "Research Engineering", "MDX", "Example"]
 featured: false
 locale: en
 svgSlug: "portfolio-grammar"
-imageAlt: "Diagram connecting paper pages, notes, and technical material"
+imageAlt: "Diagram connecting paper pages, writing, and technical material"
 ---
 
 The paper page is the main research object on this site. It names the question,
 states the current claim, gives the method, and links the surrounding material:
-code, traces, models, measurements, and technical notes.
+code, traces, models, and measurements.
 
-Notes have a smaller job. A note can record a measurement choice, a protocol
-edge case, a modeling decision, or a useful implementation detail. It does not
-need the full structure of a paper.
+Writing has a different surface. It can record a measurement choice, a protocol
+edge case, a modeling decision, or a useful implementation detail.
 
 Technical material stays attached to the paper that gives it context.
 
 | Surface | Job | Typical contents |
 | --- | --- | --- |
 | Paper | Present the research record | question, method, evidence, scope |
-| Note | Explain a technical choice | measurements, sketches, examples |
+| Writing | Explain a technical choice | measurements, sketches, examples |
 | Material | Show the implementation surface | code, commands, traces, models |
 
 ## Page shape
@@ -41,7 +40,7 @@ paper:
   supporting_material:
     - code
     - measurements
-    - model notes
+    - model records
   scope:
     - sampling assumptions
     - parser assumptions
@@ -61,6 +60,5 @@ type PaperRecord = {
 
 ## Reading path
 
-The reader should be able to start from a paper, open the explanation, and then
-move to code or notes only when they want detail. That is the whole navigation
-model.
+The reader starts from the object they need: a paper for the research record,
+writing for technical context, or material for code and evidence.

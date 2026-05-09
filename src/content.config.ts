@@ -85,7 +85,6 @@ const papers = defineCollection({
     pdf: z.string().optional(),
     repo: z.string().optional(),
     project: z.string().optional(),
-    note: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

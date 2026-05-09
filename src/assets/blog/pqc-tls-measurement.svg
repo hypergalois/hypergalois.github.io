@@ -6,5 +6,5 @@
   <circle class="pil" cx="940" cy="445" r="46"/>
   <path class="ico" d="M260 185h190l150 130h190l150 130" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="18"/>
   <text class="txt" x="92" y="548" font-family="Inter, system-ui, sans-serif" font-size="76" font-weight="750">PQ-TLS</text>
-  <text class="ptx" x="92" y="592" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="650">measurement notes</text>
+  <text class="ptx" x="92" y="592" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="650">measurement record</text>
 </svg>

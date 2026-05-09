@@ -6,14 +6,13 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
-import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
 import { researchLines } from '@/data/researchLines';
 import { getCollection } from 'astro:content';
 
 const paperItems = (await getCollection('papers', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 
-const noteItems = (await getCollection('blog', ({ data }) => !data.draft))
+const writingItems = (await getCollection('blog', ({ data }) => !data.draft))
   .filter((post) => post.data.locale === 'en')
   .sort((a, b) => {
     if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
@@ -22,39 +21,14 @@ const noteItems = (await getCollection('blog', ({ data }) => !data.draft))
 
 const slug = (id: string) => id.replace(/^en\//, '').replace(/\.mdx?$/, '');
 const paperHref = (id: string) => `/papers/${slug(id)}`;
-const noteHref = (id: string) => `/blog/${slug(id)}`;
+const writingHref = (id: string) => `/blog/${slug(id)}`;
 
 const lineGroups = researchLines.map((line) => ({
   ...line,
   papers: paperItems.filter((paper) => paper.data.line === line.id),
-  notes: noteItems.filter((post) => post.data.line === line.id).slice(0, 2),
 }));
 
-const writing = noteItems.slice(0, 3);
-
-const indexCards = [
-  {
-    label: 'Papers',
-    title: 'Research record',
-    body: 'Working manuscripts with context, method, scope, and links to supporting material.',
-    href: '/papers',
-    icon: 'file-text',
-  },
-  {
-    label: 'Notes',
-    title: 'Technical context',
-    body: 'Shorter explanations for measurements, models, certificate paths, and evaluation design.',
-    href: '/blog',
-    icon: 'book-open',
-  },
-  {
-    label: 'Profile',
-    title: 'Academic frame',
-    body: 'Education, research areas, working methods, and contact routes.',
-    href: '/about',
-    icon: 'user-round',
-  },
-];
+const writing = writingItems.slice(0, 3);
 ---
 
 <LandingLayout
@@ -65,47 +39,47 @@ const indexCards = [
 >
   <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator>
     <Badge slot="badge" variant="brand" pill pulse class="dark:text-brand-200">
-      José Luis Delgado · Systems security · Formal methods · Cryptographic infrastructure
+      Systems security · Formal methods · Cryptographic infrastructure
     </Badge>
 
     <h1 slot="title" class="!text-[2.625rem] sm:!text-5xl md:!text-6xl lg:!text-7xl">
-      <span class="text-brand-700 dark:text-foreground [-webkit-text-fill-color:currentColor]">José Luis Delgado</span><br />
-      <span class="text-foreground [-webkit-text-fill-color:currentColor]">Research engineering for</span><br />
-      <span class="text-foreground [-webkit-text-fill-color:currentColor]">critical systems.</span>
+      <span class="block text-brand-200 [-webkit-text-fill-color:currentColor]">José Luis Delgado</span>
+      <span class="mt-3 block text-white [-webkit-text-fill-color:currentColor]">Research engineering for</span>
+      <span class="block text-white [-webkit-text-fill-color:currentColor]">critical systems.</span>
     </h1>
 
     <p slot="description">
-      Systems security, cryptographic infrastructure, formal methods, and AI tooling.
-      Papers are the main record; each paper opens into context, method, code, and notes.
+      Work across deployed security systems, cryptographic migration, formal models,
+      and evaluation infrastructure for AI-assisted research.
     </p>
 
     <Fragment slot="actions">
       <Button size="lg" href="/papers">
         <Icon name="file-text" size="sm" />
-        Read papers
+        Papers
       </Button>
-      <Button size="lg" variant="outline" href="/about">
-        Profile
+      <Button size="lg" variant="outline" href="/blog">
+        Writing
         <Icon name="arrow-right" size="sm" />
       </Button>
     </Fragment>
 
-    <div class="mt-10 grid w-full max-w-5xl gap-3 md:grid-cols-2">
+    <div class="mt-14 grid w-full max-w-4xl gap-4 md:grid-cols-2">
       {lineGroups.map((line) => (
         <a
           href={`#${line.id}`}
-          class="group rounded-xl border border-white/20 bg-black/35 p-5 text-left shadow-xl ring-1 ring-white/[0.04] backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-200/70 hover:bg-white/[0.10]"
+          class="group rounded-lg border border-white/20 bg-white/[0.06] p-6 text-left shadow-xl ring-1 ring-white/[0.04] backdrop-blur transition-all hover:-translate-y-0.5 hover:border-brand-200/80 hover:bg-white/[0.10]"
           data-reveal
         >
-          <div class="mb-4 flex items-start justify-between gap-4">
+          <div class="flex items-start justify-between gap-5">
             <div>
               <p class="text-xs font-semibold uppercase tracking-wider text-brand-200">{line.eyebrow}</p>
-              <h2 class="mt-1 font-display text-2xl font-bold text-white">{line.title}</h2>
+              <h2 class="mt-2 font-display text-2xl font-bold text-white">{line.shortTitle}</h2>
             </div>
-            <Icon name={line.icon} size="lg" class="text-brand-200" />
+            <Icon name={line.icon} size="lg" class="shrink-0 text-brand-200" />
           </div>
-          <p class="text-sm leading-relaxed text-white/75">{line.description}</p>
-          <div class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand-200 transition-colors group-hover:text-white">
+          <p class="mt-4 text-sm leading-relaxed text-white/72">{line.description}</p>
+          <div class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-200 transition-colors group-hover:text-white">
             View line
             <Icon name="arrow-right" size="sm" />
           </div>
@@ -117,10 +91,10 @@ const indexCards = [
   {lineGroups.map((line, index) => (
     <section
       id={line.id}
-      class={`relative z-10 border-t border-border ${index % 2 === 0 ? 'bg-background-secondary' : 'bg-background'} py-[var(--space-section-md)]`}
+      class={`relative z-10 border-t border-border ${index % 2 === 0 ? 'bg-background-secondary' : 'bg-background'} py-[var(--space-section-lg)]`}
     >
-      <div class="mx-auto flex max-w-6xl flex-col gap-9 px-6">
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]" data-reveal>
+      <div class="mx-auto flex max-w-5xl flex-col gap-12 px-6">
+        <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]" data-reveal>
           <div class="flex flex-col gap-5">
             <Badge variant="brand" pill class="self-start">{line.eyebrow}</Badge>
             <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
@@ -128,141 +102,72 @@ const indexCards = [
             </h2>
           </div>
 
-          <div class="flex flex-col justify-end gap-4">
+          <div class="self-end">
             <p class="text-lg leading-relaxed text-foreground-muted">
-              {line.description}
+              {line.evidence}
             </p>
-            <div class="flex flex-wrap gap-2">
+            <div class="mt-5 flex flex-wrap gap-2">
               {line.objects.map((object) => <Badge variant="brand">{object}</Badge>)}
             </div>
           </div>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-          <div class="flex flex-col gap-4" data-reveal="right">
-            <div class="flex items-center justify-between gap-4">
-              <h3 class="font-display text-2xl font-bold text-foreground">Papers</h3>
-              <a href="/papers" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-400">
-                All papers
-                <Icon name="arrow-right" size="sm" />
-              </a>
-            </div>
-
-            {line.papers.length > 0 ? (
-              <div class="grid gap-4">
-                {line.papers.map((paper) => (
-                  <Card variant="elevated" padding="lg" class="border-border-strong bg-background-tertiary/80">
-                    <div class="flex flex-col gap-5">
-                      <div>
-                        <div class="mb-3 flex flex-wrap gap-1.5">
-                          <Badge variant="brand">{paper.data.status}</Badge>
-                          {paper.data.year && <Badge>{paper.data.year}</Badge>}
-                        </div>
-                        <a href={paperHref(paper.id)} class="font-display text-xl font-bold text-foreground transition-colors hover:text-brand-500">
-                          {paper.data.title}
-                        </a>
-                        <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{paper.data.description}</p>
-                      </div>
-                      <div class="flex flex-wrap gap-2">
-                        <Button size="sm" href={paperHref(paper.id)}>
-                          <Icon name="file-text" size="sm" />
-                          Read paper
-                        </Button>
-                        {paper.data.project && (
-                          <Button size="sm" variant="outline" href={paper.data.project}>
-                            <Icon name="file-code-2" size="sm" />
-                            Material
-                          </Button>
-                        )}
-                        {paper.data.note && (
-                          <Button size="sm" variant="outline" href={paper.data.note}>
-                            <Icon name="book-open" size="sm" />
-                            Note
-                          </Button>
-                        )}
-                      </div>
+        {line.papers.length > 0 ? (
+          <div class="grid gap-5 md:grid-cols-2">
+            {line.papers.map((paper) => (
+              <Card variant="elevated" padding="lg" class="group flex min-h-[18rem] flex-col border-border-strong bg-background-tertiary/70" data-reveal>
+                <div class="flex h-full flex-col gap-6">
+                  <div>
+                    <div class="mb-4 flex flex-wrap gap-1.5">
+                      <Badge variant="brand">{paper.data.status}</Badge>
+                      {paper.data.year && <Badge>{paper.data.year}</Badge>}
                     </div>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <Card padding="lg">
-                <p class="text-sm leading-relaxed text-foreground-muted">
-                  Papers for this line will appear here.
-                </p>
+                    <a href={paperHref(paper.id)} class="font-display text-2xl font-bold leading-tight text-foreground transition-colors group-hover:text-brand-500">
+                      {paper.data.title}
+                    </a>
+                    <p class="mt-3 text-sm leading-relaxed text-foreground-muted">{paper.data.description}</p>
+                  </div>
+                  <div class="mt-auto flex flex-wrap gap-2">
+                    <Button size="sm" href={paperHref(paper.id)}>
+                      <Icon name="file-text" size="sm" />
+                      Read paper
+                    </Button>
+                    {paper.data.project && (
+                      <Button size="sm" variant="outline" href={paper.data.project}>
+                        <Icon name="file-code-2" size="sm" />
+                        Material
+                      </Button>
+                    )}
+                  </div>
+                </div>
               </Card>
-            )}
+            ))}
           </div>
-
-          <div class="flex flex-col gap-4" data-reveal="left" data-reveal-delay="1">
-            <h3 class="font-display text-2xl font-bold text-foreground">Notes</h3>
-            <div class="grid gap-3">
-              {line.notes.map((note) => (
-                <a
-                  href={noteHref(note.id)}
-                  class="group rounded-lg border border-border bg-background p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-500/60 hover:bg-background-tertiary hover:shadow-md"
-                >
-                  <p class="text-xs font-bold uppercase tracking-wider text-brand-500">Note</p>
-                  <h4 class="mt-2 text-base font-semibold text-foreground transition-colors group-hover:text-brand-500">
-                    {note.data.title}
-                  </h4>
-                  <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-foreground-muted">{note.data.description}</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+        ) : (
+          <Card padding="lg" data-reveal>
+            <p class="text-sm leading-relaxed text-foreground-muted">
+              Papers for this line will appear here.
+            </p>
+          </Card>
+        )}
       </div>
     </section>
   ))}
 
-  <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="max-w-3xl" data-reveal>
-        <Badge variant="brand" pill class="mb-5">Index</Badge>
-        <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-          Papers first, notes close by.
-        </h2>
-        <p class="mt-4 text-lg leading-relaxed text-foreground-muted">
-          The paper page is the entry point. Supporting code, measurements, and
-          implementation records stay attached to the paper that gives them context.
-        </p>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-3">
-        {indexCards.map((item) => (
-          <Card hover padding="lg" href={item.href} class="group border-border-strong bg-background-tertiary/80" data-reveal>
-            <div class="flex h-full flex-col gap-5">
-              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 text-brand-500">
-                <Icon name={item.icon} size="md" />
-              </div>
-              <div>
-                <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">{item.label}</p>
-                <h3 class="mt-2 font-display text-xl font-bold text-foreground">{item.title}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-foreground-muted">{item.body}</p>
-              </div>
-              <div class="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors group-hover:text-brand-400">
-                Open
-                <Icon name="arrow-right" size="sm" />
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-md)]">
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Writing</Badge>
+  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-lg)]">
+    <div class="mx-auto flex max-w-5xl flex-col gap-10 px-6">
+      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div class="max-w-2xl">
+          <Badge variant="brand" pill class="mb-5">Writing</Badge>
           <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Notes with enough detail to be useful.
+            Public writing.
           </h2>
+          <p class="mt-4 text-lg leading-relaxed text-foreground-muted">
+            Essays, measurement writeups, implementation records, and compact technical pieces.
+          </p>
         </div>
         <a href="/blog" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
-          View all notes
+          View writing
           <Icon name="arrow-right" size="sm" />
         </a>
       </div>
@@ -272,7 +177,7 @@ const indexCards = [
           <BlogCard
             title={post.data.title}
             description={post.data.description}
-            href={`/blog/${post.id.replace('en/', '')}`}
+            href={writingHref(post.id)}
             publishedAt={post.data.publishedAt}
             tags={post.data.tags}
             author={post.data.author}
@@ -284,38 +189,21 @@ const indexCards = [
     </div>
   </section>
 
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-md)]">
-    <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
-      <Badge variant="brand" pill class="mb-6">Next step</Badge>
-      <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        Research engineering, written plainly.
-      </h2>
-      <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
-      </p>
-      <Button size="lg" href="/contact" class="cta-btn-brand">
-        Get in touch
+  <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+    <div class="mx-auto flex max-w-5xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between" data-reveal>
+      <div>
+        <Badge variant="brand" pill class="mb-5">Contact</Badge>
+        <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
+          Research conversations.
+        </h2>
+        <p class="mt-3 max-w-2xl text-base leading-relaxed text-foreground-muted">
+          Email for PhD, lab, engineering, and collaboration conversations.
+        </p>
+      </div>
+      <Button size="lg" href="/contact">
+        Contact
         <Icon name="arrow-right" size="sm" />
       </Button>
     </div>
-
-    <LetterGlitchBand>
-      <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        Research engineering, written plainly.
-      </h2>
-      <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Security protocols, formal models, evaluation harnesses, and contact routes in one place.
-      </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <Button size="lg" href="/contact" class="hero-btn-brand">
-          Get in touch
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-        <Button size="lg" variant="outline" href="/about">
-          Profile
-          <Icon name="arrow-right" size="sm" />
-        </Button>
-      </div>
-    </LetterGlitchBand>
   </section>
 </LandingLayout>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Portfolio grammar diagram</title>
-  <desc id="desc">Editorial diagram showing notes, projects, and papers as connected research outputs.</desc>
+  <desc id="desc">Editorial diagram showing writing, material, and papers as connected research outputs.</desc>
   <rect width="1200" height="630" fill="#020617"/>
   <defs>
     <linearGradient id="g" x1="120" x2="1080" y1="120" y2="520" gradientUnits="userSpaceOnUse">
@@ -23,13 +23,13 @@
   <g font-family="Outfit, Inter, system-ui, sans-serif">
     <g transform="translate(175 235)">
       <rect width="250" height="198" rx="22" fill="#0f172a" stroke="#1d4ed8"/>
-      <text x="34" y="62" fill="#bfdbfe" font-size="24" font-weight="700">Notes</text>
+      <text x="34" y="62" fill="#bfdbfe" font-size="24" font-weight="700">Writing</text>
       <text x="34" y="104" fill="#e5e7eb" font-size="44" font-weight="800">Observation</text>
       <text x="34" y="145" fill="#94a3b8" font-size="20">short, public, useful</text>
     </g>
     <g transform="translate(475 205)">
       <rect width="250" height="258" rx="22" fill="#111827" stroke="#60a5fa"/>
-      <text x="34" y="66" fill="#bfdbfe" font-size="24" font-weight="700">Projects</text>
+      <text x="34" y="66" fill="#bfdbfe" font-size="24" font-weight="700">Code</text>
       <text x="34" y="112" fill="#f8fafc" font-size="44" font-weight="800">Material</text>
       <text x="34" y="154" fill="#94a3b8" font-size="20">code, data, harness</text>
       <path d="M35 196h180" stroke="#60a5fa" stroke-width="4" stroke-linecap="round"/>
