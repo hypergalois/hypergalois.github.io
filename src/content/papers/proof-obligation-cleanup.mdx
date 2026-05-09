@@ -1,0 +1,32 @@
+---
+title: "Proof-Obligation Cleanup for Systems Models"
+description: "A manuscript outline on reducing informal systems arguments into named state, transitions, invariants, and checkable obligations."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript outline"
+tags: ["Formal Methods", "Lean", "Systems"]
+line: "ml-ai-formal"
+featured: false
+order: 3
+pdf: "/papers/proof-obligation-cleanup.pdf"
+---
+
+## Abstract
+
+Formal systems work becomes harder when the informal claim carries too much
+state at once. This manuscript studies a cleanup pass for systems models:
+separate the state, name the transitions, state the invariant, and keep each
+obligation close to the behavior it constrains.
+
+## Methodology
+
+The workflow starts from a systems claim and extracts the objects it depends on:
+states, transitions, assumptions, invariants, and observable failures. Each
+object receives a narrow obligation. The paper then records which obligations
+can be discharged directly and which require changes to the model boundary.
+
+## Results
+
+The resulting structure gives a readable proof plan for systems models. It keeps
+informal explanation, executable checks, and proof obligations aligned without
+turning the page into a proof dump.

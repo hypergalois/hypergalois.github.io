@@ -1,0 +1,33 @@
+---
+title: "A Reproducible TLS 1.3 PKI Lab for PQC Migration"
+description: "A working manuscript on building classical, hybrid, and pure-PQC TLS 1.3 certificate hierarchies for migration experiments."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Working manuscript"
+tags: ["PQC", "TLS 1.3", "PKI", "OpenSSL"]
+line: "crypto-security"
+featured: true
+order: 3
+pdf: "/papers/pqc-tls13-pki-lab.pdf"
+repo: "https://github.com/hypergalois/pqc-tls13-pki-lab"
+---
+
+## Abstract
+
+Post-quantum TLS experiments need a controlled PKI surface before deployment
+measurements are meaningful. This manuscript describes a reproducible TLS 1.3
+lab for classical, hybrid, and pure-PQC certificate hierarchies, with explicit
+topologies, certificate material, server configurations, and client probes.
+
+## Methodology
+
+The lab fixes the variables that usually blur migration experiments: CA
+hierarchy, endpoint configuration, supported groups, certificate algorithms,
+chain shape, and OpenSSL build assumptions. Each scenario records the generated
+material, negotiated parameters, transcript evidence, and observed failure mode.
+
+## Results
+
+The lab gives a stable testbed for comparing PQC migration behavior across
+certificate hierarchy choices and TLS 1.3 negotiation modes. It is designed for
+repeatable experiments before wider endpoint measurement.

@@ -14,7 +14,7 @@ export const education = [
     institution: 'Independent research work',
     details: [
       'Post-quantum TLS measurement, X.509 assurance, DNSSEC boundary testing, Lean models, and agent evaluation harnesses.',
-      'Outputs organized as papers, public writing, code pages, and implementation records.',
+      'Outputs organized as papers, code repositories, and implementation records.',
     ],
   },
 ];

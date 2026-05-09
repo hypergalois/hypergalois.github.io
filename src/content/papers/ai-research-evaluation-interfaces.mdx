@@ -1,0 +1,32 @@
+---
+title: "Evaluation Interfaces for AI Research Tools"
+description: "A manuscript outline on interface design for comparing tool-using AI systems through scenarios, traces, diffs, and review records."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript outline"
+tags: ["AI Systems", "Evaluation", "Research Tools"]
+line: "ml-ai-formal"
+featured: false
+order: 4
+pdf: "/papers/ai-research-evaluation-interfaces.pdf"
+---
+
+## Abstract
+
+Tool-using AI systems need evaluation interfaces that expose the run, not only
+the final answer. This manuscript describes a comparison interface for research
+tasks, with scenario inputs, tool traces, touched files, diffs, failure labels,
+and review records.
+
+## Methodology
+
+Each scenario defines the task, allowed tools, expected evidence, and review
+criteria. Runs are stored as structured traces with normalized summaries for
+comparison. The interface separates task outcome, process evidence, and failure
+classification so reviewers can inspect the run without replaying every step.
+
+## Results
+
+The proposed interface turns agent evaluation into a reviewable research
+object. It supports comparison across models and prompts while preserving the
+evidence needed to explain a pass, failure, or partial recovery.

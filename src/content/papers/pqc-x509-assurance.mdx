@@ -8,7 +8,8 @@ tags: ["X.509", "PQC", "Certificates", "Assurance"]
 line: "crypto-security"
 featured: true
 order: 2
-project: "/projects/x509-pqc-assurance"
+pdf: "/papers/pqc-x509-assurance.pdf"
+repo: "https://github.com/hypergalois/pqc-x509-assurance"
 ---
 
 ## Abstract
@@ -18,13 +19,15 @@ path-building behavior, transport limits, and validation assumptions. This
 manuscript organizes assurance around reproducible cases: corpus entries,
 validator decisions, parser behavior, and lint reports.
 
-## Record
+## Methodology
 
-- Object: X.509 certificate paths under post-quantum structures.
-- Method: parser tests, path validation experiments, and regression cases.
-- Evidence: lint reports, validator outputs, and minimized examples.
-- Scope: certificate assurance for migration analysis and tooling review.
+The harness builds certificate-path cases with classical, hybrid, and
+post-quantum material. Each case is parsed, linted, minimized where useful, and
+checked against path-validation behavior. The paper records which assumptions
+move when certificate size, algorithm identifiers, and chain composition change.
 
-## Links
+## Results
 
-The project page contains the assurance harness and certificate-path framing.
+The current results isolate assurance boundaries for post-quantum X.509:
+parser stress, transport limits, path-building assumptions, and regression
+cases that should remain visible during migration.

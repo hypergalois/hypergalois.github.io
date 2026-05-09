@@ -8,7 +8,8 @@ tags: ["PQC", "TLS", "Measurement", "Security"]
 line: "crypto-security"
 featured: true
 order: 1
-project: "/projects/pq-tls-observatory"
+pdf: "/papers/pq-tls-measurement.pdf"
+repo: "https://github.com/hypergalois/pqc-tls-observability"
 ---
 
 ## Abstract
@@ -16,15 +17,19 @@ project: "/projects/pq-tls-observatory"
 Post-quantum TLS migration changes deployed protocol behavior across handshake
 size, certificate-chain composition, fallback paths, client support, and
 middlebox behavior. This manuscript frames migration evidence as a measurement
-object: traces, normalized observations, static reports, and scope records.
+object: traces, normalized observations, static reports, and scoped deployment evidence.
 
-## Record
+## Methodology
 
-- Object: deployed TLS behavior under post-quantum migration pressure.
-- Method: endpoint probing, trace capture, chain inspection, and normalized reports.
-- Evidence: comparable runs, raw traces, summarized outputs, and failure labels.
-- Scope: measurement design and supporting material for research review.
+The measurement pipeline separates endpoint capability, negotiated parameters,
+certificate-chain shape, fallback behavior, and report normalization. Each run
+records the probe configuration, endpoint response, cryptographic material, and
+failure label. The resulting tables keep raw observations close to the summary
+fields used for comparison.
 
-## Links
+## Results
 
-The material page contains the measurement setup and reproducible surface.
+The current record gives a deployment-oriented grammar for PQ-TLS readiness:
+what was offered, what was negotiated, how the certificate path changed, and
+where interoperability failed. The code repository contains the public
+observability framework.

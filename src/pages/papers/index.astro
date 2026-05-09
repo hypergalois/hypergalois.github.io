@@ -21,7 +21,7 @@ const lineGroups = researchLines.map((line) => ({
 
 <PageLayout
   title="Papers"
-  description="Papers grouped by research line, with context and supporting technical material attached."
+  description="Papers grouped by research line, with abstract, methodology, results, PDF, and code links where available."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
@@ -33,7 +33,7 @@ const lineGroups = researchLines.map((line) => ({
     <h1 slot="title">Papers by research line.</h1>
 
     <p slot="description">
-      Each paper opens into a readable explanation and keeps the supporting material close.
+      Each paper page carries the abstract, methodology, results, and external links.
     </p>
   </Hero>
 
@@ -75,10 +75,16 @@ const lineGroups = researchLines.map((line) => ({
                     <Icon name="file-text" size="sm" />
                     Read paper
                   </Button>
-                  {paper.data.project && (
-                    <Button size="sm" variant="outline" href={paper.data.project}>
-                      <Icon name="file-code-2" size="sm" />
-                      Material
+                  {paper.data.pdf && (
+                    <Button size="sm" variant="outline" href={paper.data.pdf} target="_blank" rel="noopener noreferrer">
+                      <Icon name="file-down" size="sm" />
+                      PDF
+                    </Button>
+                  )}
+                  {paper.data.repo && (
+                    <Button size="sm" variant="outline" href={paper.data.repo} target="_blank" rel="noopener noreferrer">
+                      <Icon name="github" size="sm" />
+                      Code
                     </Button>
                   )}
                 </div>

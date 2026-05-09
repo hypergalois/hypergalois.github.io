@@ -7,8 +7,8 @@ status: "Manuscript outline"
 tags: ["AI Systems", "Evaluation", "Research Engineering"]
 line: "ml-ai-formal"
 featured: false
-order: 3
-project: "/projects/agentic-eval-harness"
+order: 2
+pdf: "/papers/agentic-research-evidence-trails.pdf"
 ---
 
 ## Abstract
@@ -18,13 +18,15 @@ calls, intermediate decisions, touched files, failure labels, recovery behavior,
 and final outputs. This manuscript outline treats agent runs as experimental
 records that support comparison across systems and prompts.
 
-## Record
+## Methodology
 
-- Object: automated research work across tool-using agents.
-- Method: scenario design, trace capture, failure labeling, and human review.
-- Evidence: tool-call logs, diffs, outputs, and review records.
-- Scope: evaluation scaffolding for research engineering workflows.
+The evaluation record stores the initial task, tool calls, touched files,
+intermediate outputs, failure labels, recovery actions, and final diff. Runs are
+compared at the scenario level, with enough structure to inspect both successful
+and failed attempts.
 
-## Links
+## Results
 
-The project page contains the harness structure and evaluation record.
+The manuscript defines an evidence trail for agentic research workflows: a run
+can be audited, replayed at the level of decisions, and compared across prompts,
+models, and tool environments.

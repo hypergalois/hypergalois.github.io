@@ -1,0 +1,33 @@
+---
+title: "Handshake Cost and Size in PQC TLS 1.3"
+description: "A working manuscript on benchmarking classical, hybrid, and post-quantum TLS 1.3 configurations through latency, CPU cost, and handshake size."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Working manuscript"
+tags: ["PQC", "TLS 1.3", "Benchmarking", "Systems"]
+line: "crypto-security"
+featured: true
+order: 4
+pdf: "/papers/pqc-tls13-benchmarks.pdf"
+repo: "https://github.com/hypergalois/pqc-tls13-benchmarks"
+---
+
+## Abstract
+
+Post-quantum TLS 1.3 changes the operational cost of a handshake. This
+manuscript measures handshake latency, CPU overhead, and transmitted bytes for
+classical, hybrid, and post-quantum configurations under controlled conditions.
+
+## Methodology
+
+The benchmark fixes client, server, network, and cryptographic configuration
+before varying the key exchange and certificate profile. Each run records timing
+data, CPU measurements, handshake size, negotiated parameters, and failure
+conditions. The comparison is organized around reproducible command lines and
+stable report schemas.
+
+## Results
+
+The current results make migration cost visible at the systems level:
+handshake-size growth, latency shifts, CPU overhead, and configuration-dependent
+tradeoffs across classical, hybrid, and post-quantum TLS 1.3.

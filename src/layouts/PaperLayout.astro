@@ -19,7 +19,6 @@ interface Props {
   tags?: string[];
   pdf?: string;
   repo?: string;
-  project?: string;
 }
 
 const {
@@ -32,7 +31,6 @@ const {
   tags = [],
   pdf,
   repo,
-  project,
 } = Astro.props;
 
 const breadcrumbs = [
@@ -44,7 +42,6 @@ const breadcrumbs = [
 const links = [
   pdf && { label: 'PDF', href: pdf, icon: 'file-down', external: true },
   repo && { label: 'Code', href: repo, icon: 'github', external: true },
-  project && { label: 'Material', href: project, icon: 'file-code-2', external: false },
 ].filter(Boolean) as { label: string; href: string; icon: string; external: boolean }[];
 ---
 

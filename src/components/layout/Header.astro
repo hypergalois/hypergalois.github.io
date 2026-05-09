@@ -187,26 +187,34 @@ const buttonId = `${menuId}-button`;
           </nav>
         ) : (
           <nav class="hidden items-center gap-1 md:flex" aria-label="Main navigation">
-            {navItems.map(({ label, href }) => (
-              <a
-                href={href.startsWith('#') && !isLandingPage ? `/${href}` : href}
-                class={cn(
-                  'nav-link relative rounded-md px-3 py-2 text-sm',
-                  'transition-all duration-(--transition-fast)',
-                  isFloating && 'hdr-invert-text',
-                  isFloating
-                    ? (isActive(href)
-                        ? 'hdr-nav-active font-semibold'
-                        : 'font-medium opacity-80 hover:opacity-100')
-                    : (isActive(href)
-                        ? 'nav-link-active font-semibold text-foreground bg-secondary'
-                        : 'nav-link-inactive font-medium text-foreground-muted hover:text-foreground hover:bg-secondary/70')
-                )}
-                aria-current={isActive(href) ? 'page' : undefined}
-              >
-                {label}
-              </a>
-            ))}
+            {navItems.map(({ label, href }) => {
+              const isPaperNav = label === 'Papers';
+
+              return (
+                <a
+                  href={href.startsWith('#') && !isLandingPage ? `/${href}` : href}
+                  class={cn(
+                    'nav-link relative rounded-md px-3 py-2 text-sm',
+                    'transition-all duration-(--transition-fast)',
+                    isFloating && 'hdr-invert-text',
+                    isPaperNav
+                      ? (isFloating
+                          ? 'border border-brand-200/45 bg-white/[0.12] font-semibold text-white opacity-100 shadow-sm hover:bg-white/[0.18]'
+                          : 'border border-brand-500/30 bg-brand-500/10 font-semibold text-brand-600 hover:bg-brand-500/15 dark:text-brand-300')
+                      : (isFloating
+                          ? (isActive(href)
+                              ? 'hdr-nav-active font-semibold'
+                              : 'font-medium opacity-80 hover:opacity-100')
+                          : (isActive(href)
+                              ? 'nav-link-active font-semibold text-foreground bg-secondary'
+                              : 'nav-link-inactive font-medium text-foreground-muted hover:text-foreground hover:bg-secondary/70'))
+                  )}
+                  aria-current={isActive(href) ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+              );
+            })}
           </nav>
         ))
     }
@@ -368,21 +376,27 @@ const buttonId = `${menuId}-button`;
             'space-y-1 py-4',
             isFloating ? 'px-4' : 'mx-auto max-w-6xl px-6'
           )}>
-            {navItems.map(({ label, href }) => (
-              <a
-                href={href.startsWith('#') && !isLandingPage ? `/${href}` : href}
-                class={cn(
-                  'mobile-nav-link block rounded-md px-3 py-2 text-sm',
-                  'transition-all duration-(--transition-fast)',
-                  isActive(href)
-                    ? 'mobile-nav-link-active bg-secondary text-foreground font-semibold'
-                    : 'mobile-nav-link-inactive text-foreground-muted hover:bg-secondary/70 hover:text-foreground font-medium'
-                )}
-                aria-current={isActive(href) ? 'page' : undefined}
-              >
-                {label}
-              </a>
-            ))}
+            {navItems.map(({ label, href }) => {
+              const isPaperNav = label === 'Papers';
+
+              return (
+                <a
+                  href={href.startsWith('#') && !isLandingPage ? `/${href}` : href}
+                  class={cn(
+                    'mobile-nav-link block rounded-md px-3 py-2 text-sm',
+                    'transition-all duration-(--transition-fast)',
+                    isPaperNav
+                      ? 'border border-brand-500/30 bg-brand-500/10 font-semibold text-brand-600 dark:text-brand-300'
+                      : (isActive(href)
+                          ? 'mobile-nav-link-active bg-secondary text-foreground font-semibold'
+                          : 'mobile-nav-link-inactive text-foreground-muted hover:bg-secondary/70 hover:text-foreground font-medium')
+                  )}
+                  aria-current={isActive(href) ? 'page' : undefined}
+                >
+                  {label}
+                </a>
+              );
+            })}
 
             {showCta && (
               <div class="border-border mt-3 border-t pt-3">

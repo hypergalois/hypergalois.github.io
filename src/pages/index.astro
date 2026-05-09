@@ -5,30 +5,19 @@ import Button from '@/components/ui/form/Button/Button.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import BlogCard from '@/components/blog/BlogCard.astro';
 import { researchLines } from '@/data/researchLines';
 import { getCollection } from 'astro:content';
 
 const paperItems = (await getCollection('papers', ({ data }) => !data.draft))
   .sort((a, b) => a.data.order - b.data.order);
 
-const writingItems = (await getCollection('blog', ({ data }) => !data.draft))
-  .filter((post) => post.data.locale === 'en')
-  .sort((a, b) => {
-    if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-    return b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf();
-  });
-
 const slug = (id: string) => id.replace(/^en\//, '').replace(/\.mdx?$/, '');
 const paperHref = (id: string) => `/papers/${slug(id)}`;
-const writingHref = (id: string) => `/blog/${slug(id)}`;
 
 const lineGroups = researchLines.map((line) => ({
   ...line,
-  papers: paperItems.filter((paper) => paper.data.line === line.id),
+  papers: paperItems.filter((paper) => paper.data.line === line.id).slice(0, 4),
 }));
-
-const writing = writingItems.slice(0, 3);
 ---
 
 <LandingLayout
@@ -58,8 +47,8 @@ const writing = writingItems.slice(0, 3);
         <Icon name="file-text" size="sm" />
         Papers
       </Button>
-      <Button size="lg" variant="outline" href="/blog">
-        Writing
+      <Button size="lg" variant="outline" href="/about">
+        About
         <Icon name="arrow-right" size="sm" />
       </Button>
     </Fragment>
@@ -93,7 +82,7 @@ const writing = writingItems.slice(0, 3);
       id={line.id}
       class={`relative z-10 border-t border-border ${index % 2 === 0 ? 'bg-background-secondary' : 'bg-background'} py-[var(--space-section-lg)]`}
     >
-      <div class="mx-auto flex max-w-5xl flex-col gap-12 px-6">
+      <div class="mx-auto flex max-w-6xl flex-col gap-12 px-6">
         <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]" data-reveal>
           <div class="flex flex-col gap-5">
             <Badge variant="brand" pill class="self-start">{line.eyebrow}</Badge>
@@ -132,10 +121,16 @@ const writing = writingItems.slice(0, 3);
                       <Icon name="file-text" size="sm" />
                       Read paper
                     </Button>
-                    {paper.data.project && (
-                      <Button size="sm" variant="outline" href={paper.data.project}>
-                        <Icon name="file-code-2" size="sm" />
-                        Material
+                    {paper.data.pdf && (
+                      <Button size="sm" variant="outline" href={paper.data.pdf} target="_blank" rel="noopener noreferrer">
+                        <Icon name="file-down" size="sm" />
+                        PDF
+                      </Button>
+                    )}
+                    {paper.data.repo && (
+                      <Button size="sm" variant="outline" href={paper.data.repo} target="_blank" rel="noopener noreferrer">
+                        <Icon name="github" size="sm" />
+                        Code
                       </Button>
                     )}
                   </div>
@@ -153,41 +148,6 @@ const writing = writingItems.slice(0, 3);
       </div>
     </section>
   ))}
-
-  <section class="relative z-10 border-t border-border bg-background py-[var(--space-section-lg)]">
-    <div class="mx-auto flex max-w-5xl flex-col gap-10 px-6">
-      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between" data-reveal>
-        <div class="max-w-2xl">
-          <Badge variant="brand" pill class="mb-5">Writing</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            Public writing.
-          </h2>
-          <p class="mt-4 text-lg leading-relaxed text-foreground-muted">
-            Essays, measurement writeups, implementation records, and compact technical pieces.
-          </p>
-        </div>
-        <a href="/blog" class="inline-flex items-center gap-1.5 text-sm font-medium text-brand-500 transition-colors hover:text-brand-600">
-          View writing
-          <Icon name="arrow-right" size="sm" />
-        </a>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-3">
-        {writing.map((post) => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            href={writingHref(post.id)}
-            publishedAt={post.data.publishedAt}
-            tags={post.data.tags}
-            author={post.data.author}
-            image={post.data.image}
-            svgSlug={post.data.svgSlug}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
 
   <section class="relative z-10 border-t border-border bg-background-secondary py-[var(--space-section-md)]">
     <div class="mx-auto flex max-w-5xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between" data-reveal>
