@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
-  <title id="title">Research artifact workbench</title>
+  <title id="title">Research record workbench</title>
   <desc id="desc">A dark workbench interface with traces, checks, and evidence cards.</desc>
   <rect width="1200" height="760" fill="#020617"/>
   <defs>
@@ -18,7 +18,7 @@
   <circle cx="214" cy="159" r="8" fill="#2563eb"/>
   <circle cx="244" cy="159" r="8" fill="#1d4ed8"/>
   <g font-family="JetBrains Mono, ui-monospace, monospace" font-size="18">
-    <text x="284" y="166" fill="#bfdbfe">artifact://tls-boundary/workbench</text>
+    <text x="284" y="166" fill="#bfdbfe">record://tls-boundary/workbench</text>
   </g>
   <g transform="translate(150 226)">
     <rect width="262" height="342" rx="22" fill="#020617" stroke="#1e40af"/>

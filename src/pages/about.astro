@@ -21,7 +21,7 @@ const principles = [
   },
   {
     icon: 'git-branch',
-    title: 'Ship inspectable artifacts',
+    title: 'Keep the record inspectable',
     body: 'Keep research code readable, reproducible, and documented enough for later inspection.',
   },
 ];
@@ -60,7 +60,7 @@ const profileSignals = [
       <div class="flex flex-col justify-center gap-5" data-reveal="right">
         <Badge variant="brand" pill class="self-start">Research posture</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-          Build the artifact, test the claim, state the boundary.
+          Write the claim, test the system, show the boundary.
         </h2>
         <p class="text-lg leading-relaxed text-foreground-muted">
           My work sits around systems security, cryptographic infrastructure,
@@ -68,8 +68,8 @@ const profileSignals = [
           claim supported by code, traces, models, or reproducible experiments.
         </p>
         <p class="text-lg leading-relaxed text-foreground-muted">
-          The portfolio favors artifact-led pages: question, method, implementation
-          notes, results, and scope.
+          The portfolio favors paper pages with question, method, evidence,
+          implementation notes, results, and scope.
         </p>
       </div>
 
@@ -78,7 +78,7 @@ const profileSignals = [
           <div>
             <p class="text-xs font-bold uppercase tracking-wider text-foreground-muted">Profile signal</p>
             <h3 class="mt-1 font-display text-2xl font-bold text-foreground">José Luis Delgado</h3>
-            <p class="mt-1 text-sm text-foreground-muted">Hypergalois on GitHub</p>
+            <p class="mt-1 text-sm text-foreground-muted">Research engineering</p>
           </div>
           <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500/30 to-brand-500/5 text-brand-500">
             <Icon name="atom" size="lg" />
@@ -103,8 +103,7 @@ const profileSignals = [
           Education and research profile.
         </h2>
         <p class="text-lg leading-relaxed text-foreground-muted">
-          Academic record, research areas, and working methods for the projects,
-          papers, and notes.
+          Academic record, research areas, and working methods for the papers and notes.
         </p>
         <div class="grid gap-2 sm:grid-cols-2">
           {cvRecords.map((record) => (
@@ -175,7 +174,7 @@ const profileSignals = [
       <Card variant="elevated" padding="lg" data-reveal="right">
         <Badge variant="brand" pill class="mb-6">Research fit</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          Problems, methods, artifacts.
+          Problems, methods, evidence.
         </h2>
         <p class="mt-4 text-base leading-relaxed text-foreground-muted">
           Work is grouped by systems questions: post-quantum migration,
@@ -199,31 +198,31 @@ const profileSignals = [
     <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
       <Badge variant="brand" pill class="mb-6">Next</Badge>
       <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        The artifacts carry the argument.
+        Papers carry the work.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Projects, papers, and notes carry the technical record; this page gives the frame.
+        Each paper links the surrounding technical material; this page gives the frame.
       </p>
-      <Button size="lg" href="/projects" class="cta-btn-brand">
-        Explore projects
+      <Button size="lg" href="/papers" class="cta-btn-brand">
+        Read papers
         <Icon name="arrow-right" size="sm" />
       </Button>
     </div>
 
     <LetterGlitchBand>
       <h2 class="mb-4 font-display text-4xl font-bold text-foreground text-balance">
-        The artifacts carry the argument.
+        Papers carry the work.
       </h2>
       <p class="mb-8 text-lg text-foreground-muted text-balance">
-        Projects, papers, and notes carry the technical record; this page gives the frame.
+        Each paper links the surrounding technical material; this page gives the frame.
       </p>
       <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <Button size="lg" href="/projects" class="hero-btn-brand">
-          Explore projects
+        <Button size="lg" href="/papers" class="hero-btn-brand">
+          Read papers
           <Icon name="arrow-right" size="sm" />
         </Button>
-        <Button size="lg" variant="outline" href="/papers">
-          Read papers
+        <Button size="lg" variant="outline" href="/contact">
+          Contact
           <Icon name="arrow-right" size="sm" />
         </Button>
       </div>

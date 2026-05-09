@@ -21,21 +21,20 @@ const lineGroups = researchLines.map((line) => ({
 ---
 
 <PageLayout
-  title="Artifacts"
-  description="Research engineering artifacts grouped by crypto/security and ML/AI/formal systems."
+  title="Technical material"
+  description="Supporting code pages, measurement harnesses, models, and implementation records linked from papers."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
     <Badge slot="badge" variant="brand" pill>
       <Icon name="layers" size="sm" />
-      Artifacts
+      Material
     </Badge>
 
-    <h1 slot="title">Artifacts by research line.</h1>
+    <h1 slot="title">Technical material.</h1>
 
     <p slot="description">
-      Project pages carry the artifact: method, implementation surface, evidence,
-      and current scope.
+      Code pages, harnesses, models, and implementation records used by the papers.
     </p>
   </Hero>
 
@@ -85,12 +84,12 @@ const lineGroups = researchLines.map((line) => ({
   <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
     <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between" data-reveal>
       <div>
-        <Badge variant="brand" pill class="mb-5">Manuscripts</Badge>
+        <Badge variant="brand" pill class="mb-5">Papers</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          Papers sit next to the artifacts.
+          Start from the paper.
         </h2>
         <p class="mt-3 max-w-2xl text-base leading-relaxed text-foreground-muted">
-          Each manuscript record links back to its project page and supporting note.
+          These pages are supporting material. The paper gives the frame and links back here when the code or model matters.
         </p>
       </div>
       <Button variant="outline" href="/papers">

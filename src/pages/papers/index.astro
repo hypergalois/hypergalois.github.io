@@ -21,7 +21,7 @@ const lineGroups = researchLines.map((line) => ({
 
 <PageLayout
   title="Papers"
-  description="Manuscripts and paper records grouped by research line and linked to artifacts."
+  description="Papers grouped by research line, with context, notes, and supporting technical material attached."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
@@ -30,10 +30,10 @@ const lineGroups = researchLines.map((line) => ({
       Papers
     </Badge>
 
-    <h1 slot="title">Papers tied to artifacts.</h1>
+    <h1 slot="title">Papers by research line.</h1>
 
     <p slot="description">
-      Each manuscript record keeps the claim, artifact, and supporting note together.
+      Each paper opens into a readable explanation and keeps the supporting material close.
     </p>
   </Hero>
 
@@ -73,12 +73,12 @@ const lineGroups = researchLines.map((line) => ({
                 <div class="mt-auto flex flex-wrap gap-2">
                   <Button size="sm" href={paperHref(paper.id)}>
                     <Icon name="file-text" size="sm" />
-                    Manuscript
+                    Read paper
                   </Button>
                   {paper.data.project && (
                     <Button size="sm" variant="outline" href={paper.data.project}>
-                      <Icon name="layers" size="sm" />
-                      Artifact
+                      <Icon name="file-code-2" size="sm" />
+                      Material
                     </Button>
                   )}
                   {paper.data.note && (
@@ -105,16 +105,16 @@ const lineGroups = researchLines.map((line) => ({
   <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
     <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between" data-reveal>
       <div>
-        <Badge variant="brand" pill class="mb-5">Artifacts</Badge>
+        <Badge variant="brand" pill class="mb-5">Notes</Badge>
         <h2 class="font-display text-3xl font-bold text-foreground">
-          Start from the implementation record.
+          Context after the title.
         </h2>
         <p class="mt-3 max-w-2xl text-base leading-relaxed text-foreground-muted">
-          Project pages expose the harnesses, models, notes, and evidence behind each manuscript.
+          Longer notes keep measurements, model choices, and implementation details available without crowding the paper index.
         </p>
       </div>
-      <Button variant="outline" href="/projects">
-        View artifacts
+      <Button variant="outline" href="/blog">
+        View notes
         <Icon name="arrow-right" size="sm" />
       </Button>
     </div>

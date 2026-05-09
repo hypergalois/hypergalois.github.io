@@ -1,93 +1,66 @@
 ---
-title: "Notes, Projects, Papers: A Portfolio Grammar"
-description: "A working distinction for this site: notes record observations, projects carry artifacts, and papers state claims supported by stronger evidence."
+title: "Paper Pages, Notes, and Technical Material"
+description: "A short note on how this portfolio keeps papers as the main research record while linking code, measurements, and notes from each paper."
 publishedAt: 2026-05-09
 author: "José Luis Delgado"
 tags: ["Portfolio", "Research Engineering", "MDX", "Example"]
 featured: false
 locale: en
-image: "../../../assets/blog/portfolio-grammar.svg"
 svgSlug: "portfolio-grammar"
-imageAlt: "Diagram connecting notes, projects, and papers as research outputs"
+imageAlt: "Diagram connecting paper pages, notes, and technical material"
 ---
 
-This portfolio uses three surfaces with different jobs: notes, projects, and
-papers or manuscripts. The separation keeps early observations, working artifacts,
-and stronger claims in the right place.
+The paper page is the main research object on this site. It names the question,
+states the current claim, gives the method, and links the surrounding material:
+code, traces, models, measurements, and technical notes.
 
-The distinction is simple.
+Notes have a smaller job. A note can record a measurement choice, a protocol
+edge case, a modeling decision, or a useful implementation detail. It does not
+need the full structure of a paper.
 
-| Surface | Job | Evidence |
+Technical material stays attached to the paper that gives it context.
+
+| Surface | Job | Typical contents |
 | --- | --- | --- |
-| Notes | Record observations and technical choices | sketches, measurements, implementation details |
-| Projects | Present the artifact | code, traces, datasets, reproducible workflows |
-| Papers | State the supported claim | model, method, related work, evaluation, limits |
+| Paper | Present the research record | question, method, evidence, scope |
+| Note | Explain a technical choice | measurements, sketches, examples |
+| Material | Show the implementation surface | code, commands, traces, models |
 
-Notes can be smaller and sharper. A note can record a boundary worth measuring,
-a fragile protocol behavior, or an invariant ready for formalization.
+## Page shape
 
-Project pages carry stricter structure:
-
-- What question was being tested?
-- What artifact exists?
-- What would convince a skeptical reader?
-- What scope is claimed?
-
-Papers sit at the end of that path. They carry the strongest claim the artifact,
-method, and evaluation can support.
-
-<div className="not-prose my-10 grid gap-4 rounded-2xl border border-border bg-background-secondary p-5 sm:grid-cols-3">
-  <div className="rounded-xl border border-border bg-background p-4">
-    <p className="text-xs font-bold uppercase text-brand-500">Note</p>
-    <p className="mt-2 text-sm text-foreground-muted">Short argument, minimal setup.</p>
-  </div>
-  <div className="rounded-xl border border-border bg-background p-4">
-    <p className="text-xs font-bold uppercase text-brand-500">Project</p>
-    <p className="mt-2 text-sm text-foreground-muted">Artifact, commands, traces, decisions.</p>
-  </div>
-  <div className="rounded-xl border border-border bg-background p-4">
-    <p className="text-xs font-bold uppercase text-brand-500">Paper</p>
-    <p className="mt-2 text-sm text-foreground-muted">Claim, method, evaluation, limits.</p>
-  </div>
-</div>
-
-## Artifact record
-
-A useful artifact page exposes the object under study, the method, and the
-evidence available for inspection.
+A paper page should answer the next technical question without making the reader
+guess where the evidence lives.
 
 ```yaml
-artifact:
+paper:
   question: "What behavior is being measured?"
-  evidence:
-    - traces
-    - normalized dataset
-    - reproducible command
-  failure_modes:
-    - sampling bias
+  method:
+    - trace collection
+    - normalized reporting
+    - certificate-chain inspection
+  supporting_material:
+    - code
+    - measurements
+    - model notes
+  scope:
+    - sampling assumptions
     - parser assumptions
     - deployment drift
 ```
 
-This structure separates claim, evidence, and scope. A broad claim with thin
-evidence becomes visible; a strong artifact can stay quiet and still read clearly.
+The structure keeps claim, method, evidence, and scope visible on the same path.
 
 ```ts
-type ResearchOutput = {
+type PaperRecord = {
   claim: string;
-  artifact: "note" | "project" | "paper";
+  method: string[];
   evidence: Array<"code" | "trace" | "model" | "measurement" | "review">;
-  limitations: string[];
+  scope: string[];
 };
 ```
 
-> A page earns space when it answers the next technical question.
-
 ## Reading path
 
-For lab and PhD readers, the path is topic, note, artifact, stronger claim. The
-reader sees the problem class, the method, the implementation object, and the
-evidence supporting the current scope.
-
-For engineering readers, the same structure exposes the operable object: code,
-commands, outputs, links, and maintenance surface.
+The reader should be able to start from a paper, open the explanation, and then
+move to code or notes only when they want detail. That is the whole navigation
+model.

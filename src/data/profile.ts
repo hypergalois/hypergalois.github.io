@@ -5,16 +5,16 @@ export const education = [
     institution: 'Madrid, Spain',
     details: [
       'Systems security, cryptographic infrastructure, formal reasoning, and evaluation engineering.',
-      'Academic direction: PhD applications, research labs, and artifact-led systems work.',
+      'Academic direction: PhD applications, research labs, and paper-centered systems work.',
     ],
   },
   {
     period: 'Research preparation',
-    title: 'Artifact-led research engineering',
-    institution: 'Hypergalois',
+    title: 'Research engineering record',
+    institution: 'Independent research work',
     details: [
       'Post-quantum TLS measurement, X.509 assurance, DNSSEC boundary testing, Lean models, and agent evaluation harnesses.',
-      'Outputs organized as projects, manuscripts, and implementation notes.',
+      'Outputs organized as papers, technical notes, code pages, and implementation records.',
     ],
   },
 ];
@@ -29,12 +29,8 @@ export const cvRecords = [
     value: 'Systems security, formal methods, cryptographic infrastructure, AI evaluation',
   },
   {
-    label: 'Primary handle',
-    value: 'hypergalois',
-  },
-  {
-    label: 'Record form',
-    value: 'Projects, papers, notes, and reproducible artifacts',
+    label: 'Current focus',
+    value: 'PQC migration, certificate assurance, formal models, and evaluation harnesses',
   },
 ];
 

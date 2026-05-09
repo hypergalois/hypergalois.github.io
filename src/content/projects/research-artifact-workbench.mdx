@@ -1,30 +1,30 @@
 ---
-title: "Research Artifact Workbench"
-description: "A compact example project showing how a technical artifact page can combine a claim, a reproducible workflow, evidence tables, code, and scope notes."
+title: "Research Record Workbench"
+description: "A compact example showing how a technical page can combine a claim, a reproducible workflow, evidence tables, code, and scope notes."
 tags: ["Research Engineering", "Documentation", "Example", "MDX"]
 line: "ml-ai-formal"
 featured: false
 order: 7
 year: 2026
 role: "Portfolio system design"
-services: ["Artifact framing", "Technical writing", "MDX prototyping"]
+services: ["Research framing", "Technical writing", "MDX prototyping"]
 image: "../../assets/projects/research-artifact-workbench.svg"
-imageAlt: "Dark research artifact workbench with claim, trace, and checks panels"
+imageAlt: "Dark research record workbench with claim, trace, and checks panels"
 ---
 
 ## Question
 
 What evidence does the page expose before the reader opens the repository?
 
-This example treats the project page itself as an artifact. Future research pages
-use this shape: claim first, evidence second, implementation third, scope visible
-throughout.
+This example treats the page as supporting material for a paper. Future research
+pages use this shape: claim first, evidence second, implementation third, scope
+visible throughout.
 
-## Artifact contract
+## Record contract
 
 | Section | Purpose | Reader question |
 | --- | --- | --- |
-| Claim | State what the artifact is for | What is being asserted? |
+| Claim | State what the page supports | What is being asserted? |
 | Workflow | Show the reproducible path | How would I rerun it? |
 | Evidence | Summarize output and checks | What did it produce? |
 | Limits | Bound the interpretation | Where can this fail? |
@@ -45,11 +45,11 @@ export type EvidenceRow = {
   target: string;
   observation: string;
   confidence: "low" | "medium" | "high";
-  artifactUrl: string;
+  materialUrl: string;
 };
 
 export function isReviewable(row: EvidenceRow) {
-  return row.confidence !== "low" && row.artifactUrl.length > 0;
+  return row.confidence !== "low" && row.materialUrl.length > 0;
 }
 ```
 
@@ -81,6 +81,6 @@ export function isReviewable(row: EvidenceRow) {
 
 ## Template use
 
-This prototype sets the shape for future project pages. A real artifact fills the
-skeleton with commands, outputs, links, and scope notes before it becomes a main
-research object.
+This prototype sets the shape for future technical pages. A real paper-linked
+record fills the skeleton with commands, outputs, links, and scope notes before
+it becomes part of the public research record.

@@ -14,8 +14,8 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { label: 'Crypto / PQC', href: '/#crypto-security', order: 1 },
   { label: 'ML / Formal', href: '/#ml-ai-formal', order: 2 },
-  { label: 'Artifacts', href: '/projects', order: 3 },
-  { label: 'Papers', href: '/papers', order: 4 },
+  { label: 'Papers', href: '/papers', order: 3 },
+  { label: 'Notes', href: '/blog', order: 4 },
   { label: 'Profile', href: '/about', order: 5 },
   { label: 'Contact', href: '/contact', order: 6 },
 ];
