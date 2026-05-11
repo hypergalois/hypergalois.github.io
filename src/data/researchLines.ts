@@ -10,10 +10,10 @@ export const researchLines = [
     href: '/#crypto-security',
     icon: 'shield-check',
     description:
-      'Protocol migration, certificate infrastructure, authentication, and operational boundaries in deployed security systems.',
+      'Post-quantum migration, certificate infrastructures, authentication, and operational boundaries in deployed security systems.',
     objects: ['TLS handshakes', 'X.509 paths', 'DNSSEC boundaries', 'WebAuthn recovery'],
     evidence:
-      'Traces, certificate-chain reports, parser behavior, resolver experiments, threat models, and regression cases.',
+      'Measurement artifacts, certificate-chain behavior, parser and import validation, resolver experiments, threat models, and operational regression cases.',
   },
   {
     id: 'ml-ai-formal',
@@ -24,10 +24,10 @@ export const researchLines = [
     href: '/#ml-ai-formal',
     icon: 'brain-circuit',
     description:
-      'Evaluation harnesses, formal models, proof-oriented cleanup, and research workflows with explicit evidence trails.',
+      'Evaluation frameworks, formal reasoning layers, proof-oriented systems, and research workflows with explicit evidence trails.',
     objects: ['Agent traces', 'Lean models', 'State invariants', 'Run records'],
     evidence:
-      'Scenario records, tool-call logs, diffs, proof obligations, model boundaries, and review records.',
+      'Evaluation records, tool-call traces, proof obligations, model boundaries, state invariants, and audit-ready run histories.',
   },
 ] as const;
 

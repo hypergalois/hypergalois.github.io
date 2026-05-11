@@ -102,33 +102,17 @@ schemas.push(...extraSchemas);
          mobile. Each navigation now does a normal page load, so animations
          run cleanly from frame 0 every time. -->
 
-    <!-- Theme bootstrap (runs before body paint; no flash of wrong theme).
-         Implements a 3-state colour-mode contract:
-           localStorage.theme ∈ {'system','light','dark'}  (default 'dark')
-           <html data-theme-mode="…">                      (mirrors saved mode)
-           <html class="dark">                              (resolved appearance)
-         When mode === 'system', <html>.dark tracks prefers-color-scheme live. -->
+    <!-- Theme bootstrap: this portfolio is dark-mode only. -->
     <script is:inline>
       (function () {
         const COLOR_THEMES = ['orange', 'amber', 'lime', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'magenta'];
-        const VALID_MODES = ['system', 'light', 'dark'];
-
-        function getMode() {
-          try {
-            const stored = localStorage.getItem('theme');
-            if (VALID_MODES.indexOf(stored) !== -1) return stored;
-          } catch { /* private mode / disabled storage */ }
-          return 'dark';
-        }
 
         function applyMode(el) {
-          const mode = getMode();
-          el.setAttribute('data-theme-mode', mode);
-          const isDark =
-            mode === 'dark' ||
-            (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-          if (isDark) el.classList.add('dark');
-          else el.classList.remove('dark');
+          try {
+            localStorage.setItem('theme', 'dark');
+          } catch { /* private mode / disabled storage */ }
+          el.setAttribute('data-theme-mode', 'dark');
+          el.classList.add('dark');
         }
 
         function applyColorTheme(el) {
@@ -150,13 +134,6 @@ schemas.push(...extraSchemas);
 
         if (!window.__themeListenersInit) {
           window.__themeListenersInit = true;
-
-          // Live-update when the OS flips colour scheme AND the user is on 'system'.
-          const mql = window.matchMedia('(prefers-color-scheme: dark)');
-          const onSchemeChange = function () {
-            if (getMode() === 'system') applyMode(document.documentElement);
-          };
-          mql.addEventListener('change', onSchemeChange);
 
           // Re-apply across Astro view transitions (no flash on swap).
           document.addEventListener('astro:before-swap', function (e) {
