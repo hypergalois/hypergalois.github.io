@@ -82,6 +82,7 @@ const papers = defineCollection({
     line: researchLine.optional(),
     featured: z.boolean().default(false),
     order: z.number().default(99),
+    link: z.string().optional(),
     pdf: z.string().optional(),
     repo: z.string().optional(),
     draft: z.boolean().default(false),

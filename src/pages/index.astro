@@ -121,6 +121,12 @@ const lineGroups = researchLines.map((line) => ({
                       <Icon name="file-text" size="sm" />
                       Read paper
                     </Button>
+                    {paper.data.link && (
+                      <Button size="sm" variant="outline" href={paper.data.link} target="_blank" rel="noopener noreferrer">
+                        <Icon name="external-link" size="sm" />
+                        Link
+                      </Button>
+                    )}
                     {paper.data.pdf && (
                       <Button size="sm" variant="outline" href={paper.data.pdf} target="_blank" rel="noopener noreferrer">
                         <Icon name="file-down" size="sm" />
