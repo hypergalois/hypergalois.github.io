@@ -1,0 +1,17 @@
+---
+title: "Score is Not Circuit: Evaluating Mechanistic Localization as a Score-to-Circuit Stack"
+description: "A study of mechanistic localization as a score-to-circuit pipeline, separating scorer quality from circuit quality across calibration, selection, and evaluation."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["Mechanistic Interpretability", "Circuit Discovery", "Evaluation", "AI"]
+line: "ml-ai-formal"
+featured: true
+order: 7
+---
+
+## Abstract
+
+Mechanistic localization methods are often assessed through component-level importance estimates, yet downstream claims rely on circuits induced from those scores under particular selection rules, evaluation metrics, and compute budgets. We argue that score quality and circuit quality are distinct objects, and we formalize mechanistic localization as a four-layer score-to-circuit stack consisting of scoring, calibration, selection, and evaluation. We instantiate this view on edge-level circuit localization and study how scorer corrections, uncertainty-aware calibration, and metric-aware selectors interact across models and tasks in MIB.
+
+Our analysis reveals three recurrent gaps: an estimation gap between approximate and exact edge scores, an interaction gap between edgewise importance and multi-edge circuit faithfulness, and an objective gap between circuits favored by performance-oriented and model-matching metrics. Across this stack, local scorer improvements do not compose monotonically into better circuits: a scorer can become more faithful to exact edge effects while yielding worse downstream circuits, and global uncertainty shrinkage can severely degrade circuit quality. These findings support a simple conclusion: mechanistic localization should be evaluated as a full score-to-circuit pipeline rather than as an isolated scoring problem. We conclude by proposing compute-aware, metric-aware reporting standards for future work on circuit discovery and localization.

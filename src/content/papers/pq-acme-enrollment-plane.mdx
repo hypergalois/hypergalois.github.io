@@ -1,0 +1,17 @@
+---
+title: "The State-Aware Enrollment Plane of Post-Quantum ACME: Measurement, Regime Shifts, and Hardened Workflows"
+description: "A state-aware study of post-quantum ACME enrollment, comparing standard issuance, reusable-authorization renewal, certificate-based fast re-enrollment, and hardened workflow variants."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["PQC", "ACME", "WebPKI", "Measurement"]
+line: "crypto-security"
+featured: false
+order: 5
+---
+
+## Abstract
+
+ACME is a critical control plane for WebPKI and an under-studied locus of post-quantum migration cost. Prior work showed that post-quantum certificate enrollment can be accelerated by alternative re-enrollment paths, but it did not map the state-dependent design space of ACME enrollment or characterize the security cost of such fast paths. To our knowledge, this paper presents the first state-aware enrollment-plane study of post-quantum ACME. We define and evaluate standard issuance (W0), reusable-authorization renewal (W2), certificate-based fast re-enrollment (W3), and a composed migration scenario (S4) across controlled network and load regimes, hostile-edge conditions, and a selective WAN capstone.
+
+Across the main campaign, the state-aware lanes substantially outperform W0, with median speedups of roughly 5x for W2 and 4.8x for W3, but their ranking is regime-dependent: W3 is strongest in benign low-latency settings, while W2 overtakes it in hostile regimes even though W3 retains a leaner control plane. We then harden the state-aware lanes with fresh, state-bound proofs, show that the naive variants admit replay and binding-mismatch scenarios that the hardened variants reject, and complement the executable analysis with a reduced symbolic model. In the hardened slice, most of the performance advantage is preserved, with median overheads around 10% and multi-x gains retained over W0. Our results show that post-quantum ACME enrollment is governed by prior state, workflow geometry, network conditions, and load, not by cryptographic size alone.

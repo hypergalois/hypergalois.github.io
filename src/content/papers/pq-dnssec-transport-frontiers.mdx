@@ -1,0 +1,19 @@
+---
+title: "Post-Quantum DNSSEC on the Wire: Measuring Transport Frontiers in TurboDNS and SL-DNSSEC"
+description: "A comparative measurement study of TurboDNS and SL-DNSSEC under post-quantum DNSSEC transport pressure, covering EDNS sizing, truncation, TCP fallback, cache state, and signature families."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["PQC", "DNSSEC", "Transport", "Measurement"]
+line: "crypto-security"
+featured: false
+order: 6
+---
+
+## Abstract
+
+Post-quantum DNSSEC makes DNS transport a first-order systems constraint because larger signatures and DNSKEY material push validating resolution through EDNS sizing, truncation, TCP fallback, retransmission, and cache state. We compare two recent proposals with different execution paths: TurboDNS, which preserves signed DNSSEC and accelerates TCP fallback, and SL-DNSSEC, which validates steady-state answers through a KEM-and-MAC construction with DNSKEY bootstrap support. Both public artifacts are run in the same validating DNSSEC environment, with authoritative and recursive probes used to collect repeated executions and packet captures across network profiles, EDNS sizes, controlled response-size ladders, cache phases, and signature families.
+
+The measurements identify a transport frontier. In the core Falcon-512 benchmark, EDNS 4096 moves TurboDNS authoritative DNSKEY delivery into DNS-layer UDP completion, while SL-DNSSEC remains truncated on that authoritative DNSKEY path. The same split persists for inflated signed A answers: under Falcon-512, TurboDNS keeps the EDNS-4096 authoritative window through bulk128.example and loses it at bulk192.example, whereas the evaluated SL-DNSSEC artifact lacks sustained validating completion in those large-answer rows. Resolver-side packet captures show the residual end-to-end cost behind local authoritative gains, including TCP frames and retransmissions, and trust-material warmup improves TurboDNS robustness near the large-answer boundary.
+
+A signature-threshold micro-study further bounds the result by showing that the Falcon-512 window occupies a non-empty tested region, while the tested Dilithium2 range is truncated from the first point. The results show that EDNS size, effective response size, network profile, cache phase, and signature family jointly determine the transport regime induced by post-quantum DNSSEC designs.

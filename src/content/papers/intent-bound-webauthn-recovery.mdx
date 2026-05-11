@@ -1,0 +1,21 @@
+---
+title: "Recovering the Right WebAuthn Account: Intent-Bound Recovery Under Realistic Topologies"
+description: "A topology-aware WebAuthn recovery model for multi-account and multi-authenticator settings, with intent-bound client behavior, provenance checks, and symbolic corroboration."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["WebAuthn", "Recovery", "Authentication", "Security"]
+line: "crypto-security"
+featured: false
+order: 8
+---
+
+## Abstract
+
+WebAuthn brings public-key authentication to web deployments, but recovery remains underspecified once users hold multiple authenticators, visible recovery handles, stale credential-lineage state, and several accounts at the same relying party. In these settings, response validity alone does not identify the recovered semantic object. Recovery requires account-specific binding to the intended account and lineage, and provenance-first local admissibility for handles before the client emits the final recovery response.
+
+We introduce G-CBR, a topology-aware recovery model with accounts, anchors, epochs, candidate descriptor sets, visible recovery domains, and typed compromise profiles as first-class objects. The model formalizes account-specific recovery authentication (ASRA), handle provenance (HP), topology unlinkability (TUL), and partial-compromise resilience (PCR). It yields necessity results showing that same-RP multi-account recovery without account binding violates ASRA, and that multi-visible recovery without local provenance discrimination violates HP.
+
+We then define the intent-bound iCBR family, in which the client answers only after a unique candidate is locally admissible under the current account, anchor, epoch, and provenance context. Under context-binding, opening-sound provenance and standard response unforgeability assumptions, honest iCBR clients satisfy ASRA and HP outside target-state compromise. A frozen semantic campaign evaluates inherited ARKG/CBR and pqCBR-style workflows against the same source of truth, with the current ARKG Internet-Draft used as a standards-track engineering reference.
+
+The inherited classical baseline accepts wrong-account recovery in the same-RP world predicted by the model; the repaired classical workflow blocks the observed wrong-account, wrong-anchor, wrong-seed, and stale-descriptor cases while preserving the classical cost envelope. Under multi-domain visibility, inherited post-quantum baselines fail late at the server, while intent-bound variants move the corresponding negative worlds to early local aborts, ordinary acceptances, or explicitly compromise-assisted acceptances. ProVerif and Tamarin encodings, an internal symbolic checker, and an executable HTTP/WebAuthn-like demo corroborate the same distinctions.

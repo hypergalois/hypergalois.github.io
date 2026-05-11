@@ -1,0 +1,22 @@
+---
+title: "From Public-Key Linting to Operational Post-Quantum X.509 Assurance for ML-KEM and ML-DSA: Registry-Driven Policy, Mutation-Based Evaluation, and Import Validation"
+description: "A workflow-centric assurance framework for ML-KEM and ML-DSA in X.509, covering certificate profiles, SPKI representation, private-key import, policy registries, and mutation-based evaluation."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Preprint"
+tags: ["PQC", "X.509", "ML-KEM", "ML-DSA", "Assurance"]
+line: "crypto-security"
+featured: true
+order: 3
+pdf: "https://arxiv.org/pdf/2604.17003"
+---
+
+## Abstract
+
+Final FIPS and PKIX standards for ML-KEM and ML-DSA fix the normative floor, but operational assurance in post-quantum X.509 still depends on accountable checks across certificate-profile semantics, SubjectPublicKeyInfo representation, and private-key-container import. We present a workflow-centric assurance framework for ML-KEM and ML-DSA in the narrow executable profile pkix-core. The framework reifies 17 final-standards requirements into an assurance registry indexed by owner, stage, detector kind, normative strength, and mode-specific action; groups them into three operator gate packs; spans certificate/profile, SPKI/public-key, and private-key-container/import surfaces; and evaluates them through a frozen mutation-based corpus with bounded public-appendix and cross-tool supporting evidence.
+
+Across a controlled corpus of 48 artifacts, 21 valid and 27 invalid, the artifact detects all expected invalid cases in both strict and deployable modes with zero false positives. Strict blocks all 17 active requirements; deployable preserves the same detection coverage while downgrading exactly one exercised ML-KEM canonicality condition from block to warning. On the importer-owned private-key surface, all 7 active requirements are covered, with 7/7 expected invalid detections and no open detector gaps. On a comparable certificate subset, a frozen JZLint baseline meets 5/10 expected invalid detections and fatally rejects 3 valid ML-KEM certificates, whereas the local artifact meets 10/10 with no fatal valid rejections. A bounded public appendix and a cross-tool matrix further show that parse acceptance and policy conformance diverge materially. Overall, the results support an operational X.509 assurance workflow for CA pre-issuance and private-key import that extends prior PQ public-key linting work.
+
+## Links
+
+- [arXiv PDF](https://arxiv.org/pdf/2604.17003)

@@ -1,0 +1,27 @@
+---
+title: "Observability for Post-Quantum TLS Readiness: A Multi-Surface Evidence Framework"
+description: "A multi-surface framework for post-quantum TLS observability across passive evidence, active probing, certificate chains, registry knowledge, and explicit uncertainty."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Preprint"
+tags: ["PQC", "TLS", "Observability", "Measurement"]
+line: "crypto-security"
+featured: true
+order: 2
+pdf: "https://eprint.iacr.org/2026/866.pdf"
+---
+
+## Abstract
+
+Post-quantum migration in Transport Layer Security (TLS) requires evidence-aware measurements that distinguish session negotiation, endpoint capability, certificate-chain evidence, and the provenance of missing observations. This distinction is essential under TLS 1.3 encryption, resumption, mutual TLS, trace truncation, fragmentation, coalescing, active certificate retrieval, and temporal drift.
+
+We present a multi-surface framework for post-quantum TLS observability. The framework separates passive session evidence, active probing, certificate-chain evidence, and registry knowledge, and maps them onto measurement planes for session behavior, key establishment, endpoint capability, authentication, lifecycle, observability, and policy. We instantiate it as a reproducible artifact with schema-enforced observations and results, versioned registries, auditable inference rules, stress contracts, and baseline adapters.
+
+We evaluate the framework on 29 controlled scenarios spanning TLS 1.2 and TLS 1.3, classical and hybrid key establishment, mutual TLS, resumption, HelloRetryRequest, truncation, fragmentation and coalescing, temporal drift, IPv6, and chain-depth variation. Passive evidence closes session-level planes, active probing establishes capability lower bounds, and multi-surface evidence closes the full measurement object while preserving uncertainty and contradiction when required. Against an inherited TLS quantum-vulnerability analyzer, the baseline detects 2 of 29 runs and 0 of 23 TLS 1.3 runs. In a stratified public campaign over 1000 targets and 2000 fresh probes, the framework completes 1971 handshakes, collects 1368 chain artifacts, confirms hybrid capability for 310 targets, and identifies 310 cases where endpoint capability exceeds what any single classical session view reveals.
+
+These results support post-quantum TLS readiness assessment as a structured observability problem based on explicit evidence surfaces, per-plane closure, active corroboration, source linkage, and first-class treatment of unknown, na, ambiguity, and contradiction.
+
+## Links
+
+- [IACR ePrint PDF](https://eprint.iacr.org/2026/866.pdf)
+- [arXiv PDF](https://arxiv.org/pdf/2605.02978)

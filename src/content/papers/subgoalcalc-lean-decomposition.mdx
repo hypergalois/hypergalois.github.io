@@ -1,0 +1,19 @@
+---
+title: "SUBGOALCALC: Certified Decomposition for Lean Theorem-Proving Agents"
+description: "A certified Lean 4 decomposition layer for theorem-proving agents, with proof obligations, witnesses, dependencies, replay semantics, and schedule selection."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["Lean", "Theorem Proving", "Agents", "Formal Methods"]
+line: "ml-ai-formal"
+featured: true
+order: 9
+---
+
+## Abstract
+
+Subgoals now drive theorem-proving agents across extraction, search, scheduling, and reuse. We present SUBGOALCALC, a certified decomposition layer for Lean 4 that turns subgoals into proof obligations carrying witnesses, dependencies, and replay semantics. Its central object is a certified decomposition: a root goal, residual obligations, an acyclic dependency relation, and a Lean-checked assembly witness reconstructing the root theorem from residual proofs. The layer provides four exact operators: normalization, duplicate collapse, overlay, and refinement; together with dependency-aware schedule selection and replay-backed lemma lifting.
+
+Across exact suites, the operator basis reduces 1,000 certified flat decompositions to four structural cores; a dependency suite contributes 750 certified DAGs with depth up to 27; and 1,500 certified transforms change execution mode exactly at crossings of the dependency-edge boundary. In HILBERT, kernel-faithful extraction raises end-to-end success from 0/6 to 6/6 over textual extraction and from 4/6 to 6/6 over a retry baseline, with 12/12 helper replays, 6/6 dependent-helper replays, and zero extraction-related recovery calls.
+
+On DEPBENCH, certified dependencies select staged execution exactly on the four dependency-bearing cases, raising contract satisfaction from 2/6 to 6/6 and reducing schedule cost from 54 to 14. Replay-backed helper lemmas compress chain plans, transfer across held-out HILBERT targets, and flip one DEPBENCH failure to success. The same control plane closes a white-box AESOP slice from 0/3 to 3/3 and produces exact certified decompositions for all 4,937 FORMALML examples, localizing the remaining replay boundary to provisioning, serializer effects, and source-aligned repair.

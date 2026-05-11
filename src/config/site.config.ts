@@ -64,7 +64,7 @@ const siteConfig: SiteConfig = {
   url: SITE_URL || 'https://hypergalois.github.io',
   ogImage: '/og-default.svg',
   author: 'José Luis Delgado',
-  email: 'jose.delgado2@live.u-tad.com',
+  email: 'jdelgado13@uoc.edu',
   address: {
     street: '',
     city: 'Madrid',

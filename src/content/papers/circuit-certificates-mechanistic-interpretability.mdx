@@ -1,0 +1,19 @@
+---
+title: "From Circuits to Claims: Post-Selection Certificates for Mechanistic Interpretability"
+description: "A claim-centered audit framework for selected circuits in mechanistic interpretability, reporting preservation, localization, minimality, stability, robustness, power, and structural recovery."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["Mechanistic Interpretability", "Certificates", "Evaluation", "AI"]
+line: "ml-ai-formal"
+featured: true
+order: 10
+---
+
+## Abstract
+
+Circuit discovery in mechanistic interpretability increasingly relies on adaptive selectors, counterfactual datasets, and standardized evaluations. We study selected circuits as post-selection objects and define a mechanistic claim by its model, computational graph, task distribution, intervention design, task score, selector, selection data, selected circuit, and audited properties.
+
+We introduce Circuit Certificates, a claim-centered audit framework reporting behavioral preservation, localization, edgewise minimality, minimality profiles, selector stability, intervention robustness, power, and structural recovery when ground truth is available. The framework implements fixed holdout, folded fixed-circuit audit, selective split, and selector-level cross-fit protocols. Selective split yields finite-sample post-selection validity for any measurable selector under independent audit data. Selector-level cross-fit audits the selection procedure through a procedure-level risk estimator. Edgewise minimality is assessed with Holm-adjusted tests, with minimality profiles summarizing the distribution of edge effects.
+
+We instantiate the framework in an audited artifact covering 65 run packets and 158 certificates. The results identify distinct evidence regimes across tasks. On GPT-2 small IOI, selector-level cross-fit certifies localization with high selector stability and adequate power, while preservation and minimality are uncertified. On Gemma2 ARC-Easy, it certifies preservation while localization is uncertified. On Gemma2 arithmetic subtraction, it certifies localization in a lower-power regime. On InterpBench, behavioral support coincides with weak edge-level structural recovery. These findings support reporting mechanistic interpretability results as fully specified audited claims.

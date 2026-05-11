@@ -2,35 +2,20 @@
 import PageLayout from '@/layouts/PageLayout.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
-import CTA from '@/components/ui/marketing/CTA/CTA.astro';
 import { Hero } from '@/components/hero';
 import { getCollection } from 'astro:content';
-import siteConfig from '@/config/site.config';
-import { resolveSocialLinks } from '@/lib/utils';
 
-const socialLinks = resolveSocialLinks(siteConfig.socialLinks);
-
-const allPosts = await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? data.draft !== true : true;
-});
-
-const posts = allPosts
-  .filter((post) => post.data.locale === 'en')
+const posts = (await getCollection('blog', ({ data }) => data.locale === 'en' && data.draft !== true))
   .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
-
-const featuredPosts = posts.filter((post) => post.data.featured);
-const nonFeaturedPosts = posts.filter((post) => !post.data.featured);
-const regularPosts = nonFeaturedPosts.length > 0 ? nonFeaturedPosts : posts;
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags))].sort();
 
 const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
 ---
 
 <PageLayout
   title="Writing"
-  description="Public writing on systems security, formal methods, cryptographic infrastructure, and research engineering."
-  showScrollProgress
+  description="Writing archive."
   eagerReveal
 >
   <Hero layout="centered" size="sm">
@@ -41,207 +26,34 @@ const getPostUrl = (postId: string) => `/blog/${postId.replace('en/', '')}`;
 
     <h1 slot="title">Writing.</h1>
 
-    <p slot="description">
-      Essays, measurement writeups, implementation records, formal modeling ideas,
-      and engineering decisions worth making public.
-    </p>
+    <p slot="description">Nothing here.</p>
   </Hero>
 
-  {featuredPosts.length > 0 && (
-    <section id="featured-section" class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
-      <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-        <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]" data-reveal>
-          <div>
-            <Badge variant="brand" pill class="mb-5">Featured</Badge>
-            <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-              Selected writing.
-            </h2>
-          </div>
-          <p class="self-end text-lg leading-relaxed text-foreground-muted">
-            Each entry keeps the object, method, and evidence visible enough to
-            follow the technical thread.
-          </p>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-2">
-          {featuredPosts.map((post) => (
-            <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                href={getPostUrl(post.id)}
-                publishedAt={post.data.publishedAt}
-                tags={post.data.tags}
-                author={post.data.author}
-                image={post.data.image}
-                svgSlug={post.data.svgSlug}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class:list={[featuredPosts.length > 0 ? 'bg-background' : 'bg-background-secondary', 'border-t border-border py-[var(--space-section-md)]']}>
-    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6">
-      <div class="flex flex-wrap items-center justify-between gap-4" data-reveal>
-        <div class="flex flex-col gap-5">
-          <Badge variant="brand" pill class="self-start">Archive</Badge>
-          <h2 class="font-display text-3xl font-bold text-foreground md:text-4xl">
-            All writing
-          </h2>
-        </div>
-
-        {allTags.length > 0 && (
-          <div class="flex items-center gap-3">
-            <label for="tag-filter" class="whitespace-nowrap text-sm font-medium text-foreground-muted">
-              Filter
-            </label>
-            <div class="relative">
-              <select
-                id="tag-filter"
-                class="tag-select appearance-none rounded-full border border-border bg-background py-1.5 pl-3 pr-8 text-sm font-medium text-foreground transition-colors cursor-pointer focus:border-brand-500 focus:outline-none"
-              >
-                <option value="all">All writing</option>
-                {allTags.map((tag) => <option value={tag}>{tag}</option>)}
-              </select>
-              <span class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-foreground-muted">
-                <Icon name="chevron-down" size="sm" />
-              </span>
-            </div>
-            <span id="filter-count" class="hidden text-sm text-foreground-muted"></span>
-          </div>
-        )}
-      </div>
-
-      {regularPosts.length > 0 ? (
+  <section class="border-t border-border bg-background-secondary py-[var(--space-section-md)]">
+    <div class="mx-auto max-w-5xl px-6">
+      {posts.length > 0 ? (
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {regularPosts.map((post) => (
-            <div class="post-card" data-tags={JSON.stringify(post.data.tags)}>
-              <BlogCard
-                title={post.data.title}
-                description={post.data.description}
-                href={getPostUrl(post.id)}
-                publishedAt={post.data.publishedAt}
-                tags={post.data.tags}
-                author={post.data.author}
-                image={post.data.image}
-                svgSlug={post.data.svgSlug}
-              />
-            </div>
+          {posts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              href={getPostUrl(post.id)}
+              publishedAt={post.data.publishedAt}
+              tags={post.data.tags}
+              author={post.data.author}
+              image={post.data.image}
+              svgSlug={post.data.svgSlug}
+            />
           ))}
         </div>
       ) : (
-        <div class="py-16 text-center">
-          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-background">
-            <Icon name="file-text" size="lg" class="text-foreground-muted" />
+        <Card padding="lg" class="mx-auto max-w-xl text-center">
+          <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-background-tertiary text-brand-500">
+            <Icon name="file-text" size="md" />
           </div>
-          <p class="text-lg text-foreground-muted">No writing found</p>
-        </div>
+          <p class="font-display text-2xl font-bold text-foreground">Nothing here.</p>
+        </Card>
       )}
-
-      <div id="no-results" class="hidden py-16 text-center">
-        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-background">
-          <Icon name="file-text" size="lg" class="text-foreground-muted" />
-        </div>
-        <p class="text-lg text-foreground-muted">No writing found for this tag</p>
-      </div>
     </div>
   </section>
-
-  <CTA variant="default" size="md" maxWidth="lg" glow={false} data-reveal class:list={[featuredPosts.length > 0 && '!bg-background-secondary']}>
-    <h2 slot="heading" class="!text-4xl">Follow the work</h2>
-    <p slot="description" class="!text-lg text-balance">
-      RSS for public writing, GitHub for code, email for lab and application conversations.
-    </p>
-
-    <div class="flex flex-wrap items-center justify-center gap-3">
-      <a href="/rss.xml" class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
-        <Icon name="rss" size="sm" />
-        RSS Feed
-      </a>
-      {socialLinks.map((link) => (
-        <a href={link.href} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
-          <Icon name={link.icon} size="sm" />
-          {link.label}
-        </a>
-      ))}
-      <a href={`mailto:${siteConfig.email}`} class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-brand-500 hover:text-brand-500">
-        <Icon name="mail" size="sm" />
-        Email
-      </a>
-    </div>
-  </CTA>
 </PageLayout>
-
-<style>
-  .tag-select {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
-</style>
-
-<script>
-  function initTagFilter() {
-    const select = document.getElementById('tag-filter') as HTMLSelectElement;
-    const cards = document.querySelectorAll<HTMLElement>('.post-card');
-    const featuredSection = document.getElementById('featured-section');
-    const noResults = document.getElementById('no-results');
-    const filterCount = document.getElementById('filter-count');
-
-    if (!select) return;
-
-    function applyFilter(tag: string, syncUrl = true) {
-      if (syncUrl) {
-        const url = new URL(window.location.href);
-        if (tag === 'all') url.searchParams.delete('tag');
-        else url.searchParams.set('tag', tag);
-        history.replaceState(null, '', url);
-      }
-
-      if (tag === 'all') {
-        cards.forEach((card) => card.style.removeProperty('display'));
-        if (featuredSection) featuredSection.style.removeProperty('display');
-        noResults?.classList.add('hidden');
-        filterCount?.classList.add('hidden');
-        return;
-      }
-
-      let visibleCount = 0;
-      let featuredVisible = 0;
-
-      cards.forEach((card) => {
-        const tags: string[] = JSON.parse(card.dataset.tags || '[]');
-        if (tags.includes(tag)) {
-          card.style.removeProperty('display');
-          visibleCount++;
-          if (featuredSection?.contains(card)) featuredVisible++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-
-      if (featuredSection) {
-        featuredSection.style.display = featuredVisible === 0 ? 'none' : '';
-      }
-
-      noResults?.classList.toggle('hidden', visibleCount > 0);
-
-      if (filterCount) {
-        filterCount.textContent = `${visibleCount} piece${visibleCount !== 1 ? 's' : ''}`;
-        filterCount.classList.remove('hidden');
-      }
-    }
-
-    const initialTag = new URLSearchParams(window.location.search).get('tag') || 'all';
-    if ([...select.options].some((option) => option.value === initialTag)) {
-      select.value = initialTag;
-    }
-    applyFilter(select.value, false);
-
-    select.addEventListener('change', () => applyFilter(select.value));
-  }
-
-  initTagFilter();
-</script>

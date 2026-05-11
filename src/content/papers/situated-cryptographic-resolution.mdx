@@ -1,0 +1,21 @@
+---
+title: "Situated Cryptographic Resolution for Post-Quantum Crypto-Agility: Canonical Plans, Resolution Semantics, and Governance Conditions"
+description: "An architecture-first model for post-quantum crypto-agility centered on situated cryptographic resolution and the ResolvedPlan boundary object."
+authors: ["José Luis Delgado"]
+year: 2026
+status: "Manuscript"
+tags: ["PQC", "Crypto-Agility", "Governance", "Systems Design"]
+line: "crypto-security"
+featured: true
+order: 4
+---
+
+## Abstract
+
+Post-quantum transition has become a problem of systems design, trust management, and operational governance. Standardized mechanisms provide a technical floor for migration, while deployment-facing decisions still have to determine how a reusable security posture applies across TLS, X.509 issuance and validation, artifact signing, constrained deployments, public trust settings, and legacy-bound environments. A crypto-agility architecture therefore needs an explicit resolution layer that connects abstract posture to the concrete artifacts and policies that will carry it.
+
+This paper defines that layer as situated cryptographic resolution. The model resolves a SecurityProfile against a ResolutionTarget, an OperationDomainPolicy, a DeploymentContextPolicy, and RuntimeCapabilities. Resolution proceeds through ordered admissibility, capability intersection, profile projection, selection, balance checks, and typed outcome assignment. The outcome space distinguishes accepted, accepted_with_degradation, rejected_for_policy, and rejected_for_capabilities, preserving separate failure semantics for inadmissible posture, missing material support, and controlled degradation.
+
+The central artifact is ResolvedPlan. It records semantic ancestry, situated scope, operational binding, dependencies, outcome, effective posture, parameter commitments, materialization status, and causal traces. Around this artifact, the paper develops validity conditions for outcome-sensitive conformance, trace completeness, governance-bearing operational binding, lifecycle-sensitive interpretation, and re-resolution triggers. It also defines failure classes for hidden degradation, untyped rejection, stale capability assumptions, trust-model mismatch, provenance loss, and machine-consumability overclaim.
+
+The result is an architecture-first account of post-quantum crypto-agility centered on a precise boundary object. ResolvedPlan gives protocols, PKI processes, signing systems, and governance actors a common object of reasoning while preserving the domain-specific semantics that a flat configuration layer would erase.
