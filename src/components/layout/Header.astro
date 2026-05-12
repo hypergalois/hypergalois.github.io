@@ -196,8 +196,8 @@ const buttonId = `${menuId}-button`;
                     isFloating && 'hdr-invert-text',
                     isPaperNav
                       ? (isFloating
-                          ? 'border border-white/80 bg-white font-semibold text-[#05070b] opacity-100 shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-brand-200 hover:text-[#05070b]'
-                          : 'border border-white/80 bg-white font-semibold text-[#05070b] shadow-sm hover:-translate-y-0.5 hover:bg-brand-200 hover:text-[#05070b]')
+                          ? 'border border-white/80 bg-white font-bold text-black opacity-100 shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-brand-200 hover:text-black'
+                          : 'border border-white/80 bg-white font-bold text-black shadow-sm hover:-translate-y-0.5 hover:bg-brand-200 hover:text-black')
                       : (isFloating
                           ? (isActive(href)
                               ? 'hdr-nav-active font-semibold'
@@ -378,7 +378,7 @@ const buttonId = `${menuId}-button`;
                     'mobile-nav-link flex items-center justify-between rounded-md px-3 py-2 text-sm',
                     'transition-all duration-(--transition-fast)',
                     isPaperNav
-                      ? 'border border-white/80 bg-white font-semibold text-[#05070b]'
+                      ? 'border border-white/80 bg-white font-bold text-black'
                       : (isActive(href)
                           ? 'mobile-nav-link-active bg-secondary text-foreground font-semibold'
                           : 'mobile-nav-link-inactive text-foreground-muted hover:bg-secondary/70 hover:text-foreground font-medium')
