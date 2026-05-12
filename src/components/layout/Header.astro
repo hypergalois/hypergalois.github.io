@@ -193,7 +193,7 @@ const buttonId = `${menuId}-button`;
                   class={cn(
                     'nav-link relative inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-sm',
                     'transition-all duration-(--transition-fast)',
-                    isFloating && 'hdr-invert-text',
+                    isFloating && !isPaperNav && 'hdr-invert-text',
                     isPaperNav
                       ? (isFloating
                           ? 'border border-white/80 bg-white font-bold text-black opacity-100 shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-brand-200 hover:text-black'
